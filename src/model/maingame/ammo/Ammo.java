@@ -1,6 +1,6 @@
 package model.maingame.ammo;
 
-import model.maingame.FlyingObject;
+import model.FlyingObject;
 
 public abstract class Ammo extends FlyingObject {
     protected String belongTo;

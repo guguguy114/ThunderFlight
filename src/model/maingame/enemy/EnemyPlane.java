@@ -1,6 +1,6 @@
 package model.maingame.enemy;
 
-import model.maingame.FlyingObject;
+import model.FlyingObject;
 
 public abstract class EnemyPlane extends FlyingObject {
 }

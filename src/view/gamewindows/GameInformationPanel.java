@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class GameInformationPanel extends JPanel {
 
-    JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel;
-    JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName;
+    JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, timeLabel;
+    JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, time;
 
     GameInformationPanel(Game game){
         setLayout(null);
@@ -63,6 +63,14 @@ public class GameInformationPanel extends JPanel {
         playerName.setBounds(150,320,120,30);
         playerName.setFont(infoPaneFont);
 
+        timeLabel = new JLabel("时间：");
+        timeLabel.setBounds(30, 370, 100, 30);
+        timeLabel.setFont(infoPaneFont);
+
+        time = new JLabel();
+        time.setBounds(150, 370, 100, 30);
+        time.setFont(infoPaneFont);
+
 
         add(scoreLabel);
         add(score);
@@ -76,5 +84,7 @@ public class GameInformationPanel extends JPanel {
         add(passLineEnemyPlaneQuantity);
         add(playerNameLabel);
         add(playerName);
+        add(timeLabel);
+        add(time);
     }
 }

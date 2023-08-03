@@ -1,6 +1,7 @@
 package control;
 
 import model.Game;
+import model.maingame.hero.HeroPlane;
 
 import javax.swing.*;
 import java.util.Random;
@@ -24,6 +25,7 @@ public class GameController {
     public static void login(Game game){// 一定要先创建gameWin再创建infoWin
         System.out.println(GameConstStr.LOGIN);
         GameUIController.loginWinAndGameWinExchange(game, GameConstStr.TO_GAME_WIN);
+        game.getGlobalTimer().getTimer().start();
         game.getUi().getGameWin().setEnabled(false);
         game.getUi().getInfoWin().setVisible(true);
     }
@@ -34,10 +36,14 @@ public class GameController {
 
     public static void exit(Game game){
         System.out.println("exiting_game");
+        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
+        heroPlane.stopHeroPlane();
+        game.getGlobalTimer().getTimer().stop();
         if (JOptionPane.showConfirmDialog(null,"是否退出游戏", "退出游戏", JOptionPane.YES_NO_OPTION) == 0){
             System.out.println("exit_game");
             System.exit(0);
         }else {
+            game.getGlobalTimer().getTimer().start();
             System.out.println("cancel_exit_game");
         }
     }

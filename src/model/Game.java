@@ -1,18 +1,36 @@
 package model;
 
+import control.GameConstResourceUtil;
 import control.timer.GlobalTimer;
 import view.UI;
 
 public class Game {
     private final UI ui;
+    private final GlobalTimer globalTimer;
     private Player player;
     private GameLevel gameLevel;
     private int gameMode;
-    private GlobalTimer globalTimer;
     private String operateWay;
+    private int globalTime;
 
     public Game() {
+        globalTime = 0;
+        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20);
+        globalTimer = new GlobalTimer(this);
         ui = new UI(this);
+
+    }
+
+    public int getGlobalTime() {
+        return globalTime;
+    }
+
+    public void setGlobalTime(int globalTime) {
+        this.globalTime = globalTime;
+    }
+
+    public GlobalTimer getGlobalTimer() {
+        return globalTimer;
     }
 
     public void setOperateWay(String operateWay) {

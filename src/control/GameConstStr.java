@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.2";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -21,5 +21,8 @@ public class GameConstStr {
     public static final String DO_NOTHING = "do_nothing";
     public static final String PRIMARY_WIN = "primary_win";
     public static final String SECONDARY_WIN = "secondary_win";
+    public static final String GLOBAL = "global";
+    public static final String LOCAL = "local";
+    public static final String MAIN_GAME = "main_game";
 
 }
