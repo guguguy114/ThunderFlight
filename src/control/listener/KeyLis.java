@@ -2,6 +2,7 @@ package control.listener;
 
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import model.FlyingObject;
 import model.Game;
 import model.maingame.hero.HeroPlane;
 import view.gamewindows.GamePanel;
@@ -18,7 +19,7 @@ public class KeyLis implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+        //System.out.println(e.getKeyChar());
     }
 
     @Override
@@ -26,27 +27,30 @@ public class KeyLis implements KeyListener {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         switch (mode){
             case GameConstStr.MAIN_GAME:
-                HeroPlane heroPlane = gamePanel.getHeroPlane();
+                FlyingObject heroPlane = gamePanel.getHeroPlane();
                 switch (e.getKeyCode()){
                     case 83://s键
-                        System.out.println("s");
+                        //System.out.println("s");
                         heroPlane.isDown = true;
                         break;
                     case 87://w键
-                        System.out.println("w");
+                        //System.out.println("w");
                         heroPlane.setObjImg(GameConstResourceUtil.HERO_UP);
                         heroPlane.isUp = true;
                         break;
                     case 65://a键
-                        System.out.println("a");
+                        //System.out.println("a");
                         heroPlane.isLeft = true;
                         break;
                     case 68://d键
-                        System.out.println("d");
+                        //System.out.println("d");
                         heroPlane.isRight = true;
                         break;
+                    case 32:
+                        gamePanel.getHeroPlane().attack(game);
+                        break;
                     default:
-                        //System.out.println(e.getKeyCode());
+                        System.out.println(e.getKeyCode());
                         break;
                 }
                 break;
@@ -58,7 +62,7 @@ public class KeyLis implements KeyListener {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         switch (mode){
             case GameConstStr.MAIN_GAME:
-                HeroPlane heroPlane = gamePanel.getHeroPlane();
+                FlyingObject heroPlane = gamePanel.getHeroPlane();
                 switch (e.getKeyCode()){
                     case 83://s键
                         heroPlane.isDown = false;

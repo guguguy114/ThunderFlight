@@ -8,4 +8,9 @@ public class GameConstDataUtil {
     public static final int SETTING_MODE = 4;
     public static final int GAME_PANEL_WIDTH = 800;
     public static final int GAME_PANEL_HEIGHT = 800;
+    public static final int HERO_WIDTH = 50;
+    public static final int HERO_HEIGHT = 50;
+    public static final int INITIAL_HERO_X = GAME_PANEL_WIDTH / 2;
+    public static final int INITIAL_HERO_Y = GAME_PANEL_HEIGHT - HERO_HEIGHT;
+    public static final int HERO_STEP_LENGTH = 10;
 }

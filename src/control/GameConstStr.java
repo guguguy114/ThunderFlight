@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.2";
+    public static final String VERSION = "1.0.3";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -17,12 +17,16 @@ public class GameConstStr {
     public static final String TO_GAME_WIN = "to_game_win";
     public static final String TO_LOGIN_WIN = "to_login_win";
     public static final String KEYBOARD_CONTROL = "keyboard_control";
-    public static final String FREEZE = "freeze";
     public static final String DO_NOTHING = "do_nothing";
     public static final String PRIMARY_WIN = "primary_win";
     public static final String SECONDARY_WIN = "secondary_win";
     public static final String GLOBAL = "global";
     public static final String LOCAL = "local";
     public static final String MAIN_GAME = "main_game";
+    public static final String FRIENDLY = "friendly";
+    public static final String ENEMY = "enemy";
+    public static final String AMMO_NAME = "ammo";
+    public static final String PLANE_NAME = "plane_name";
+    public static final String ANIMATION = "animation";
 
 }

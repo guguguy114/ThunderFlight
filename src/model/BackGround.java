@@ -7,7 +7,17 @@ public class BackGround extends FlyingObject {
         this.objImg = image;
     }
     @Override
-    protected void move() {
+    public void move() {
+
+    }
+
+    @Override
+    public void attack(Game game) {
+
+    }
+
+    @Override
+    public void changeAnimation() {
 
     }
 }

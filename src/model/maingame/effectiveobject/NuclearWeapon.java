@@ -1,8 +1,20 @@
 package model.maingame.effectiveobject;
 
+import model.Game;
+
 public class NuclearWeapon extends EffectiveObject{
     @Override
-    protected void move() {
+    public void move() {
+
+    }
+
+    @Override
+    public void attack(Game game) {
+
+    }
+
+    @Override
+    public void changeAnimation() {
 
     }
 
