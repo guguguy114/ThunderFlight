@@ -38,6 +38,9 @@ public class ActionLis implements ActionListener {
             case GameConstStr.TO_LOGIN_PANE:
                 GameUIController.signUpPaneAndLoginPaneExchange(game, GameConstStr.TO_LOGIN_PANE);
                 break;
+            case GameConstStr.PAUSE:
+                GameController.pause(game);
+                break;
         }
     }
 }

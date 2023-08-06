@@ -3,24 +3,28 @@ package model.maingame.hero;
 import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import control.timer.AttackTimer;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.ammo.Ammo;
-import model.maingame.ammo.FriendBullet;
+import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
 
 import java.util.ArrayList;
 
 public class HeroPlane extends FlyingObject {
     private ArrayList<Ammo> AmmoList;
+    public boolean isAtk;
 
-    public HeroPlane() {
+    public HeroPlane(Game game) {
         objImg = GameConstResourceUtil.HERO_DOWN;
         objX = GameConstDataUtil.INITIAL_HERO_X;
         objY = GameConstDataUtil.INITIAL_HERO_Y;
         objectWidth = GameConstDataUtil.HERO_WIDTH;
         objectHeight = GameConstDataUtil.HERO_HEIGHT;
         objectName = GameConstStr.PLANE_NAME;
+        attackTimer = new AttackTimer(game, this);
+        isAtk = false;
     }
 
     @Override
@@ -43,10 +47,13 @@ public class HeroPlane extends FlyingObject {
     }
     @Override
     public void attack(Game game) {
-        System.out.println("attacking");
-        GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-        Ammo newAmmo = new FriendBullet(GameConstStr.FRIENDLY, this.atkPointX, this.actPointY);
-        gamePanel.getAmmoList().add(newAmmo);
+        if (isAtk){
+            //System.out.println("attacking");
+            GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+            Ammo newAmmo = new Bullet(GameConstStr.FRIENDLY, this.atkPointX, this.actPointY);
+            gamePanel.getAmmoList().add(newAmmo);
+            isAtk = false;
+        }
     }
 
     @Override

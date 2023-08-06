@@ -1,12 +1,14 @@
 package model;
 
+import control.GameConstDataUtil;
+import control.timer.AttackTimer;
 import view.gamewindows.GamePanel;
 
 import java.awt.*;
 import java.util.List;
 
 public abstract class FlyingObject {
-    public boolean isUp, isDown, isLeft, isRight;
+    public boolean isUp, isDown, isLeft, isRight, isOut = false;
     protected int objX, objY;
     protected Image objImg;
     protected List<Image> animationList;
@@ -18,6 +20,7 @@ public abstract class FlyingObject {
     protected int objectHeight;
     protected String objectName;
     protected int animationOrder = 0;
+    protected AttackTimer attackTimer;
 
     public String getObjectName() {
         return objectName;
@@ -66,14 +69,26 @@ public abstract class FlyingObject {
         isDown = false;
     }
 
+    public AttackTimer getAttackTimer() {
+        return attackTimer;
+    }
+
+    public void setAttackTimer(AttackTimer attackTimer) {
+        this.attackTimer = attackTimer;
+    }
+
     public void draw(Graphics g) {
         //System.out.println("drawing_" + this.getClass());
         g.drawImage(objImg, objX, objY, objectWidth, objectHeight, null);
     }
 
     public boolean isDisappear(GamePanel gamePanel) {
-        return objX <= -50 || objX >= gamePanel.getWidth() + 50 || objY <= -50 || objY >= gamePanel.getHeight() + 50;
+        return objX <= -GameConstDataUtil.BORDER || objX >= gamePanel.getWidth() + GameConstDataUtil.BORDER || objY <= -GameConstDataUtil.BORDER || objY >= gamePanel.getHeight() + GameConstDataUtil.BORDER;
     }
 
     public abstract void changeAnimation();
+
+    protected void finalize(){
+        System.out.println("removed " + getClass());
+    }
 }

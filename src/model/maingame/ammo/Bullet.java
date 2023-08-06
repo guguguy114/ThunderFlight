@@ -1,25 +1,30 @@
 package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
+import control.GameConstStr;
 import model.Game;
 
 import java.util.ArrayList;
 
-public class FriendBullet extends Ammo{
+public class Bullet extends Ammo{
 
-    public FriendBullet(String belongTo, int x, int y) {
+    public Bullet(String belongTo, int x, int y) {
         super(belongTo, x, y);
+        objImg = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
         objectWidth = objImg.getWidth(null);
         objectHeight = objImg.getHeight(null);
         animationList = new ArrayList<>();
         animationList.add(GameConstResourceUtil.FRIEND_BULLET_LIGHT);
-        animationList.add(GameConstResourceUtil.FRIEND_BULLET_DARK);
-
     }
 
     @Override
     public void move() {
-        objY -= 5;
+        if (belongTo.equals(GameConstStr.FRIENDLY)){
+            objY -= 5;
+        }
+        if (belongTo.equals(GameConstStr.ENEMY)){
+            objY += 5;
+        }
     }
 
     @Override

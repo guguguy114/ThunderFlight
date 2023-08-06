@@ -2,6 +2,7 @@ package control;
 
 import model.FlyingObject;
 import model.Game;
+import model.maingame.enemy.CommonEnemyPlane;
 import view.gamewindows.GamePanel;
 
 import javax.swing.*;
@@ -30,8 +31,8 @@ public class GameController {
     public static void login(Game game){// 一定要先创建gameWin再创建infoWin
         System.out.println(GameConstStr.LOGIN);
         GameUIController.loginWinAndGameWinExchange(game, GameConstStr.TO_GAME_WIN);
-        game.getGlobalTimer().getTimer().start();
-        game.getAnimationTimer().getTimer().start();
+        game.getTimers().getGlobalTimer().getTimer().start();
+        game.getTimers().getAnimationTimer().getTimer().start();
         game.getUi().getGameWin().setEnabled(false);
         game.getUi().getInfoWin().setVisible(true);
     }
@@ -44,32 +45,39 @@ public class GameController {
         System.out.println("exiting_game");
         FlyingObject heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
         heroPlane.stopFlyingObject();
-        game.getGlobalTimer().getTimer().stop();
+        pause(game);
         if (JOptionPane.showConfirmDialog(null,"是否退出游戏", "退出游戏", JOptionPane.YES_NO_OPTION) == 0){
             System.out.println("exit_game");
             System.exit(0);
         }else {
-            game.getGlobalTimer().getTimer().start();
+            continueGame(game);
             System.out.println("cancel_exit_game");
         }
     }
 
-    public static void createFlyingObject(){
+    public static void createFlyingObject(Game game){
         System.out.println("creating_object");
         Random r = new Random();
         int key = r.nextInt(10);
         if (key<=6){
-            createEnemyPlane();
+            createEnemyPlane(game);
         }else {
-            createEffectiveObject();
+            createEffectiveObject(game);
         }
     }
 
-    public static void createEnemyPlane(){
+    public static void createEnemyPlane(Game game){
+        GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         System.out.println("creating_enemy_plane");
+        Random r = new Random();
+        int summonPoint = r.nextInt(381);
+        gamePanel.getPlaneList().add(new CommonEnemyPlane(CommonEnemyPlane.randomImg(), summonPoint, -40, game));
+        summonPoint = r.nextInt(381) + 380;
+        gamePanel.getPlaneList().add(new CommonEnemyPlane(CommonEnemyPlane.randomImg(), summonPoint, -40, game));
+
     }
 
-    public static void createEffectiveObject(){
+    public static void createEffectiveObject(Game game){
         System.out.println("creating_effective_object");
     }
     public static void drawPane(Graphics g, GamePanel gamePanel){
@@ -126,11 +134,15 @@ public class GameController {
                 FlyingObject temp = iterator.next();
                 if (temp.getObjectName().equals(GameConstStr.AMMO_NAME)) {
                     gamePanel.getAmmoList().remove(temp);
-                    System.out.println("remove_ammo");
+                    System.out.println("remove_ammo " + temp.hashCode());
                 }
                 if (temp.getObjectName().equals(GameConstStr.PLANE_NAME)) {
+                    //temp.getAttackTimer().getTimer().stop();
+                    temp.getAttackTimer().setTimer(null);
+                    temp.setAttackTimer(null);
+                    temp.isOut = true;
                     gamePanel.getPlaneList().remove(temp);
-                    System.out.println("remove_plane");
+                    System.out.println("remove_plane " + temp.hashCode());
                 }
             } while (iterator.hasNext());
         }
@@ -140,15 +152,48 @@ public class GameController {
         Iterator<FlyingObject> iterator = gamePanel.getPlaneList().iterator();
         do {
             FlyingObject temp = iterator.next();
-            System.out.println("changing_plane_animation");
+            //System.out.println("changing_plane_animation");
             temp.changeAnimation();
         } while (iterator.hasNext());
         iterator = gamePanel.getAmmoList().iterator();
         if (iterator.hasNext()){
             do {
                 FlyingObject temp = iterator.next();
-                System.out.println("changing_ammo_animation");
+                //System.out.println("changing_ammo_animation");
                 temp.changeAnimation();
+            } while (iterator.hasNext());
+        }
+    }
+    public static void pause(Game game){
+        game.getTimers().getGlobalTimer().getTimer().stop();
+        game.getTimers().getAnimationTimer().getTimer().stop();
+        stopCreateAmmo(game.getUi().getGameWin().getGameMainPanel().getGamePanel());
+    }
+
+    public static void continueGame(Game game){
+        game.getTimers().getGlobalTimer().getTimer().start();
+        game.getTimers().getAnimationTimer().getTimer().start();
+        restartCreateAmmo(game.getUi().getGameWin().getGameMainPanel().getGamePanel());
+    }
+
+    public static void stopCreateAmmo(GamePanel gamePanel){
+        Iterator<FlyingObject> iterator = gamePanel.getPlaneList().iterator();
+        if (iterator.hasNext()){
+            do {
+                FlyingObject temp = iterator.next();
+                //System.out.println("changing_ammo_animation");
+                temp.getAttackTimer().getTimer().stop();
+            } while (iterator.hasNext());
+        }
+    }
+
+    public static void restartCreateAmmo(GamePanel gamePanel){
+        Iterator<FlyingObject> iterator = gamePanel.getPlaneList().iterator();
+        if (iterator.hasNext()){
+            do {
+                FlyingObject temp = iterator.next();
+                //System.out.println("changing_ammo_animation");
+                temp.getAttackTimer().getTimer().start();
             } while (iterator.hasNext());
         }
     }

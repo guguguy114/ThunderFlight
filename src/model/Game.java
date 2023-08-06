@@ -1,27 +1,28 @@
 package model;
 
 import control.GameConstResourceUtil;
-import control.timer.AnimationTimer;
-import control.timer.GlobalTimer;
+import control.timer.Timers;
 import view.UI;
 
 public class Game {
     private final UI ui;
-    private final GlobalTimer globalTimer;
     private Player player;
     private GameLevel gameLevel;
     private int gameMode;
     private String operateWay;
     private int globalTime;
-    private AnimationTimer animationTimer;
+    private final Timers timers;
 
     public Game() {
         globalTime = 0;
         gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20);
-        globalTimer = new GlobalTimer(this);
-        animationTimer = new AnimationTimer(this);
+        timers = new Timers(this);
         ui = new UI(this);
 
+    }
+
+    public Timers getTimers() {
+        return timers;
     }
 
     public String getOperateWay() {
@@ -32,14 +33,6 @@ public class Game {
         this.operateWay = operateWay;
     }
 
-    public AnimationTimer getAnimationTimer() {
-        return animationTimer;
-    }
-
-    public void setAnimationTimer(AnimationTimer animationTimer) {
-        this.animationTimer = animationTimer;
-    }
-
     public int getGlobalTime() {
         return globalTime;
     }
@@ -47,11 +40,6 @@ public class Game {
     public void setGlobalTime(int globalTime) {
         this.globalTime = globalTime;
     }
-
-    public GlobalTimer getGlobalTimer() {
-        return globalTimer;
-    }
-
     public Player getPlayer() {
         return player;
     }

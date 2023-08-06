@@ -47,6 +47,7 @@ public class KeyLis implements KeyListener {
                         heroPlane.isRight = true;
                         break;
                     case 32:
+                        gamePanel.getHeroPlane().isAtk = true;
                         gamePanel.getHeroPlane().attack(game);
                         break;
                     default:

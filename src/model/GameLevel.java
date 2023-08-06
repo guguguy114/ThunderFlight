@@ -4,6 +4,8 @@ public class GameLevel {
     private BackGround backGround1;
     private int promotedEnemyPlaneQuantity;
     private int commonEnemyPlaneQuantity;
+    private int commonCount;
+    private int promoteCount;
 
     public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity) {
         this.backGround1 = backGround;

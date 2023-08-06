@@ -13,4 +13,7 @@ public class GameConstDataUtil {
     public static final int INITIAL_HERO_X = GAME_PANEL_WIDTH / 2;
     public static final int INITIAL_HERO_Y = GAME_PANEL_HEIGHT - HERO_HEIGHT;
     public static final int HERO_STEP_LENGTH = 10;
+    public static final int COMMON_ENEMY_PLANE_WIDTH = 60;
+    public static final int COMMON_ENEMY_PLANE_HEIGHT = 40;
+    public static final int BORDER = 100;
 }

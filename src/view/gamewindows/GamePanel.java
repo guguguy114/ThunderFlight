@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
         ammoList = new ArrayList<>();
         this.game = game;
         backGround = game.getGameLevel().getBackGround1();
-        planeList.add(new HeroPlane());
+        planeList.add(new HeroPlane(game));
     }
 
     public ArrayList<FlyingObject> getPlaneList() {
@@ -36,8 +36,8 @@ public class GamePanel extends JPanel {
         return ammoList;
     }
 
-    public FlyingObject getHeroPlane() {
-        return planeList.get(0);
+    public HeroPlane getHeroPlane() {
+        return (HeroPlane) planeList.get(0);
     }
 
     @Override
