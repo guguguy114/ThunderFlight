@@ -1,11 +1,16 @@
 package model.maingame.effectiveobject;
 
+import control.GameConstResourceUtil;
 import model.Game;
 
 public class DoubleFire extends EffectiveObject{
-    @Override
-    public void move() {
 
+
+    public DoubleFire(Game game, int x, int y) {
+        super(game, x, y);
+        objImg = GameConstResourceUtil.DOUBLE_FIRE;
+        objectWidth = objImg.getWidth(null);
+        objectHeight = objImg.getHeight(null);
     }
 
     @Override
@@ -19,7 +24,7 @@ public class DoubleFire extends EffectiveObject{
     }
 
     @Override
-    protected void hitFeedback() {
+    public void hitFeedback() {
 
     }
 }

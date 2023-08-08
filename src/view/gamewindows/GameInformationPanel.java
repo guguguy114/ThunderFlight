@@ -1,5 +1,6 @@
 package view.gamewindows;
 
+import control.GameConstDataUtil;
 import model.Game;
 
 import javax.swing.*;
@@ -7,8 +8,8 @@ import java.awt.*;
 
 public class GameInformationPanel extends JPanel {
 
-    JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, timeLabel;
-    JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, time;
+    public JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, timeLabel, nuclearNumLabel;
+    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, time, nuclearNum;
 
     GameInformationPanel(Game game){
         setLayout(null);
@@ -27,7 +28,7 @@ public class GameInformationPanel extends JPanel {
         lifeLabel.setBounds(10, 120, 150, 30);
         lifeLabel.setFont(infoPaneFont);
 
-        life = new JLabel("0");
+        life = new JLabel(String.valueOf(GameConstDataUtil.DEFAULT_HERO_LIFE));
         life.setBounds(150, 120, 120, 30);
         life.setFont(infoPaneFont);
 
@@ -35,7 +36,7 @@ public class GameInformationPanel extends JPanel {
         levelLabel.setBounds(30, 170, 120, 30);
         levelLabel.setFont(infoPaneFont);
 
-        level = new JLabel("0");
+        level = new JLabel(String.valueOf(game.getGameLevel().getLevel()));
         level.setBounds(150, 170, 120, 30);
         level.setFont(infoPaneFont);
 
@@ -55,20 +56,28 @@ public class GameInformationPanel extends JPanel {
         passLineEnemyPlaneQuantity.setBounds(150, 270, 120, 30);
         passLineEnemyPlaneQuantity.setFont(infoPaneFont);
 
+        nuclearNumLabel = new JLabel("拥有核弹数：");
+        nuclearNumLabel.setBounds(10,320,150,30);
+        nuclearNumLabel.setFont(infoPaneFont);
+
+        nuclearNum = new JLabel(String.valueOf(game.getNuclearNum()));
+        nuclearNum.setBounds(150,320,120,30);
+        nuclearNum.setFont(infoPaneFont);
+
         playerNameLabel = new JLabel("当前玩家：");
-        playerNameLabel.setBounds(30,320,150,30);
+        playerNameLabel.setBounds(30,370,150,30);
         playerNameLabel.setFont(infoPaneFont);
 
-        playerName = new JLabel("null");
-        playerName.setBounds(150,320,120,30);
+        playerName = new JLabel();
+        playerName.setBounds(150,370,120,30);
         playerName.setFont(infoPaneFont);
 
         timeLabel = new JLabel("时间：");
-        timeLabel.setBounds(30, 370, 100, 30);
+        timeLabel.setBounds(72, 420, 100, 30);
         timeLabel.setFont(infoPaneFont);
 
         time = new JLabel();
-        time.setBounds(150, 370, 100, 30);
+        time.setBounds(150, 420, 100, 30);
         time.setFont(infoPaneFont);
 
 
@@ -82,6 +91,8 @@ public class GameInformationPanel extends JPanel {
         add(restEnemyPlaneQuantity);
         add(passLineEnemyPlaneQuantityLabel);
         add(passLineEnemyPlaneQuantity);
+        add(nuclearNumLabel);
+        add(nuclearNum);
         add(playerNameLabel);
         add(playerName);
         add(timeLabel);

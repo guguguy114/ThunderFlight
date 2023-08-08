@@ -10,11 +10,9 @@ import model.maingame.ammo.Ammo;
 import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
 
-import java.util.ArrayList;
-
 public class HeroPlane extends FlyingObject {
-    private ArrayList<Ammo> AmmoList;
     public boolean isAtk;
+    public String atkMode;
 
     public HeroPlane(Game game) {
         objImg = GameConstResourceUtil.HERO_DOWN;
@@ -22,24 +20,26 @@ public class HeroPlane extends FlyingObject {
         objY = GameConstDataUtil.INITIAL_HERO_Y;
         objectWidth = GameConstDataUtil.HERO_WIDTH;
         objectHeight = GameConstDataUtil.HERO_HEIGHT;
-        objectName = GameConstStr.PLANE_NAME;
+        objectName = GameConstStr.HERO_NAME;
         attackTimer = new AttackTimer(game, this);
         isAtk = false;
+        speedX = 10;
+        speedY = 10;
     }
 
     @Override
     public void move() {
         if (isUp && objY > 0) {
-            objY -= GameConstDataUtil.HERO_STEP_LENGTH;
+            objY -= speedY;
         }
         if (isDown && objY + GameConstDataUtil.HERO_HEIGHT < GameConstDataUtil.GAME_PANEL_HEIGHT + 10) {
-            objY += GameConstDataUtil.HERO_STEP_LENGTH;
+            objY += speedY;
         }
         if (isLeft && objX > 0) {
-            objX -= GameConstDataUtil.HERO_STEP_LENGTH;
+            objX -= speedX;
         }
         if (isRight && objX + GameConstDataUtil.HERO_WIDTH < GameConstDataUtil.GAME_PANEL_WIDTH) {
-            objX += GameConstDataUtil.HERO_STEP_LENGTH;
+            objX += speedX;
         }
 
         atkPointX = objX + objectWidth / 2;
@@ -50,7 +50,7 @@ public class HeroPlane extends FlyingObject {
         if (isAtk){
             //System.out.println("attacking");
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-            Ammo newAmmo = new Bullet(GameConstStr.FRIENDLY, this.atkPointX, this.actPointY);
+            Ammo newAmmo = new Bullet(GameConstStr.FRIEND, this.atkPointX, this.actPointY);
             gamePanel.getAmmoList().add(newAmmo);
             isAtk = false;
         }

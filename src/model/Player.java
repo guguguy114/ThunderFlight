@@ -4,7 +4,14 @@ public class Player {
     private int score;
     private int totalScore;
     private int maxCompleteLevel;
-    private int playerName;
+    private String playerName;
+    private String playerAccount;
+
+    public Player(String playerAccount, int maxCompleteLevel, String playerName){
+        this.playerAccount = playerAccount;
+        this.maxCompleteLevel = maxCompleteLevel;
+        this.playerName = playerName;
+    }
 
     public int getScore() {
         return score;
@@ -30,11 +37,11 @@ public class Player {
         this.maxCompleteLevel = maxCompleteLevel;
     }
 
-    public int getPlayerName() {
+    public String getPlayerName() {
         return playerName;
     }
 
-    public void setPlayerName(int playerName) {
+    public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 }

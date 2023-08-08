@@ -1,7 +1,6 @@
 package model.maingame.enemy;
 
 import control.GameConstStr;
-import control.timer.AttackTimer;
 import model.FlyingObject;
 import model.Game;
 
@@ -11,11 +10,9 @@ public abstract class EnemyPlane extends FlyingObject {
 
 
     public EnemyPlane(Image image, int x, int y, Game game) {
-        objectName = GameConstStr.PLANE_NAME;
+        objectName = GameConstStr.ENEMY_PLANE_NAME;
         objImg = image;
         objX = x;
         objY = y;
     }
-
-
 }

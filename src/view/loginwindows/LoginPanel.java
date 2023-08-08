@@ -9,10 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginPanel extends JPanel {
-    JLabel accountLabel, title, passwordLabel, YZMLabel, YZM;
-    JTextField accountPutIn, YZMPutIn;
+    public JLabel accountLabel, title, passwordLabel, YZMLabel, YZM;
+    public JTextField accountPutIn, YZMPutIn;
     JButton loginBtn, signUpBtn, YZMRefreshBtn, exitBtn;
-    JPasswordField passwordPutIn;
+    public JPasswordField passwordPutIn;
     Box labelBox, putInBox;
     LoginPanel(Game game){
         setLayout(null);

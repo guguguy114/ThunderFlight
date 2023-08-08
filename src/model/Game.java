@@ -6,19 +6,27 @@ import view.UI;
 
 public class Game {
     private final UI ui;
+    private final Timers timers;
     private Player player;
     private GameLevel gameLevel;
     private int gameMode;
     private String operateWay;
     private int globalTime;
-    private final Timers timers;
-
+    private int nuclearNum;
     public Game() {
         globalTime = 0;
-        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20);
+        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20, "1");
         timers = new Timers(this);
         ui = new UI(this);
 
+    }
+
+    public int getNuclearNum() {
+        return nuclearNum;
+    }
+
+    public void setNuclearNum(int nuclearNum) {
+        this.nuclearNum = nuclearNum;
     }
 
     public Timers getTimers() {
@@ -40,8 +48,13 @@ public class Game {
     public void setGlobalTime(int globalTime) {
         this.globalTime = globalTime;
     }
+
     public Player getPlayer() {
         return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public UI getUi() {

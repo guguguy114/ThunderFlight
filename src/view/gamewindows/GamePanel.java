@@ -5,27 +5,36 @@ import control.GameController;
 import model.BackGround;
 import model.FlyingObject;
 import model.Game;
-import model.maingame.ammo.Ammo;
+import model.maingame.effectiveobject.EffectiveObject;
 import model.maingame.hero.HeroPlane;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GamePanel extends JPanel {
     private final Game game;
     private final BackGround backGround;
     private final ArrayList<FlyingObject> planeList;
     private ArrayList<FlyingObject> ammoList;
+    private ArrayList<EffectiveObject> effectiveObjectList;
 
     public GamePanel(Game game) {
         setLayout(null);
         planeList = new ArrayList<>();
         ammoList = new ArrayList<>();
+        effectiveObjectList = new ArrayList<>();
         this.game = game;
-        backGround = game.getGameLevel().getBackGround1();
+        backGround = game.getGameLevel().getBackGround();
         planeList.add(new HeroPlane(game));
+    }
+
+    public ArrayList<EffectiveObject> getEffectiveObjectList() {
+        return effectiveObjectList;
+    }
+
+    public void setEffectiveObjectList(ArrayList<EffectiveObject> effectiveObjectList) {
+        this.effectiveObjectList = effectiveObjectList;
     }
 
     public ArrayList<FlyingObject> getPlaneList() {
@@ -34,6 +43,10 @@ public class GamePanel extends JPanel {
 
     public ArrayList<FlyingObject> getAmmoList() {
         return ammoList;
+    }
+
+    public void setAmmoList(ArrayList<FlyingObject> ammoList) {
+        this.ammoList = ammoList;
     }
 
     public HeroPlane getHeroPlane() {

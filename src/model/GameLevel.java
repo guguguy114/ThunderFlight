@@ -1,24 +1,33 @@
 package model;
 
 public class GameLevel {
-    private BackGround backGround1;
+    private BackGround backGround;
     private int promotedEnemyPlaneQuantity;
     private int commonEnemyPlaneQuantity;
+    private int enemySpeedY;
+    private int enemySpeedX;
     private int commonCount;
     private int promoteCount;
+    private boolean randomSpeed;
+    private String level;
 
-    public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity) {
-        this.backGround1 = backGround;
+    public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity, String level) {
+        this.backGround = backGround;
         this.promotedEnemyPlaneQuantity = promotedEnemyPlaneQuantity;
         this.commonEnemyPlaneQuantity = commonEnemyPlaneQuantity;
+        this.level = level;
     }
 
-    public BackGround getBackGround1() {
-        return backGround1;
+    public String getLevel() {
+        return level;
     }
 
-    public void setBackGround1(BackGround backGround1) {
-        this.backGround1 = backGround1;
+    public BackGround getBackGround() {
+        return backGround;
+    }
+
+    public void setBackGround(BackGround backGround) {
+        this.backGround = backGround;
     }
 
     public int getPromotedEnemyPlaneQuantity() {
@@ -28,6 +37,7 @@ public class GameLevel {
     public void setPromotedEnemyPlaneQuantity(int promotedEnemyPlaneQuantity) {
         this.promotedEnemyPlaneQuantity = promotedEnemyPlaneQuantity;
     }
+
     public int getCommonEnemyPlaneQuantity() {
         return commonEnemyPlaneQuantity;
     }

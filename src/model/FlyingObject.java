@@ -22,6 +22,22 @@ public abstract class FlyingObject {
     protected int animationOrder = 0;
     protected AttackTimer attackTimer;
 
+    public int getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
+
+    public int getSpeedY() {
+        return speedY;
+    }
+
+    public void setSpeedY(int speedY) {
+        this.speedY = speedY;
+    }
+
     public String getObjectName() {
         return objectName;
     }
@@ -88,7 +104,7 @@ public abstract class FlyingObject {
 
     public abstract void changeAnimation();
 
-    protected void finalize(){
-        System.out.println("removed " + getClass());
+    protected void finalize() {
+        //System.out.println("removed " + getClass());
     }
 }

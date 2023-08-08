@@ -1,10 +1,15 @@
 package model.maingame.effectiveobject;
 
+import control.GameConstResourceUtil;
 import model.Game;
 
 public class Bee extends EffectiveObject{
-    @Override
-    public void move() {
+
+    public Bee(Game game, int x, int y) {
+        super(game, x, y);
+        objImg = GameConstResourceUtil.BEE;
+        objectWidth = objImg.getWidth(null);
+        objectHeight = objImg.getHeight(null);
 
     }
 
@@ -19,7 +24,7 @@ public class Bee extends EffectiveObject{
     }
 
     @Override
-    protected void hitFeedback() {
+    public void hitFeedback() {
 
     }
 }

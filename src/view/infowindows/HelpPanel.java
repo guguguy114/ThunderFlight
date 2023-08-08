@@ -1,5 +1,7 @@
 package view.infowindows;
 
+import control.GameConstStr;
+import control.listener.ActionLis;
 import model.Game;
 
 import javax.swing.*;
@@ -14,6 +16,7 @@ public class HelpPanel extends JPanel {
         setLayout(null);
         Font helpPageFont = new Font("黑体", Font.BOLD, 30);
         Font msgFont = new Font("黑体", Font.BOLD, 25);
+        ActionLis actionLis = new ActionLis(game);
 
 
         info = new JLabel("！欢迎来到雷霆战机！");
@@ -27,10 +30,14 @@ public class HelpPanel extends JPanel {
         keyOpt = new JButton("键盘操作");
         keyOpt.setBounds(60, 180, 140, 40);
         keyOpt.setFont(msgFont);
+        keyOpt.setActionCommand(GameConstStr.KEYBOARD_CONTROL);
+        keyOpt.addActionListener(actionLis);
 
         msOpt = new JButton("鼠标操作");
         msOpt.setBounds(220,180,140,40);
         msOpt.setFont(msgFont);
+        msOpt.setActionCommand(GameConstStr.MOUSE_CONTROL);
+        msOpt.addActionListener(actionLis);
 
 
         add(info);

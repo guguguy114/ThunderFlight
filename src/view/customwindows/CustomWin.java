@@ -1,5 +1,6 @@
 package view.customwindows;
 
+import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.listener.WinLis;
 import model.Game;
@@ -15,6 +16,7 @@ public class CustomWin extends JFrame {
         setTitle("自定义");
         setLocationRelativeTo(null);
         addWindowListener(new WinLis(game, GameConstStr.SECONDARY_WIN));
+        setIconImage(GameConstResourceUtil.HERO_UP);
 
 
         customPanel = new CustomPanel(game);

@@ -15,16 +15,17 @@ public class CommonEnemyPlane extends EnemyPlane{
 
     public CommonEnemyPlane(Image image, int x, int y, Game game) {
         super(image, x, y, game);
-        System.out.println("creating_common_plane");
+        //System.out.println("creating_common_plane");
         objectWidth = GameConstDataUtil.COMMON_ENEMY_PLANE_WIDTH;
         objectHeight = GameConstDataUtil.COMMON_ENEMY_PLANE_HEIGHT;
         attackTimer = new AttackTimer(game, this);
         attackTimer.getTimer().start();
+        speedY = 1 + new Random().nextInt(3);
     }
 
     @Override
     public void move() {
-        objY += 2;
+        objY += speedY;
         atkPointX = objX + objectWidth / 2;
         actPointY = objY + objectHeight;
     }
@@ -32,8 +33,8 @@ public class CommonEnemyPlane extends EnemyPlane{
     @Override
     public void attack(Game game) {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-        System.out.println("attacking");
-        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY));
+        //System.out.println("attacking");
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this));
     }
 
     @Override
@@ -46,10 +47,10 @@ public class CommonEnemyPlane extends EnemyPlane{
         int key = r.nextInt(2);
         switch (key){
             case 0:
-                System.out.println("return_picture_1");
+                //System.out.println("return_picture_1");
                 return GameConstResourceUtil.COMMON_ENEMY_PLANE_1;
             case 1:
-                System.out.println("return_picture_2");
+                //System.out.println("return_picture_2");
                 return GameConstResourceUtil.COMMON_ENEMY_PLANE_2;
             default:
                 return null;

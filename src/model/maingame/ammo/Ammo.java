@@ -2,6 +2,7 @@ package model.maingame.ammo;
 
 import control.GameConstStr;
 import model.FlyingObject;
+import model.Game;
 
 public abstract class Ammo extends FlyingObject {
     public Ammo(String belongTo, int x, int y) {
@@ -12,5 +13,10 @@ public abstract class Ammo extends FlyingObject {
     }
 
     protected String belongTo;
-    protected abstract void hitFeedback();
+
+    public String getBelongTo() {
+        return belongTo;
+    }
+
+    public abstract void hitFeedback(Game game);
 }

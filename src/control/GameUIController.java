@@ -1,6 +1,8 @@
 package control;
 
 import model.Game;
+import view.gamewindows.GameInformationPanel;
+import view.gamewindows.GameMenuBar;
 import view.infowindows.InfoMainPanel;
 import view.loginwindows.LoginMainPanel;
 
@@ -63,10 +65,49 @@ public class GameUIController {
 
     public static void toGameWin(Game game){
         game.getUi().getGameWin().setEnabled(true);
+        game.getUi().getInfoWin().setVisible(false);
     }
 
     public static void toCustomWin(Game game){
         game.getUi().getCustomWin().setVisible(true);
         game.getUi().getGameWin().setEnabled(false);
+    }
+
+    public static void changeMenu(Game game, int mode){
+        switch (mode){
+            case GameConstDataUtil.READY_MODE:
+                GameMenuBar menuBar = game.getUi().getGameWin().getGameMenuBar();
+                menuBar.pauseGame.setEnabled(false);
+                menuBar.continueGame.setEnabled(false);
+                menuBar.customMode.setEnabled(true);
+                menuBar.exitGame.setEnabled(true);
+                menuBar.startGame.setEnabled(true);
+                menuBar.restartGame.setEnabled(false);
+                break;
+            case GameConstDataUtil.RUNNING_MODE:
+                menuBar = game.getUi().getGameWin().getGameMenuBar();
+                menuBar.pauseGame.setEnabled(true);
+                menuBar.continueGame.setEnabled(false);
+                menuBar.customMode.setEnabled(false);
+                menuBar.exitGame.setEnabled(true);
+                menuBar.startGame.setEnabled(false);
+                menuBar.restartGame.setEnabled(false);
+                break;
+            case GameConstDataUtil.PAUSE_MODE:
+                menuBar = game.getUi().getGameWin().getGameMenuBar();
+                menuBar.pauseGame.setEnabled(false);
+                menuBar.continueGame.setEnabled(true);
+                menuBar.customMode.setEnabled(false);
+                menuBar.exitGame.setEnabled(true);
+                menuBar.startGame.setEnabled(false);
+                menuBar.restartGame.setEnabled(true);
+        }
+    }
+
+    public static void refreshInfoPanel(Game game){
+        GameInformationPanel panel = game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel();
+        panel.nuclearNum.setText(String.valueOf(game.getNuclearNum()));
+        panel.score.setText(String.valueOf(game.getPlayer().getScore()));
+        panel.playerName.setText(game.getPlayer().getPlayerName());
     }
 }

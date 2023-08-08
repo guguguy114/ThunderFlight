@@ -7,15 +7,15 @@ import model.Game;
 import javax.swing.*;
 
 public class GameMenuBar extends JMenuBar {
-    JMenu gameStateMenu, otherMenu;
-    JMenuItem startGame, pauseGame, exitGame, continueGame, customMode, about, help;
+    public JMenu gameStateMenu, otherMenu;
+    public JMenuItem startGame, pauseGame, exitGame, restartGame, continueGame, customMode, about, help;
 
     public GameMenuBar(Game game){
         ActionLis actionLis = new ActionLis(game);
 
         gameStateMenu = new JMenu("游戏");
 
-        startGame = new JMenuItem("新游戏");
+        startGame = new JMenuItem("开始游戏");
         startGame.setActionCommand(GameConstStr.START);
         startGame.addActionListener(actionLis);
 
@@ -26,6 +26,10 @@ public class GameMenuBar extends JMenuBar {
         exitGame = new JMenuItem("退出游戏");
         exitGame.setActionCommand(GameConstStr.EXIT);
         exitGame.addActionListener(actionLis);
+
+        restartGame = new JMenuItem("重新开始");
+        restartGame.setActionCommand(GameConstStr.RESTART);
+        restartGame.addActionListener(actionLis);
 
         continueGame = new JMenuItem("继续游戏");
         continueGame.setActionCommand(GameConstStr.CONTINUE);
@@ -38,6 +42,7 @@ public class GameMenuBar extends JMenuBar {
         gameStateMenu.add(startGame);
         gameStateMenu.add(pauseGame);
         gameStateMenu.add(exitGame);
+        gameStateMenu.add(restartGame);
         gameStateMenu.add(continueGame);
         gameStateMenu.add(customMode);
 

@@ -1,5 +1,6 @@
 package view.loginwindows;
 
+import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.listener.WinLis;
 import model.Game;
@@ -16,6 +17,7 @@ public class LoginWin extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WinLis(game, GameConstStr.PRIMARY_WIN));
+        setIconImage(GameConstResourceUtil.HERO_UP);
 
         loginMainPanel = new LoginMainPanel(game);
 

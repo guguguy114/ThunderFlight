@@ -41,6 +41,18 @@ public class ActionLis implements ActionListener {
             case GameConstStr.PAUSE:
                 GameController.pause(game);
                 break;
+            case GameConstStr.CONTINUE:
+                GameController.continueGame(game);
+                break;
+            case GameConstStr.KEYBOARD_CONTROL:
+                GameController.setKeyOpt(game);
+                break;
+            case GameConstStr.MOUSE_CONTROL:
+                GameController.setMouseOpt(game);
+                break;
+            case GameConstStr.START:
+                GameController.start(game);
+                break;
         }
     }
 }

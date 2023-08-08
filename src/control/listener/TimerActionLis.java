@@ -5,7 +5,6 @@ import control.GameController;
 import model.BackGround;
 import model.FlyingObject;
 import model.Game;
-import model.maingame.enemy.EnemyPlane;
 import view.gamewindows.GamePanel;
 
 import java.awt.event.ActionEvent;
@@ -21,7 +20,7 @@ public class TimerActionLis implements ActionListener {
         switch (mode){
             case GameConstStr.GLOBAL:
                 key = 1;
-                key2 = 300;
+                key2 = 120;
                 break;
             case GameConstStr.LOCAL:
                 break;
@@ -45,11 +44,12 @@ public class TimerActionLis implements ActionListener {
                 GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
                 GameController.objectsMove(gamePanel);
                 GameController.objectsDisappear(gamePanel);
+                GameController.allHit(game);
 
                 ++tik;
                 if (tik == key){
                     //System.out.println(GameConstStr.GLOBAL);
-                    BackGround backGround = game.getGameLevel().getBackGround1();
+                    BackGround backGround = game.getGameLevel().getBackGround();
                     //System.out.println(backGround.getObjY());
                     if (backGround.getObjY() == -800){
                         backGround.setObjY(0);
@@ -88,7 +88,7 @@ public class TimerActionLis implements ActionListener {
                     ++tik;
                     if (tik == key) {
                         //System.out.println(tik);
-                        System.out.println("atkFrom " + flyingObject.hashCode());
+                        //System.out.println("atkFrom " + flyingObject.hashCode());
                         flyingObject.attack(game);
                         tik = 0;
                     }
@@ -100,6 +100,6 @@ public class TimerActionLis implements ActionListener {
         }
     }
     protected void finalize(){
-        System.out.println("removed_timerLis");
+        //System.out.println("removed_timerLis");
     }
 }

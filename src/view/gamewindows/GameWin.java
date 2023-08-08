@@ -1,5 +1,6 @@
 package view.gamewindows;
 
+import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.listener.KeyLis;
 import control.listener.WinLis;
@@ -20,6 +21,7 @@ public class GameWin extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WinLis(game, GameConstStr.PRIMARY_WIN));
+        setIconImage(GameConstResourceUtil.HERO_UP);
 
         gameMainPanel = new GameMainPanel(game);
         gameMenuBar = new GameMenuBar(game);
