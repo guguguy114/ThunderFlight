@@ -16,7 +16,7 @@ public class GameWin extends JFrame {
         setFocusable(true);
         addKeyListener(new KeyLis(game, GameConstStr.MAIN_GAME));
         setResizable(false);
-        setSize(1000, 860);
+        setSize(1100, 860);
         setTitle("雷霆战机");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -39,4 +39,5 @@ public class GameWin extends JFrame {
     public GameMenuBar getGameMenuBar() {
         return gameMenuBar;
     }
+
 }

@@ -2,6 +2,7 @@ package view.loginwindows;
 
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import control.listener.KeyLis;
 import control.listener.WinLis;
 import model.Game;
 
@@ -12,6 +13,8 @@ public class LoginWin extends JFrame {
 
     public LoginWin(Game game) {
         setResizable(false);
+        setFocusable(true);
+        KeyLis keyLis = new KeyLis(game,GameConstStr.LOGIN);
         setSize(1000, 860);
         setTitle("登录界面");
         setLocationRelativeTo(null);
@@ -22,6 +25,7 @@ public class LoginWin extends JFrame {
         loginMainPanel = new LoginMainPanel(game);
 
         add(loginMainPanel);
+        addKeyListener(keyLis);
 
         setVisible(true);
     }

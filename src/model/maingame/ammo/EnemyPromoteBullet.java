@@ -1,41 +1,26 @@
 package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
-import control.GameConstStr;
 import control.GameController;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.enemy.EnemyPlane;
 
-import java.util.ArrayList;
-
-public class Bullet extends Ammo{
-
-    public Bullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
-        this(belongTo, x, y);
-        speedY = enemyFrom.getSpeedY() + 2;
-        damage = 1;
-    }
-    public Bullet(String belongTo, int x, int y){
+public class EnemyPromoteBullet extends Ammo{
+    public EnemyPromoteBullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
         super(belongTo, x, y);
-        objImg = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
+        objImg = GameConstResourceUtil.PROMOTE_ENEMY_BULLET;
         objectWidth = objImg.getWidth(null);
         objectHeight = objImg.getHeight(null);
-        animationList = new ArrayList<>();
-        animationList.add(GameConstResourceUtil.FRIEND_BULLET_LIGHT);
-        speedY = 5;
-        damage = 1;
+        damage = 2;
+        speedY = enemyFrom.getSpeedY() + 2;
     }
 
     @Override
     public void move() {
-        if (belongTo.equals(GameConstStr.FRIEND)){
-            objY -= speedY;
-        }
-        if (belongTo.equals(GameConstStr.ENEMY)){
-            objY += speedY;
-        }
+        objY += speedY;
+
     }
 
     @Override
@@ -45,18 +30,13 @@ public class Bullet extends Ammo{
 
     @Override
     public void dead(Game game) {
-        System.out.println("ammo_dead");
         deadTimer = new DeadTimer(game, this);
         deadTimer.getTimer().start();
     }
 
     @Override
     public void changeAnimation() {
-        objImg = animationList.get(animationOrder);
-        animationOrder++;
-        if (animationOrder == animationList.size()){
-            animationOrder = 0;
-        }
+
     }
 
     @Override

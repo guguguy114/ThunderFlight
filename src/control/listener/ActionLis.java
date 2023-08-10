@@ -1,9 +1,9 @@
 package control.listener;
 
+import control.GameConstStr;
 import control.GameController;
 import control.GameUIController;
 import model.Game;
-import control.GameConstStr;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,13 @@ import java.awt.event.ActionListener;
 public class ActionLis implements ActionListener {
     private final Game game;
 
-    public ActionLis(Game game){
+    public ActionLis(Game game) {
         this.game = game;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
+        switch (e.getActionCommand()) {
             case GameConstStr.LOGIN:
                 GameController.login(game);
                 break;

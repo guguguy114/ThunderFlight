@@ -6,7 +6,7 @@ import model.Game;
 
 import javax.swing.*;
 
-public class AnimationTimer extends GameTimer{
+public class AnimationTimer extends GameTimer {
     public AnimationTimer(Game game) {
         super(game);
         TimerActionLis timerActionLis = new TimerActionLis(game, GameConstStr.ANIMATION);

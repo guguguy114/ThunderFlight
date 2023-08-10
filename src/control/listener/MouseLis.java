@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 public class MouseLis implements MouseListener {
     private Game game;
+
     @Override
     public void mouseClicked(MouseEvent e) {
 

@@ -11,10 +11,12 @@ import java.awt.event.WindowListener;
 public class WinLis implements WindowListener {
     private final Game game;
     private final String mode;
-    public WinLis(Game game, String mode){
+
+    public WinLis(Game game, String mode) {
         this.game = game;
         this.mode = mode;
     }
+
     @Override
     public void windowOpened(WindowEvent e) {
 
@@ -22,10 +24,10 @@ public class WinLis implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (mode.equals(GameConstStr.PRIMARY_WIN)){
+        if (mode.equals(GameConstStr.PRIMARY_WIN)) {
             System.out.println(GameConstStr.PRIMARY_WIN);
             GameController.exit(game);
-        }else if (mode.equals(GameConstStr.SECONDARY_WIN)){
+        } else if (mode.equals(GameConstStr.SECONDARY_WIN)) {
             System.out.println(GameConstStr.SECONDARY_WIN);
             GameUIController.toGameWin(game);
         }

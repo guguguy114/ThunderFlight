@@ -10,14 +10,21 @@ public class BackGround extends FlyingObject {
     public void move() {
 
     }
-
     @Override
     public void attack(Game game) {
 
     }
+    @Override
+    public void dead(Game game) {
 
+    }
     @Override
     public void changeAnimation() {
+
+    }
+
+    @Override
+    protected void setDeadImages() {
 
     }
 }

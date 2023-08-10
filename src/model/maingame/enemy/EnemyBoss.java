@@ -22,7 +22,22 @@ public class EnemyBoss extends EnemyPlane{
     }
 
     @Override
+    public void dead(Game game) {
+
+    }
+
+    @Override
+    public void hitFeedback(Game game) {
+
+    }
+
+    @Override
     public void changeAnimation() {
+
+    }
+
+    @Override
+    protected void setDeadImages() {
 
     }
 }

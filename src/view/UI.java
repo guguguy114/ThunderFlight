@@ -7,11 +7,10 @@ import view.infowindows.InfoWin;
 import view.loginwindows.LoginWin;
 
 public class UI {
-    private final GameWin gameWin;
     private final CustomWin customWin;
     private final InfoWin infoWin;
     private final LoginWin loginWin;
-
+    private GameWin gameWin;
     public UI(Game game) {
         loginWin = new LoginWin(game);
         gameWin = new GameWin(game);
@@ -21,6 +20,10 @@ public class UI {
 
     public GameWin getGameWin() {
         return gameWin;
+    }
+
+    public void setGameWin(GameWin gameWin) {
+        this.gameWin = gameWin;
     }
 
     public CustomWin getCustomWin() {

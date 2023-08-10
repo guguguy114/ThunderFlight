@@ -2,25 +2,47 @@ package model;
 
 import control.GameConstDataUtil;
 import control.timer.AttackTimer;
+import control.timer.DeadTimer;
 import view.gamewindows.GamePanel;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FlyingObject {
     public boolean isUp, isDown, isLeft, isRight, isOut = false;
-    protected int objX, objY;
+    protected int objX, objY, atkPointX, actPointY, speedX, speedY;
+    protected int objectWidth, objectHeight;
     protected Image objImg;
+    protected int life;
+    protected DeadTimer deadTimer;
     protected List<Image> animationList;
-    protected int speedX;
-    protected int speedY;
-    protected int atkPointX;
-    protected int actPointY;
-    protected int objectWidth;
-    protected int objectHeight;
     protected String objectName;
     protected int animationOrder = 0;
     protected AttackTimer attackTimer;
+    protected ArrayList<Image> deadImgList;
+    protected String atkMode;
+    protected boolean hitBal = true;
+
+    public boolean isHitBal() {
+        return hitBal;
+    }
+
+    public DeadTimer getDeadTimer() {
+        return deadTimer;
+    }
+
+    public ArrayList<Image> getDeadImgList() {
+        return deadImgList;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 
     public int getSpeedX() {
         return speedX;
@@ -53,6 +75,8 @@ public abstract class FlyingObject {
     public abstract void move();
 
     public abstract void attack(Game game);
+
+    public abstract void dead(Game game);
 
     public Image getObjImg() {
         return objImg;
@@ -107,4 +131,6 @@ public abstract class FlyingObject {
     protected void finalize() {
         //System.out.println("removed " + getClass());
     }
+
+    protected abstract void setDeadImages();
 }

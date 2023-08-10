@@ -1,7 +1,9 @@
 package model.maingame.effectiveobject;
 
 import control.GameConstResourceUtil;
+import control.GameConstStr;
 import model.Game;
+import model.maingame.hero.HeroPlane;
 
 public class DoubleFire extends EffectiveObject{
 
@@ -19,12 +21,24 @@ public class DoubleFire extends EffectiveObject{
     }
 
     @Override
+    public void dead(Game game) {
+
+    }
+
+    @Override
     public void changeAnimation() {
 
     }
 
     @Override
-    public void hitFeedback() {
+    protected void setDeadImages() {
 
+    }
+
+    @Override
+    public void hitFeedback() {
+        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
+        heroPlane.atkMode = GameConstStr.DOUBLE_ATK_MODE;
+        heroPlane.stateTimer.getTimer().restart();
     }
 }

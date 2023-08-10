@@ -8,7 +8,7 @@ import model.Game;
 import javax.swing.*;
 
 public class CustomWin extends JFrame {
-    private CustomPanel customPanel;
+    private final CustomPanel customPanel;
 
     public CustomWin(Game game){
         setResizable(false);

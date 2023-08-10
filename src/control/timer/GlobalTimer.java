@@ -6,7 +6,7 @@ import model.Game;
 
 import javax.swing.*;
 
-public class GlobalTimer extends GameTimer{
+public class GlobalTimer extends GameTimer {
     public GlobalTimer(Game game) {
         super(game);
         TimerActionLis timerActionLis = new TimerActionLis(game, GameConstStr.GLOBAL);

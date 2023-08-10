@@ -5,7 +5,7 @@ public class Player {
     private int totalScore;
     private int maxCompleteLevel;
     private String playerName;
-    private String playerAccount;
+    private final String playerAccount;
 
     public Player(String playerAccount, int maxCompleteLevel, String playerName){
         this.playerAccount = playerAccount;

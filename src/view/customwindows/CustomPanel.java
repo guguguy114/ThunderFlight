@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class CustomPanel extends JPanel {
 
-    public CustomPanel(Game game){
+    public CustomPanel(Game game) {
         setLayout(null);
     }
 }

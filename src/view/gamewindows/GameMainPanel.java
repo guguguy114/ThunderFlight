@@ -11,6 +11,7 @@ public class GameMainPanel extends JPanel {
 
     public GameMainPanel(Game game) {
         setLayout(new BorderLayout());
+        setBackground(Color.white);
 
 
 
@@ -18,8 +19,7 @@ public class GameMainPanel extends JPanel {
         gamePanel.setPreferredSize(new Dimension(800, 800));
 
         gameInformationPanel = new GameInformationPanel(game);
-        gameInformationPanel.setBackground(Color.white);
-        gameInformationPanel.setPreferredSize(new Dimension(200, 1000));
+        gameInformationPanel.setPreferredSize(new Dimension(300, 800));
 
 
         add(gamePanel, BorderLayout.WEST);

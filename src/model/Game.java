@@ -15,7 +15,7 @@ public class Game {
     private int nuclearNum;
     public Game() {
         globalTime = 0;
-        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20, "1");
+        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20, 1);
         timers = new Timers(this);
         ui = new UI(this);
 

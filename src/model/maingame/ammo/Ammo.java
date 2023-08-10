@@ -4,12 +4,17 @@ import control.GameConstStr;
 import model.FlyingObject;
 import model.Game;
 
+import java.util.ArrayList;
+
 public abstract class Ammo extends FlyingObject {
+    protected int damage;
     public Ammo(String belongTo, int x, int y) {
         this.belongTo = belongTo;
         objX = x;
         objY = y;
         objectName = GameConstStr.AMMO_NAME;
+        deadImgList = new ArrayList<>();
+        setDeadImages();
     }
 
     protected String belongTo;
@@ -18,5 +23,5 @@ public abstract class Ammo extends FlyingObject {
         return belongTo;
     }
 
-    public abstract void hitFeedback(Game game);
+    public abstract void hitFeedback(Game game, FlyingObject objIn);
 }

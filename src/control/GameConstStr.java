@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.5";
+    public static final String VERSION = "1.0.6";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -28,9 +28,15 @@ public class GameConstStr {
     public static final String ENEMY = "enemy";
     public static final String AMMO_NAME = "ammo";
     public static final String ENEMY_PLANE_NAME = "enemy_plane_name";
+    public static final String COMMON_ENEMY_PLANE_NAME = "common_enemy_plane_name";
     public static final String EFFECT_OBJECT_NAME = "effect_object_name";
     public static final String HERO_NAME = "hero_name";
     public static final String ANIMATION = "animation";
     public static final String RIGHT = "right";
     public static final String LEFT = "left";
+    public static final String COMMON_ATK_MODE = "common_atk_mode";
+    public static final String DOUBLE_ATK_MODE = "double_atk_mode";
+    public static final String DEAD = "dead";
+    public static final String HERO_STATE_LAST = "hero_state_last";
+    public static final String PROMOTE_ENEMY_PLANE_NAME = "promote_enemy_plane_name";
 }
