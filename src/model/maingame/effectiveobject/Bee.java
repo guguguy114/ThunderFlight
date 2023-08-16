@@ -8,18 +8,13 @@ public class Bee extends EffectiveObject{
 
     public Bee(Game game, int x, int y) {
         super(game, x, y);
-        objImg = GameConstResourceUtil.BEE;
-        objectWidth = objImg.getWidth(null);
-        objectHeight = objImg.getHeight(null);
+        img = GameConstResourceUtil.BEE;
+        width = img.getWidth(null);
+        height = img.getHeight(null);
     }
 
     @Override
     public void attack(Game game) {
-
-    }
-
-    @Override
-    public void dead(Game game) {
 
     }
 

@@ -9,11 +9,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 飞行物总类
+ */
 public abstract class FlyingObject {
-    public boolean isUp, isDown, isLeft, isRight, isOut = false;
+    public boolean up, down, left, right, out = false;
     protected int objX, objY, atkPointX, actPointY, speedX, speedY;
-    protected int objectWidth, objectHeight;
-    protected Image objImg;
+    protected int width, height;
+    protected Image img;
     protected int life;
     protected DeadTimer deadTimer;
     protected List<Image> animationList;
@@ -22,10 +25,88 @@ public abstract class FlyingObject {
     protected AttackTimer attackTimer;
     protected ArrayList<Image> deadImgList;
     protected String atkMode;
-    protected boolean hitBal = true;
+    protected boolean hitBle = true;
+    protected String className;
 
-    public boolean isHitBal() {
-        return hitBal;
+
+    /**
+     * 绘制对象
+     * @param g 对应页面的绘画工具
+     */
+    public void draw(Graphics g) {
+        //System.out.println("drawing_" + this.getClass());
+        g.drawImage(img, objX, objY, width, height, null);
+    }
+
+    /**
+     * 判断是否飞行物出界
+     * @param gamePanel 所在游戏界面
+     * @return 返回布尔值
+     */
+    public boolean isDisappear(GamePanel gamePanel) {
+        return objX <= -GameConstDataUtil.BORDER || objX >= gamePanel.getWidth() + GameConstDataUtil.BORDER || objY <= -GameConstDataUtil.BORDER || objY >= gamePanel.getHeight() + GameConstDataUtil.BORDER;
+    }
+
+    /**
+     * 使其停止运行
+     */
+    public void stopFlyingObject() {
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+    }
+
+    /**
+     * 对象移动方法
+     */
+    public abstract void move(Game game);
+
+    /**
+     * 对象攻击方法
+     * @param game 游戏对象
+     */
+
+    public abstract void attack(Game game);
+
+    /**
+     * 对象死亡时所触发的事件
+     * @param game 游戏对象
+     */
+    public abstract void dead(Game game);
+
+    /**
+     * 对象切换动画的方法
+     */
+    public abstract void changeAnimation();
+
+    public abstract void hitDetect(Game game);
+
+    protected abstract void setDeadImages();
+
+    protected boolean intersect(FlyingObject objIn){
+        Rectangle thisRect = new Rectangle(objX, objY, width, height);
+        Rectangle objInRect = new Rectangle(objIn.objX, objIn.objY, objIn.width, objIn.height);
+        return thisRect.intersects(objInRect);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public String getClassName() {
+        return className;
+    }
+
+    public boolean isHitBle() {
+        return hitBle;
     }
 
     public DeadTimer getDeadTimer() {
@@ -44,46 +125,23 @@ public abstract class FlyingObject {
         this.life = life;
     }
 
-    public int getSpeedX() {
-        return speedX;
-    }
-
-    public void setSpeedX(int speedX) {
-        this.speedX = speedX;
-    }
-
     public int getSpeedY() {
         return speedY;
     }
 
-    public void setSpeedY(int speedY) {
-        this.speedY = speedY;
+    public int getWidth() {
+        return width;
     }
 
-    public String getObjectName() {
-        return objectName;
+    public int getHeight() {
+        return height;
+    }
+    public Image getImg() {
+        return img;
     }
 
-    public int getObjectWidth() {
-        return objectWidth;
-    }
-
-    public int getObjectHeight() {
-        return objectHeight;
-    }
-
-    public abstract void move();
-
-    public abstract void attack(Game game);
-
-    public abstract void dead(Game game);
-
-    public Image getObjImg() {
-        return objImg;
-    }
-
-    public void setObjImg(Image objImg) {
-        this.objImg = objImg;
+    public void setImg(Image img) {
+        this.img = img;
     }
 
     public int getObjX() {
@@ -101,14 +159,6 @@ public abstract class FlyingObject {
     public void setObjY(int objY) {
         this.objY = objY;
     }
-
-    public void stopFlyingObject() {
-        isLeft = false;
-        isRight = false;
-        isUp = false;
-        isDown = false;
-    }
-
     public AttackTimer getAttackTimer() {
         return attackTimer;
     }
@@ -116,21 +166,7 @@ public abstract class FlyingObject {
     public void setAttackTimer(AttackTimer attackTimer) {
         this.attackTimer = attackTimer;
     }
-
-    public void draw(Graphics g) {
-        //System.out.println("drawing_" + this.getClass());
-        g.drawImage(objImg, objX, objY, objectWidth, objectHeight, null);
-    }
-
-    public boolean isDisappear(GamePanel gamePanel) {
-        return objX <= -GameConstDataUtil.BORDER || objX >= gamePanel.getWidth() + GameConstDataUtil.BORDER || objY <= -GameConstDataUtil.BORDER || objY >= gamePanel.getHeight() + GameConstDataUtil.BORDER;
-    }
-
-    public abstract void changeAnimation();
-
     protected void finalize() {
         //System.out.println("removed " + getClass());
     }
-
-    protected abstract void setDeadImages();
 }

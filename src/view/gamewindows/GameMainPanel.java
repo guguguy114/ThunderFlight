@@ -5,6 +5,9 @@ import model.Game;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * 游戏界面主panel
+ */
 public class GameMainPanel extends JPanel {
     private final GamePanel gamePanel;
     private final GameInformationPanel gameInformationPanel;

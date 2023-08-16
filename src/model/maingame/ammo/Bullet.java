@@ -2,7 +2,6 @@ package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
 import control.GameConstStr;
-import control.GameController;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
@@ -12,29 +11,49 @@ import java.util.ArrayList;
 
 public class Bullet extends Ammo{
 
+    /**
+     * 敌机使用的构造函数
+     * @param belongTo 属于哪一阵营
+     * @param x 生成位置x
+     * @param y 生成位置y
+     * @param enemyFrom 创建该子弹的飞行物
+     */
     public Bullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
         this(belongTo, x, y);
         speedY = enemyFrom.getSpeedY() + 2;
         damage = 1;
     }
+
+    /**
+     * 英雄机发射子弹用的构造函数
+     * @param belongTo 属于的阵营
+     * @param x 生成位置x
+     * @param y 生成位置y
+     */
     public Bullet(String belongTo, int x, int y){
         super(belongTo, x, y);
-        objImg = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
-        objectWidth = objImg.getWidth(null);
-        objectHeight = objImg.getHeight(null);
+        img = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
+        width = img.getWidth(null);
+        height = img.getHeight(null);
         animationList = new ArrayList<>();
         animationList.add(GameConstResourceUtil.FRIEND_BULLET_LIGHT);
+        up = true;
+        down = true;
         speedY = 5;
         damage = 1;
     }
 
     @Override
-    public void move() {
+    public void move(Game game) {
         if (belongTo.equals(GameConstStr.FRIEND)){
-            objY -= speedY;
+            if (up){
+                objY -= speedY;
+            }
         }
         if (belongTo.equals(GameConstStr.ENEMY)){
-            objY += speedY;
+            if (down){
+                objY += speedY;
+            }
         }
     }
 
@@ -45,14 +64,14 @@ public class Bullet extends Ammo{
 
     @Override
     public void dead(Game game) {
-        System.out.println("ammo_dead");
+        super.dead(game);
         deadTimer = new DeadTimer(game, this);
         deadTimer.getTimer().start();
     }
 
     @Override
     public void changeAnimation() {
-        objImg = animationList.get(animationOrder);
+        img = animationList.get(animationOrder);
         animationOrder++;
         if (animationOrder == animationList.size()){
             animationOrder = 0;
@@ -70,7 +89,6 @@ public class Bullet extends Ammo{
 
     @Override
     public void hitFeedback(Game game, FlyingObject objIn) {
-        objIn.setLife(objIn.getLife() - damage);
-        GameController.removeAmmo(game, this);
+        super.hitFeedback(game, objIn);
     }
 }

@@ -4,7 +4,6 @@ import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.AttackTimer;
-import control.timer.DeadTimer;
 import model.Game;
 import model.maingame.ammo.EnemyPromoteBullet;
 import view.gamewindows.GamePanel;
@@ -16,8 +15,8 @@ public class PromotedEnemyPlane extends EnemyPlane {
         super(GameConstResourceUtil.PROMOTE_ENEMY_PLANE, x, y, game);
         //System.out.println("creating_common_plane");
         setDeadImages();
-        objectWidth = GameConstDataUtil.PROMOTE_ENEMY_PLANE_WIDTH;
-        objectHeight = GameConstDataUtil.PROMOTE_ENEMY_PLANE_HEIGHT;
+        width = GameConstDataUtil.PROMOTE_ENEMY_PLANE_WIDTH;
+        height = GameConstDataUtil.PROMOTE_ENEMY_PLANE_HEIGHT;
         objectName = GameConstStr.PROMOTE_ENEMY_PLANE_NAME;
         score = 2;
         attackTimer = new AttackTimer(game, this, GameConstStr.ENEMY);
@@ -29,16 +28,17 @@ public class PromotedEnemyPlane extends EnemyPlane {
         }
 
         life = 2;
-        isDown = true;
+        down = true;
+        game.getGameLevel().setPromoteSummonCount(game.getGameLevel().getPromoteSummonCount() + 1);
     }
 
     @Override
-    public void move() {
-        if (isDown){
+    public void move(Game game) {
+        if (down){
             objY += speedY;
         }
-        atkPointX = objX + objectWidth / 2;
-        actPointY = objY + objectHeight;
+        atkPointX = objX + width / 2;
+        actPointY = objY + height;
     }
 
     @Override
@@ -50,10 +50,6 @@ public class PromotedEnemyPlane extends EnemyPlane {
     @Override
     public void dead(Game game) {
         super.dead(game);
-        game.getGameLevel().setPromoteCount(game.getGameLevel().getPromoteCount() + 1);
-        deadTimer = new DeadTimer(game, this);
-        deadTimer.getTimer().start();
-        attackTimer.getTimer().stop();
     }
 
     @Override

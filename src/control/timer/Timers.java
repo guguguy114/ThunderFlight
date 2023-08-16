@@ -2,6 +2,9 @@ package control.timer;
 
 import model.Game;
 
+/**
+ * 计时器总成
+ */
 public class Timers {
     private final GlobalTimer globalTimer;
     private final AnimationTimer animationTimer;

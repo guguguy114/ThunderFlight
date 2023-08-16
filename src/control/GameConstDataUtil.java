@@ -19,4 +19,6 @@ public class GameConstDataUtil {
     public static final int DEFAULT_HERO_LIFE = 3;
     public static final int PROMOTE_ENEMY_PLANE_WIDTH = 75;
     public static final int PROMOTE_ENEMY_PLANE_HEIGHT = 90;
+    public static final int BOSS_WIDTH = 225;
+    public static final int BOSS_HEIGHT = 300;
 }

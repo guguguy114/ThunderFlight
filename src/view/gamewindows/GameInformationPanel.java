@@ -81,8 +81,12 @@ public class GameInformationPanel extends JPanel {
         restEnemyPlaneQuantity.setFont(infoPaneFont);
 
         commonNum = new JLabel("0");
-        commonNum.setBounds(50, 570, 100, 30);
+        commonNum.setBounds(55, 570, 100, 30);
         commonNum.setFont(infoPaneFont);
+
+        promoteNum = new JLabel("0");
+        promoteNum.setBounds(140, 570, 100, 30);
+        promoteNum.setFont(infoPaneFont);
 
 
         add(scoreLabel);
@@ -102,10 +106,12 @@ public class GameInformationPanel extends JPanel {
         add(timeLabel);
         add(time);
         add(commonNum);
+        add(promoteNum);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(GameConstResourceUtil.COMMON_ENEMY_PLANE_1, 40, 500, 50, 50, null);
+        g.drawImage(GameConstResourceUtil.PROMOTE_ENEMY_PLANE, 120, 500, 50, 50,null);
     }
 }

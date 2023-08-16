@@ -10,7 +10,7 @@ import java.awt.*;
 public class HelpPanel extends JPanel {
 
     JLabel info, message;
-    JButton keyOpt, msOpt;
+    public JButton keyOpt, msOpt;
 
     public HelpPanel(Game game){
         setLayout(null);

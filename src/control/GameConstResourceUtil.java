@@ -23,4 +23,13 @@ public class GameConstResourceUtil {
     public static final Image PROMOTE_ENEMY_PLANE = new ImageIcon("img/enemyPlane2_1_0.png").getImage();
     public static final Image PROMOTE_ENEMY_DEAD = new ImageIcon("img/enemyPlane2_1_1.png").getImage();
     public static final Image PROMOTE_ENEMY_BULLET = new ImageIcon("img/promoteBullet.png").getImage();
+    public static final Image BIG_BOMB_1 = new ImageIcon("img/boss_9.png").getImage();
+    public static final Image BIG_BOMB_2 = new ImageIcon("img/boss_10.png").getImage();
+    public static final Image BIG_BOMB_3 = new ImageIcon("img/boss_11.png").getImage();
+    public static final Image BIG_BOMB_4 = new ImageIcon("img/boss_12.png").getImage();
+    public static final Image BOSS_1 = new ImageIcon("img/boss1_0.png").getImage();
+    public static final Image BOSS_2 = new ImageIcon("img/boss1_1.png").getImage();
+    public static final Image BOSS_3 = new ImageIcon("img/boss1_2.png").getImage();
+    public static final Image BOSS_4 = new ImageIcon("img/boss1_3.png").getImage();
+    public static final Image BOSS_5 = new ImageIcon("img/boss1_4.png").getImage();
 }

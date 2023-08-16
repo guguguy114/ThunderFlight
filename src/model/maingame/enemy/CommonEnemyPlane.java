@@ -4,7 +4,6 @@ import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.AttackTimer;
-import control.timer.DeadTimer;
 import model.Game;
 import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
@@ -18,8 +17,8 @@ public class CommonEnemyPlane extends EnemyPlane{
         super(image, x, y, game);
         //System.out.println("creating_common_plane");
         setDeadImages();
-        objectWidth = GameConstDataUtil.COMMON_ENEMY_PLANE_WIDTH;
-        objectHeight = GameConstDataUtil.COMMON_ENEMY_PLANE_HEIGHT;
+        width = GameConstDataUtil.COMMON_ENEMY_PLANE_WIDTH;
+        height = GameConstDataUtil.COMMON_ENEMY_PLANE_HEIGHT;
         objectName = GameConstStr.COMMON_ENEMY_PLANE_NAME;
         score = 1;
         attackTimer = new AttackTimer(game, this, GameConstStr.ENEMY);
@@ -31,16 +30,17 @@ public class CommonEnemyPlane extends EnemyPlane{
         }
 
         life = 1;
-        isDown = true;
+        down = true;
+        game.getGameLevel().setCommonSummonCount(game.getGameLevel().getCommonSummonCount() + 1);
     }
 
     @Override
-    public void move() {
-        if (isDown){
+    public void move(Game game) {
+        if (down){
             objY += speedY;
         }
-        atkPointX = objX + objectWidth / 2;
-        actPointY = objY + objectHeight;
+        atkPointX = objX + width / 2;
+        actPointY = objY + height;
     }
 
     @Override
@@ -52,10 +52,6 @@ public class CommonEnemyPlane extends EnemyPlane{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        game.getGameLevel().setCommonCount(game.getGameLevel().getCommonCount() + 1);
-        deadTimer = new DeadTimer(game, this);
-        deadTimer.getTimer().start();
-        attackTimer.getTimer().stop();
     }
 
     @Override
@@ -86,9 +82,9 @@ public class CommonEnemyPlane extends EnemyPlane{
 
     @Override
     protected void setDeadImages(){
-        if (objImg == GameConstResourceUtil.COMMON_ENEMY_PLANE_1){
+        if (img == GameConstResourceUtil.COMMON_ENEMY_PLANE_1){
             deadImgList.add(GameConstResourceUtil.COMMON_ENEMY_DEAD_1);
-        }else if (objImg == GameConstResourceUtil.COMMON_ENEMY_PLANE_2){
+        }else if (img == GameConstResourceUtil.COMMON_ENEMY_PLANE_2){
             deadImgList.add(GameConstResourceUtil.COMMON_ENEMY_DEAD_2);
         }
         deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_1);

@@ -1,14 +1,19 @@
 package model;
 
+/**
+ * 游戏关卡
+ */
 public class GameLevel {
     private final int level;
     private BackGround backGround;
     private int promotedEnemyPlaneQuantity;
     private int commonEnemyPlaneQuantity;
+    private int bossQuantity;
     private int enemySpeedY;
     private int enemySpeedX;
-    private int commonCount;
-    private int promoteCount;
+    private int commonSummonCount;
+    private int promoteSummonCount;
+    private int bossSummonCount;
     private boolean randomSpeed;
     public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity, int level) {
         this.backGround = backGround;
@@ -17,18 +22,33 @@ public class GameLevel {
         this.level = level;
         setSpeed();
         randomSpeed = false;
-        commonCount = 0;
-        promoteCount = 0;
+        commonSummonCount = 0;
+        promoteSummonCount = 0;
     }
-
     public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity) {
         this.backGround = backGround;
         this.promotedEnemyPlaneQuantity = promotedEnemyPlaneQuantity;
         this.commonEnemyPlaneQuantity = commonEnemyPlaneQuantity;
         level = 0;
         randomSpeed = true;
-        commonCount = 0;
-        promoteCount = 0;
+        commonSummonCount = 0;
+        promoteSummonCount = 0;
+    }
+
+    public int getBossQuantity() {
+        return bossQuantity;
+    }
+
+    public void setBossQuantity(int bossQuantity) {
+        this.bossQuantity = bossQuantity;
+    }
+
+    public int getBossSummonCount() {
+        return bossSummonCount;
+    }
+
+    public void setBossSummonCount(int bossSummonCount) {
+        this.bossSummonCount = bossSummonCount;
     }
 
     public int getEnemySpeedY() {
@@ -55,20 +75,20 @@ public class GameLevel {
         this.randomSpeed = randomSpeed;
     }
 
-    public int getCommonCount() {
-        return commonCount;
+    public int getCommonSummonCount() {
+        return commonSummonCount;
     }
 
-    public void setCommonCount(int commonCount) {
-        this.commonCount = commonCount;
+    public void setCommonSummonCount(int commonSummonCount) {
+        this.commonSummonCount = commonSummonCount;
     }
 
-    public int getPromoteCount() {
-        return promoteCount;
+    public int getPromoteSummonCount() {
+        return promoteSummonCount;
     }
 
-    public void setPromoteCount(int promoteCount) {
-        this.promoteCount = promoteCount;
+    public void setPromoteSummonCount(int promoteSummonCount) {
+        this.promoteSummonCount = promoteSummonCount;
     }
 
     public int getLevel() {
@@ -99,7 +119,7 @@ public class GameLevel {
         this.commonEnemyPlaneQuantity = commonEnemyPlaneQuantity;
     }
 
-    public void setSpeed(){
+    public void setSpeed() {
         enemySpeedY = level;
         enemySpeedX = level;
     }

@@ -3,6 +3,8 @@ package view.gamewindows;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.listener.KeyLis;
+import control.listener.MouseLis;
+import control.listener.MouseMotionLis;
 import control.listener.WinLis;
 import model.Game;
 
@@ -15,6 +17,8 @@ public class GameWin extends JFrame {
     public GameWin(Game game) {
         setFocusable(true);
         addKeyListener(new KeyLis(game, GameConstStr.MAIN_GAME));
+        addMouseListener(new MouseLis(game));
+        addMouseMotionListener(new MouseMotionLis(game));
         setResizable(false);
         setSize(1100, 860);
         setTitle("雷霆战机");

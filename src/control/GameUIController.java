@@ -3,11 +3,16 @@ package control;
 import model.Game;
 import model.GameLevel;
 import view.gamewindows.GameInformationPanel;
+import view.gamewindows.GameMainPanel;
 import view.gamewindows.GameMenuBar;
 import view.gamewindows.GamePanel;
+import view.infowindows.HelpPanel;
 import view.infowindows.InfoMainPanel;
 import view.loginwindows.LoginMainPanel;
 
+/**
+ * ui总控，用于操作全部界面切换功能
+ */
 public class GameUIController {
 
     public static void loginWinAndGameWinExchange(Game game, String mode) {
@@ -32,6 +37,7 @@ public class GameUIController {
             game.getUi().getInfoWin().setTitle("关于");
             game.getUi().getGameWin().setEnabled(false);
             game.getUi().getInfoWin().setVisible(true);
+            GameController.pause(game);
         } else if (mode.equals(GameConstStr.TO_HELP_PANE)) {
             System.out.println(GameConstStr.TO_HELP_PANE);
             InfoMainPanel infoMainPanel = game.getUi().getInfoWin().getInfoMainPanel();
@@ -41,6 +47,7 @@ public class GameUIController {
             game.getUi().getInfoWin().setTitle("帮助");
             game.getUi().getGameWin().setEnabled(false);
             game.getUi().getInfoWin().setVisible(true);
+            GameController.pause(game);
         }
     }
 
@@ -87,6 +94,7 @@ public class GameUIController {
                 menuBar.restartGame.setEnabled(false);
                 break;
             case GameConstDataUtil.RUNNING_MODE:
+                HelpPanel helpPanel = game.getUi().getInfoWin().getInfoMainPanel().getHelpPanel();
                 menuBar = game.getUi().getGameWin().getGameMenuBar();
                 menuBar.pauseGame.setEnabled(true);
                 menuBar.continueGame.setEnabled(false);
@@ -94,6 +102,8 @@ public class GameUIController {
                 menuBar.exitGame.setEnabled(true);
                 menuBar.startGame.setEnabled(false);
                 menuBar.restartGame.setEnabled(false);
+                helpPanel.msOpt.setEnabled(false);
+                helpPanel.keyOpt.setEnabled(false);
                 break;
             case GameConstDataUtil.PAUSE_MODE:
                 menuBar = game.getUi().getGameWin().getGameMenuBar();
@@ -107,14 +117,18 @@ public class GameUIController {
     }
 
     public static void refreshInfoPanel(Game game) {
-        GameInformationPanel panel = game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel();
-        GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+        GameMainPanel gameMainPanel = game.getUi().getGameWin().getGameMainPanel();
+        GameInformationPanel panel = gameMainPanel.getGameInformationPanel();
+        GamePanel gamePanel = gameMainPanel.getGamePanel();
+
         panel.nuclearNum.setText(String.valueOf(game.getNuclearNum()));
         panel.score.setText(String.valueOf(game.getPlayer().getScore()));
         panel.playerName.setText(game.getPlayer().getPlayerName());
         panel.life.setText(String.valueOf(gamePanel.getHeroPlane().getLife()));
         GameLevel gameLevel = game.getGameLevel();
-        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonCount() - gameLevel.getPromoteCount()));
-        panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonCount()));
+        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonSummonCount() - gameLevel.getPromoteSummonCount()));
+        panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonSummonCount()));
+        panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteSummonCount()));
+        gameMainPanel.repaint();
     }
 }

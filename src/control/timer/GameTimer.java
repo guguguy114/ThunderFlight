@@ -4,6 +4,9 @@ import model.Game;
 
 import javax.swing.*;
 
+/**
+ * 计时器总类
+ */
 public abstract class GameTimer {
     protected Timer timer;
     protected Game game;

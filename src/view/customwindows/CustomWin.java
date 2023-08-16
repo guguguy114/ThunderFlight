@@ -7,12 +7,15 @@ import model.Game;
 
 import javax.swing.*;
 
+/**
+ * 自定义窗口
+ */
 public class CustomWin extends JFrame {
     private final CustomPanel customPanel;
 
     public CustomWin(Game game){
         setResizable(false);
-        setSize(1000, 400);
+        setSize(600, 400);
         setTitle("自定义");
         setLocationRelativeTo(null);
         addWindowListener(new WinLis(game, GameConstStr.SECONDARY_WIN));

@@ -6,6 +6,9 @@ import model.Game;
 
 import javax.swing.*;
 
+/**
+ * 主panel菜单
+ */
 public class GameMenuBar extends JMenuBar {
     public JMenu gameStateMenu, otherMenu;
     public JMenuItem startGame, pauseGame, exitGame, restartGame, continueGame, customMode, about, help;

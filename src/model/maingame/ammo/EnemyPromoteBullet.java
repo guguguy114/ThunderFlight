@@ -1,26 +1,30 @@
 package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
-import control.GameController;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.enemy.EnemyPlane;
 
+/**
+ * 精英敌机
+ */
 public class EnemyPromoteBullet extends Ammo{
     public EnemyPromoteBullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
         super(belongTo, x, y);
-        objImg = GameConstResourceUtil.PROMOTE_ENEMY_BULLET;
-        objectWidth = objImg.getWidth(null);
-        objectHeight = objImg.getHeight(null);
+        img = GameConstResourceUtil.PROMOTE_ENEMY_BULLET;
+        width = img.getWidth(null);
+        height = img.getHeight(null);
         damage = 2;
         speedY = enemyFrom.getSpeedY() + 2;
+        down = true;
     }
 
     @Override
-    public void move() {
-        objY += speedY;
-
+    public void move(Game game) {
+        if (down){
+            objY += speedY;
+        }
     }
 
     @Override
@@ -30,6 +34,7 @@ public class EnemyPromoteBullet extends Ammo{
 
     @Override
     public void dead(Game game) {
+        super.dead(game);
         deadTimer = new DeadTimer(game, this);
         deadTimer.getTimer().start();
     }
@@ -50,7 +55,6 @@ public class EnemyPromoteBullet extends Ammo{
 
     @Override
     public void hitFeedback(Game game, FlyingObject objIn) {
-        objIn.setLife(objIn.getLife() - damage);
-        GameController.removeAmmo(game, this);
+        super.hitFeedback(game, objIn);
     }
 }

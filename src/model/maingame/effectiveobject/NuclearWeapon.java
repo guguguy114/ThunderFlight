@@ -3,6 +3,7 @@ package model.maingame.effectiveobject;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.GameUIController;
+import model.BigBomb;
 import model.FlyingObject;
 import model.Game;
 import view.gamewindows.GameInformationPanel;
@@ -15,23 +16,13 @@ public class NuclearWeapon extends EffectiveObject{
 
     public NuclearWeapon(Game game, int x, int y) {
         super(game, x, y);
-        objImg = GameConstResourceUtil.NUCLEAR_BOMB;
-        objectWidth = objImg.getWidth(null);
-        objectHeight = objImg.getHeight(null);
-    }
-
-    @Override
-    public void move() {
-        super.move();
+        img = GameConstResourceUtil.NUCLEAR_BOMB;
+        width = img.getWidth(null);
+        height = img.getHeight(null);
     }
 
     @Override
     public void attack(Game game) {
-
-    }
-
-    @Override
-    public void dead(Game game) {
 
     }
 
@@ -55,11 +46,13 @@ public class NuclearWeapon extends EffectiveObject{
     public static void boom(Game game){
         if (game.getNuclearNum() >= 1){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+            BigBomb bomb = new BigBomb(game);
+            gamePanel.getPlaneList().add(bomb);
             Iterator<FlyingObject> iterator = gamePanel.getPlaneList().iterator();
             if (iterator.hasNext()) {
                 do {
                     FlyingObject temp = iterator.next();
-                    if (temp.getObjectName().equals(GameConstStr.COMMON_ENEMY_PLANE_NAME)) {
+                    if (temp.getClassName().equals(GameConstStr.ENEMY_PLANE_NAME)) {
                         temp.dead(game);
                     }
                 } while (iterator.hasNext());

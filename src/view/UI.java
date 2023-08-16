@@ -22,10 +22,6 @@ public class UI {
         return gameWin;
     }
 
-    public void setGameWin(GameWin gameWin) {
-        this.gameWin = gameWin;
-    }
-
     public CustomWin getCustomWin() {
         return customWin;
     }

@@ -10,18 +10,13 @@ public class DoubleFire extends EffectiveObject{
 
     public DoubleFire(Game game, int x, int y) {
         super(game, x, y);
-        objImg = GameConstResourceUtil.DOUBLE_FIRE;
-        objectWidth = objImg.getWidth(null);
-        objectHeight = objImg.getHeight(null);
+        img = GameConstResourceUtil.DOUBLE_FIRE;
+        width = img.getWidth(null);
+        height = img.getHeight(null);
     }
 
     @Override
     public void attack(Game game) {
-
-    }
-
-    @Override
-    public void dead(Game game) {
 
     }
 

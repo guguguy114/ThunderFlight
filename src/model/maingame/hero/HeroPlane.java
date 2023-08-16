@@ -9,19 +9,27 @@ import model.FlyingObject;
 import model.Game;
 import model.maingame.ammo.Ammo;
 import model.maingame.ammo.Bullet;
+import model.maingame.effectiveobject.EffectiveObject;
+import model.maingame.enemy.EnemyPlane;
 import view.gamewindows.GamePanel;
 
+import java.util.ArrayList;
+
+/**
+ * 英雄机
+ */
 public class HeroPlane extends FlyingObject {
     public boolean isAtk;
     public String atkMode;
     public StateTimer stateTimer;
 
     public HeroPlane(Game game) {
-        objImg = GameConstResourceUtil.HERO_DOWN;
+        img = GameConstResourceUtil.HERO_DOWN;
         objX = GameConstDataUtil.INITIAL_HERO_X;
         objY = GameConstDataUtil.INITIAL_HERO_Y;
-        objectWidth = GameConstDataUtil.HERO_WIDTH;
-        objectHeight = GameConstDataUtil.HERO_HEIGHT;
+        width = GameConstDataUtil.HERO_WIDTH;
+        height = GameConstDataUtil.HERO_HEIGHT;
+        className = GameConstStr.HERO_NAME;
         objectName = GameConstStr.HERO_NAME;
         atkMode = GameConstStr.COMMON_ATK_MODE;
         stateTimer = new StateTimer(game, this);
@@ -33,21 +41,21 @@ public class HeroPlane extends FlyingObject {
     }
 
     @Override
-    public void move() {
-        if (isUp && objY > 0) {
+    public void move(Game game) {
+        if (up && objY > 0) {
             objY -= speedY;
         }
-        if (isDown && objY + GameConstDataUtil.HERO_HEIGHT < GameConstDataUtil.GAME_PANEL_HEIGHT + 10) {
+        if (down && objY + GameConstDataUtil.HERO_HEIGHT < GameConstDataUtil.GAME_PANEL_HEIGHT + 10) {
             objY += speedY;
         }
-        if (isLeft && objX > 0) {
+        if (left && objX > 0) {
             objX -= speedX;
         }
-        if (isRight && objX + GameConstDataUtil.HERO_WIDTH < GameConstDataUtil.GAME_PANEL_WIDTH) {
+        if (right && objX + GameConstDataUtil.HERO_WIDTH < GameConstDataUtil.GAME_PANEL_WIDTH) {
             objX += speedX;
         }
 
-        atkPointX = objX + objectWidth / 2;
+        atkPointX = objX + width / 2;
         actPointY = objY;
     }
     @Override
@@ -65,7 +73,7 @@ public class HeroPlane extends FlyingObject {
                 if (isAtk){
                     GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
                     gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX) / 2, this.actPointY));
-                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX + objectWidth) / 2, this.actPointY));
+                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX + width) / 2, this.actPointY));
                 }
                 break;
         }
@@ -79,6 +87,35 @@ public class HeroPlane extends FlyingObject {
     @Override
     public void changeAnimation() {
 
+    }
+
+    @Override
+    public void hitDetect(Game game) {
+        GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+        for (ArrayList<FlyingObject> totalList: gamePanel.getTotalList()){
+            for (FlyingObject flyingObject : totalList){
+                if (intersect(flyingObject)){
+                    if (flyingObject instanceof EffectiveObject){
+                        if (flyingObject.isHitBle()){
+                            ((EffectiveObject) flyingObject).hitFeedback();
+                            flyingObject.dead(game);
+                        }
+                    }
+                    if (flyingObject instanceof Ammo && ((Ammo) flyingObject).getBelongTo().equals(GameConstStr.ENEMY)){
+                        if (flyingObject.isHitBle()){
+                            ((Ammo) flyingObject).hitFeedback(game, this);
+                            flyingObject.dead(game);
+                        }
+                    }
+                    if (flyingObject instanceof EnemyPlane){
+                        if (flyingObject.isHitBle()){
+                            ((EnemyPlane) flyingObject).hitFeedback(game);
+                            flyingObject.dead(game);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override

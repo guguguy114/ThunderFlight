@@ -5,6 +5,8 @@ import control.timer.Timers;
 import view.UI;
 
 public class Game {
+
+    // 玩家  背景 英雄 几个列表 定时任务 和定时器 Timer
     private final UI ui;
     private final Timers timers;
     private Player player;
@@ -13,13 +15,20 @@ public class Game {
     private String operateWay;
     private int globalTime;
     private int nuclearNum;
+
+
+
+
     public Game() {
         globalTime = 0;
-        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 20, 20, 1);
+        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 5, 5, 1);
         timers = new Timers(this);
         ui = new UI(this);
-
+        operateWay = "0";
     }
+
+
+
 
     public int getNuclearNum() {
         return nuclearNum;

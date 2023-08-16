@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.6";
+    public static final String VERSION = "1.0.7";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -18,7 +18,6 @@ public class GameConstStr {
     public static final String TO_LOGIN_WIN = "to_login_win";
     public static final String KEYBOARD_CONTROL = "keyboard_control";
     public static final String MOUSE_CONTROL = "mouse_control";
-    public static final String DO_NOTHING = "do_nothing";
     public static final String PRIMARY_WIN = "primary_win";
     public static final String SECONDARY_WIN = "secondary_win";
     public static final String GLOBAL = "global";
@@ -39,4 +38,5 @@ public class GameConstStr {
     public static final String DEAD = "dead";
     public static final String HERO_STATE_LAST = "hero_state_last";
     public static final String PROMOTE_ENEMY_PLANE_NAME = "promote_enemy_plane_name";
+    public static final String BOMB_NAME = "bomb_name";
 }

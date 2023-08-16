@@ -1,18 +1,22 @@
 package model.maingame.enemy;
 
+import control.GameConstResourceUtil;
+import control.GameConstStr;
+import control.timer.AttackTimer;
 import model.Game;
-
-import java.awt.*;
 
 public class EnemyBoss extends EnemyPlane{
 
 
-    public EnemyBoss(Image image, int x, int y, Game game) {
-        super(image, x, y, game);
+    public EnemyBoss(int x, int y, Game game) {
+        super(GameConstResourceUtil.BOSS_1, x, y, game);
+        attackTimer = new AttackTimer(game, this, GameConstStr.ENEMY);
+        down = true;
+        game.getGameLevel().setBossSummonCount(game.getGameLevel().getBossSummonCount() + 1);
     }
 
     @Override
-    public void move() {
+    public void move(Game game) {
 
     }
 
