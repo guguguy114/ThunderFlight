@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class GameConstResourceUtil {
     public static final Image BG1 = new ImageIcon("img/BG1.jpg").getImage();
+    public static final Image BG2 = new ImageIcon("img/BG2.jpg").getImage();
+    public static final Image BG3 = new ImageIcon("img/BG3.jpg").getImage();
     public static final Image HERO_UP = new ImageIcon("img/heroUp.png").getImage();
     public static final Image HERO_DOWN = new ImageIcon("img/heroDown.png").getImage();
     public static final Image FRIEND_BULLET_LIGHT = new ImageIcon("img/friendBulletL.png").getImage();
@@ -32,4 +34,7 @@ public class GameConstResourceUtil {
     public static final Image BOSS_3 = new ImageIcon("img/boss1_2.png").getImage();
     public static final Image BOSS_4 = new ImageIcon("img/boss1_3.png").getImage();
     public static final Image BOSS_5 = new ImageIcon("img/boss1_4.png").getImage();
+    public static final Image START_SCREEN = new ImageIcon("img/start.png").getImage();
+    public static final Image PAUSE_SCREEN = new ImageIcon("img/pause.png").getImage();
+    public static final Image OVER_SCREEN = new ImageIcon("img/gameOver.png").getImage();
 }

@@ -1,7 +1,6 @@
 package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
-import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.enemy.EnemyPlane;
@@ -35,8 +34,6 @@ public class EnemyPromoteBullet extends Ammo{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        deadTimer = new DeadTimer(game, this);
-        deadTimer.getTimer().start();
     }
 
     @Override

@@ -2,6 +2,7 @@ package model.maingame.effectiveobject;
 
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import control.timer.StateTimer;
 import model.Game;
 import model.maingame.hero.HeroPlane;
 
@@ -34,6 +35,7 @@ public class DoubleFire extends EffectiveObject{
     public void hitFeedback() {
         HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
         heroPlane.atkMode = GameConstStr.DOUBLE_ATK_MODE;
-        heroPlane.stateTimer.getTimer().restart();
+        heroPlane.stateTimer = new StateTimer(game, heroPlane);
+        heroPlane.stateTimer.getTimer().start();
     }
 }

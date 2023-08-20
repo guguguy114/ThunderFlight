@@ -25,8 +25,10 @@ public class WinLis implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) {
         if (mode.equals(GameConstStr.PRIMARY_WIN)) {
-            System.out.println(GameConstStr.PRIMARY_WIN);
-            GameController.exit(game);
+            {
+                System.out.println(GameConstStr.PRIMARY_WIN);
+                GameController.exit(game);
+            }
         } else if (mode.equals(GameConstStr.SECONDARY_WIN)) {
             System.out.println(GameConstStr.SECONDARY_WIN);
             GameUIController.toGameWin(game);

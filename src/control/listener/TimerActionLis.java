@@ -1,14 +1,15 @@
 package control.listener;
 
+import control.GameConstDataUtil;
 import control.GameConstStr;
 import control.GameController;
 import control.GameUIController;
 import model.BackGround;
-import model.BigBomb;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.hero.HeroPlane;
 import view.gamewindows.GamePanel;
+import view.gamewindows.GameVicPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,6 @@ public class TimerActionLis implements ActionListener {
     private int tik, tik2, tik3;
     private int key, key2, key3;
     private FlyingObject flyingObject;
-    private BigBomb bigBomb;
 
     /**
      * 全局计时器使用的构造函数
@@ -38,6 +38,11 @@ public class TimerActionLis implements ActionListener {
                 break;
             case GameConstStr.ANIMATION:
                 key = 10;
+                break;
+            case GameConstStr.READY_TO_NEXT_LEVEL:
+            case GameConstStr.READY_TO_RESTART_LEVEL:
+                key2 = GameConstDataUtil.DEFAULT_TO_NEXT_LEVEL_TIK;
+                key = 100;
                 break;
         }
         this.game = game;
@@ -82,6 +87,7 @@ public class TimerActionLis implements ActionListener {
         switch (mode) {
                 //全局模式
             case GameConstStr.GLOBAL:
+                GameController.judgeFail(game);
                 GameController.objectsDisappear(game);
                 GameController.allDetect(game);
                 GameController.objectsMove(game);
@@ -120,7 +126,7 @@ public class TimerActionLis implements ActionListener {
 
                 //死亡计时器模式
             case GameConstStr.DEAD:
-                GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+                GamePanel gamePanel;
                 if (flyingObject.getDeadImgList().size() != 0){
                     flyingObject.setImg(flyingObject.getDeadImgList().get(tik2));
                     tik++;
@@ -133,7 +139,6 @@ public class TimerActionLis implements ActionListener {
                 if (tik2 == flyingObject.getDeadImgList().size()) {
                     flyingObject.out = true;
                     flyingObject.getDeadTimer().getTimer().stop();
-                    GameController.removeObj(game, flyingObject);
                     tik2 = 0;
                 }
                 break;
@@ -185,6 +190,43 @@ public class TimerActionLis implements ActionListener {
                     tik = 0;
                     //System.out.println("time_out");
                     heroPlane.stateTimer.getTimer().stop();
+                }
+                break;
+
+            case GameConstStr.READY_TO_NEXT_LEVEL:
+                GameVicPanel gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
+                ++tik;
+                if (tik == key){
+                    --key2;
+                    gameVicPanel.count.setText(String.valueOf(key2));
+                    gameVicPanel.repaint();
+                    if (key2 == 0){
+                        System.out.println("levelChange");
+                        gameVicPanel.getTempTimer().getTimer().stop();
+                        GameController.levelChange(game, GameConstStr.COMMON_MODE);
+                        GameUIController.gamePaneEndPaneExchange(game, GameConstStr.TO_GAME_PANE, null);
+                        GameController.continueGame(game);
+                        key2 = GameConstDataUtil.DEFAULT_TO_NEXT_LEVEL_TIK;
+                    }
+                    tik = 0;
+                }
+                break;
+            case GameConstStr.READY_TO_RESTART_LEVEL:
+                gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
+                ++tik;
+                if (tik == key){
+                    --key2;
+                    gameVicPanel.count.setText(String.valueOf(key2));
+                    gameVicPanel.repaint();
+                    if (key2 == 0){
+                        System.out.println("levelRestart");
+                        gameVicPanel.getTempTimer().getTimer().stop();
+                        GameController.restart(game);
+                        GameUIController.gamePaneEndPaneExchange(game, GameConstStr.TO_GAME_PANE, null);
+                        GameController.continueGame(game);
+                        key2 = GameConstDataUtil.DEFAULT_TO_NEXT_LEVEL_TIK;
+                    }
+                    tik = 0;
                 }
                 break;
         }

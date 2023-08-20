@@ -13,7 +13,7 @@ import javax.swing.*;
 public class CustomWin extends JFrame {
     private final CustomPanel customPanel;
 
-    public CustomWin(Game game){
+    public CustomWin(Game game) {
         setResizable(false);
         setSize(600, 400);
         setTitle("自定义");
@@ -29,5 +29,9 @@ public class CustomWin extends JFrame {
 
 
         setVisible(false);
+    }
+
+    public CustomPanel getCustomPanel() {
+        return customPanel;
     }
 }

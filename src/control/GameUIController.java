@@ -2,13 +2,12 @@ package control;
 
 import model.Game;
 import model.GameLevel;
-import view.gamewindows.GameInformationPanel;
-import view.gamewindows.GameMainPanel;
-import view.gamewindows.GameMenuBar;
-import view.gamewindows.GamePanel;
+import view.gamewindows.*;
 import view.infowindows.HelpPanel;
 import view.infowindows.InfoMainPanel;
 import view.loginwindows.LoginMainPanel;
+
+import java.awt.*;
 
 /**
  * ui总控，用于操作全部界面切换功能
@@ -82,19 +81,22 @@ public class GameUIController {
         game.getUi().getGameWin().setEnabled(false);
     }
 
-    public static void changeMenu(Game game, int mode) {
-        switch (mode) {
+    public static void changeMenu(Game game) {
+        switch (game.getGameMode()) {
             case GameConstDataUtil.READY_MODE:
                 GameMenuBar menuBar = game.getUi().getGameWin().getGameMenuBar();
+                HelpPanel helpPanel = game.getUi().getInfoWin().getInfoMainPanel().getHelpPanel();
                 menuBar.pauseGame.setEnabled(false);
                 menuBar.continueGame.setEnabled(false);
                 menuBar.customMode.setEnabled(true);
                 menuBar.exitGame.setEnabled(true);
                 menuBar.startGame.setEnabled(true);
                 menuBar.restartGame.setEnabled(false);
+                helpPanel.msOpt.setEnabled(true);
+                helpPanel.keyOpt.setEnabled(true);
                 break;
             case GameConstDataUtil.RUNNING_MODE:
-                HelpPanel helpPanel = game.getUi().getInfoWin().getInfoMainPanel().getHelpPanel();
+                helpPanel = game.getUi().getInfoWin().getInfoMainPanel().getHelpPanel();
                 menuBar = game.getUi().getGameWin().getGameMenuBar();
                 menuBar.pauseGame.setEnabled(true);
                 menuBar.continueGame.setEnabled(false);
@@ -121,14 +123,50 @@ public class GameUIController {
         GameInformationPanel panel = gameMainPanel.getGameInformationPanel();
         GamePanel gamePanel = gameMainPanel.getGamePanel();
 
-        panel.nuclearNum.setText(String.valueOf(game.getNuclearNum()));
+        panel.nuclearNum.setText(String.valueOf(gamePanel.getHeroPlane().getNuclearNum()));
         panel.score.setText(String.valueOf(game.getPlayer().getScore()));
         panel.playerName.setText(game.getPlayer().getPlayerName());
         panel.life.setText(String.valueOf(gamePanel.getHeroPlane().getLife()));
         GameLevel gameLevel = game.getGameLevel();
-        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonSummonCount() - gameLevel.getPromoteSummonCount()));
-        panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonSummonCount()));
-        panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteSummonCount()));
+        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonDeadCount() - gameLevel.getPromoteDeadCount()));
+        panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonDeadCount()));
+        panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteDeadCount()));
+        panel.bossNum.setText(String.valueOf(gameLevel.getBossQuantity() - gameLevel.getBossDeadCount()));
         gameMainPanel.repaint();
+    }
+
+    public static Image stateScreen(Game game){
+        switch (game.getGameMode()){
+            case GameConstDataUtil.READY_MODE:
+                return GameConstResourceUtil.START_SCREEN;
+            case GameConstDataUtil.PAUSE_MODE:
+                return GameConstResourceUtil.PAUSE_SCREEN;
+            default:
+                return null;
+        }
+    }
+
+    public static void gamePaneEndPaneExchange(Game game, String mode, String endMode){
+        GameMainPanel gameMainPanel = game.getUi().getGameWin().getGameMainPanel();
+        GamePanel gamePanel = gameMainPanel.getGamePanel();
+        GameVicPanel gameVicPanel = gameMainPanel.getGameVicPanel();
+        if (mode.equals(GameConstStr.TO_END_PANE)){
+            gameMainPanel.remove(gamePanel);
+            if (endMode.equals(GameConstStr.LEVEL_COMPLETE)){
+                gameVicPanel.countLabel.setText("关卡通过！  秒后将进入下一关");
+            }
+            if (endMode.equals(GameConstStr.LEVEL_FAILED)){
+                gameVicPanel.countLabel.setText("游戏失败！  秒后将重新开始");
+            }
+            gameMainPanel.add(gameVicPanel);
+            gameMainPanel.repaint();
+            gameMainPanel.revalidate();
+        }
+        if (mode.equals(GameConstStr.TO_GAME_PANE)){
+            gameMainPanel.remove(gameVicPanel);
+            gameMainPanel.add(gamePanel);
+            gameMainPanel.repaint();
+            gameMainPanel.revalidate();
+        }
     }
 }

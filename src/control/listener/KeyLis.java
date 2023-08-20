@@ -3,6 +3,7 @@ package control.listener;
 import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import control.GameController;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.effectiveobject.NuclearWeapon;
@@ -35,6 +36,14 @@ public class KeyLis implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (game.getGameMode() == GameConstDataUtil.READY_MODE){
+            switch (e.getKeyCode()){
+                case 85:
+                    GameController.start(game);
+                    break;
+            }
+        }
+
         if (game.getOperateWay().equals(GameConstStr.KEYBOARD_CONTROL)){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
             if (game.getGameMode() == GameConstDataUtil.RUNNING_MODE) {
@@ -66,6 +75,12 @@ public class KeyLis implements KeyListener {
                                 System.out.println("nuclear");
                                 NuclearWeapon.boom(game);
                                 break;
+                            case 73:
+                                GameController.pause(game);
+                                break;
+                            case 79:
+                                GameController.continueGame(game);
+                                break;
                             default:
                                 System.out.println(e.getKeyCode());
                                 break;
@@ -81,6 +96,7 @@ public class KeyLis implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        System.out.println(e.getKeyCode());
         if (game.getOperateWay().equals(GameConstStr.KEYBOARD_CONTROL)){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
             if (game.getGameMode() == GameConstDataUtil.RUNNING_MODE) {

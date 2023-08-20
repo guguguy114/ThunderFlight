@@ -5,6 +5,7 @@ import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
+import model.GameLevel;
 import model.maingame.ammo.EnemyPromoteBullet;
 import view.gamewindows.GamePanel;
 
@@ -50,6 +51,8 @@ public class PromotedEnemyPlane extends EnemyPlane {
     @Override
     public void dead(Game game) {
         super.dead(game);
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.setPromoteDeadCount(gameLevel.getPromoteDeadCount() + 1);
     }
 
     @Override

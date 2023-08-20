@@ -51,4 +51,9 @@ public class BigBomb extends FlyingObject{
         deadImgList.add(GameConstResourceUtil.BIG_BOMB_3);
         deadImgList.add(GameConstResourceUtil.BIG_BOMB_4);
     }
+
+    @Override
+    protected void setAnimation() {
+
+    }
 }

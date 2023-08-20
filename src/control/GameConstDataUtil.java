@@ -15,10 +15,11 @@ public class GameConstDataUtil {
     public static final int INITIAL_HERO_Y = GAME_PANEL_HEIGHT - HERO_HEIGHT;
     public static final int COMMON_ENEMY_PLANE_WIDTH = 60;
     public static final int COMMON_ENEMY_PLANE_HEIGHT = 40;
-    public static final int BORDER = 100;
+    public static final int BORDER = 20;
     public static final int DEFAULT_HERO_LIFE = 3;
     public static final int PROMOTE_ENEMY_PLANE_WIDTH = 75;
     public static final int PROMOTE_ENEMY_PLANE_HEIGHT = 90;
     public static final int BOSS_WIDTH = 225;
     public static final int BOSS_HEIGHT = 300;
+    public static final int DEFAULT_TO_NEXT_LEVEL_TIK = 5;
 }

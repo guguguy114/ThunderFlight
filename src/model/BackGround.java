@@ -44,4 +44,9 @@ public class BackGround extends FlyingObject {
     protected void setDeadImages() {
 
     }
+
+    @Override
+    protected void setAnimation() {
+
+    }
 }

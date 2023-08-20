@@ -1,5 +1,7 @@
 package view.customwindows;
 
+import control.GameConstStr;
+import control.listener.ActionLis;
 import control.listener.LevelComboboxLis;
 import model.Game;
 
@@ -16,10 +18,12 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
     public JSlider speedPutIn;
     public JComboBox<String> levelChoosePutIn;
     public JLabel speed, levelChoose, leveSelectedLabel, levelSelected;
+    public JButton confirmBtn;
 
     public CustomPanel(Game game) {
         setLayout(null);
         Font customFont = new Font("黑体", Font.BOLD, 15);
+        ActionLis actionLis = new ActionLis(game);
 
         speed = new JLabel("游戏速度：");
         speed.setBounds(50,50,200,20);
@@ -58,11 +62,18 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         levelSelected.setBounds(350,120,100,20);
         levelSelected.setFont(customFont);
 
+        confirmBtn = new JButton("确定");
+        confirmBtn.setBounds(460, 300, 100, 40);
+        confirmBtn.setActionCommand(GameConstStr.LEVEL_CONFIRM);
+        confirmBtn.setFont(customFont);
+        confirmBtn.addActionListener(actionLis);
+
         add(speed);
         add(speedPutIn);
         add(levelChoose);
         add(levelChoosePutIn);
         add(leveSelectedLabel);
         add(levelSelected);
+        add(confirmBtn);
     }
 }

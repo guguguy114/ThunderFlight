@@ -1,6 +1,5 @@
 package model;
 
-import control.GameConstResourceUtil;
 import control.timer.Timers;
 import view.UI;
 
@@ -13,15 +12,13 @@ public class Game {
     private GameLevel gameLevel;
     private int gameMode;
     private String operateWay;
-    private int globalTime;
-    private int nuclearNum;
 
 
 
 
     public Game() {
-        globalTime = 0;
-        gameLevel = new GameLevel(new BackGround(GameConstResourceUtil.BG1), 5, 5, 1);
+        JDBCUtil jdbcUtil = new JDBCUtil();
+        gameLevel = jdbcUtil.loadLevel(1);
         timers = new Timers(this);
         ui = new UI(this);
         operateWay = "0";
@@ -30,13 +27,13 @@ public class Game {
 
 
 
-    public int getNuclearNum() {
-        return nuclearNum;
-    }
 
-    public void setNuclearNum(int nuclearNum) {
-        this.nuclearNum = nuclearNum;
-    }
+
+
+
+
+
+
 
     public Timers getTimers() {
         return timers;
@@ -48,14 +45,6 @@ public class Game {
 
     public void setOperateWay(String operateWay) {
         this.operateWay = operateWay;
-    }
-
-    public int getGlobalTime() {
-        return globalTime;
-    }
-
-    public void setGlobalTime(int globalTime) {
-        this.globalTime = globalTime;
     }
 
     public Player getPlayer() {

@@ -24,6 +24,9 @@ public class ActionLis implements ActionListener {
             case GameConstStr.TO_SIGN_UP_PANE:
                 GameUIController.signUpPaneAndLoginPaneExchange(game, GameConstStr.TO_SIGN_UP_PANE);
                 break;
+            case GameConstStr.SIGNUP:
+                GameController.signUp(game);
+                break;
             case GameConstStr.EXIT:
                 GameController.exit(game);
                 break;
@@ -53,6 +56,12 @@ public class ActionLis implements ActionListener {
                 break;
             case GameConstStr.START:
                 GameController.start(game);
+                break;
+            case GameConstStr.RESTART:
+                GameController.restartJudge(game, GameConstStr.COMMON);
+                break;
+            case GameConstStr.LEVEL_CONFIRM:
+                GameController.levelChange(game, GameConstStr.CUSTOM_MODE);
                 break;
         }
     }

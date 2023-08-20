@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class SignUpPanel extends JPanel {
     JLabel accountLabel, passwordLabel, playerNameLabel, passwordConfirmLabel;
-    JTextField accountPutIn, playerNamePutIn;
-    JPasswordField passwordPutIn, passwordConfirmPutIn;
+    public JTextField accountPutIn, playerNamePutIn;
+    public JPasswordField passwordPutIn, passwordConfirmPutIn;
     JButton signUpBtn, returnBtn;
     public SignUpPanel(Game game){
         ActionLis actionLis = new ActionLis(game);
@@ -48,6 +48,7 @@ public class SignUpPanel extends JPanel {
         passwordConfirmLabel.setFont(signUpPageFont);
 
         passwordConfirmPutIn = new JPasswordField();
+        passwordConfirmPutIn.setEchoChar('*');
         passwordConfirmPutIn.setBounds(360, 420, 340, 40);
         passwordConfirmPutIn.setFont(signUpPageFont);
 

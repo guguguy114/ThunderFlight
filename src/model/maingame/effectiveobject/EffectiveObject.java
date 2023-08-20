@@ -63,6 +63,11 @@ public abstract class EffectiveObject extends FlyingObject {
     }
 
     @Override
+    protected void setAnimation() {
+
+    }
+
+    @Override
     public void dead(Game game) {
         out = true;
         hitBle = false;

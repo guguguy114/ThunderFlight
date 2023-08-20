@@ -1,15 +1,16 @@
 package model.maingame.effectiveobject;
 
 import control.GameConstResourceUtil;
-import control.GameConstStr;
 import control.GameUIController;
 import model.BigBomb;
 import model.FlyingObject;
 import model.Game;
-import view.gamewindows.GameInformationPanel;
+import model.maingame.enemy.EnemyBoss;
+import model.maingame.enemy.EnemyPlane;
+import model.maingame.hero.HeroPlane;
 import view.gamewindows.GamePanel;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public class NuclearWeapon extends EffectiveObject{
 
@@ -38,26 +39,27 @@ public class NuclearWeapon extends EffectiveObject{
 
     @Override
     public void hitFeedback() {
-        GameInformationPanel panel = game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel();
-        game.setNuclearNum(game.getNuclearNum() + 1);
+        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
+        if (heroPlane.getNuclearNum() < 2){
+            heroPlane.setNuclearNum(heroPlane.getNuclearNum() + 1);
+        }
         GameUIController.refreshInfoPanel(game);
     }
 
     public static void boom(Game game){
-        if (game.getNuclearNum() >= 1){
+        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
+        if (heroPlane.getNuclearNum() >= 1){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
             BigBomb bomb = new BigBomb(game);
             gamePanel.getPlaneList().add(bomb);
-            Iterator<FlyingObject> iterator = gamePanel.getPlaneList().iterator();
-            if (iterator.hasNext()) {
-                do {
-                    FlyingObject temp = iterator.next();
-                    if (temp.getClassName().equals(GameConstStr.ENEMY_PLANE_NAME)) {
-                        temp.dead(game);
+            for (ArrayList<FlyingObject> totalList : gamePanel.getTotalList()){
+                for (FlyingObject flyingObject : totalList){
+                    if (flyingObject instanceof EnemyPlane && !(flyingObject instanceof EnemyBoss)){
+                        flyingObject.dead(game);
                     }
-                } while (iterator.hasNext());
+                }
             }
-            game.setNuclearNum(game.getNuclearNum() - 1);
+            heroPlane.setNuclearNum(heroPlane.getNuclearNum() - 1);
         }else {
             System.out.println("fail_to_use_nuclear_weapon");
         }

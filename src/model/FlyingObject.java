@@ -1,9 +1,9 @@
 package model;
 
 import control.GameConstDataUtil;
+import control.timer.AnimationTimer;
 import control.timer.AttackTimer;
 import control.timer.DeadTimer;
-import view.gamewindows.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +21,8 @@ public abstract class FlyingObject {
     protected DeadTimer deadTimer;
     protected List<Image> animationList;
     protected String objectName;
-    protected int animationOrder = 0;
+    protected int animationOrder;
+    protected AnimationTimer animationTimer;
     protected AttackTimer attackTimer;
     protected ArrayList<Image> deadImgList;
     protected String atkMode;
@@ -40,11 +41,10 @@ public abstract class FlyingObject {
 
     /**
      * 判断是否飞行物出界
-     * @param gamePanel 所在游戏界面
      * @return 返回布尔值
      */
-    public boolean isDisappear(GamePanel gamePanel) {
-        return objX <= -GameConstDataUtil.BORDER || objX >= gamePanel.getWidth() + GameConstDataUtil.BORDER || objY <= -GameConstDataUtil.BORDER || objY >= gamePanel.getHeight() + GameConstDataUtil.BORDER;
+    public boolean isDisappear() {
+        return objY >= GameConstDataUtil.GAME_PANEL_HEIGHT + GameConstDataUtil.BORDER ;
     }
 
     /**
@@ -89,6 +89,9 @@ public abstract class FlyingObject {
         Rectangle objInRect = new Rectangle(objIn.objX, objIn.objY, objIn.width, objIn.height);
         return thisRect.intersects(objInRect);
     }
+
+    protected abstract void setAnimation();
+
 
 
 

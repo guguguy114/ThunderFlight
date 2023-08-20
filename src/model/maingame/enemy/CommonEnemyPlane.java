@@ -5,6 +5,7 @@ import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
+import model.GameLevel;
 import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
 
@@ -52,6 +53,8 @@ public class CommonEnemyPlane extends EnemyPlane{
     @Override
     public void dead(Game game) {
         super.dead(game);
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.setCommonDeadCount(gameLevel.getCommonDeadCount() + 1);
     }
 
     @Override

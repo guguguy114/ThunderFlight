@@ -5,6 +5,7 @@ import control.listener.ActionLis;
 import model.Game;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 
 /**
  * 主panel菜单
@@ -20,6 +21,7 @@ public class GameMenuBar extends JMenuBar {
 
         startGame = new JMenuItem("开始游戏");
         startGame.setActionCommand(GameConstStr.START);
+        startGame.setMnemonic(KeyEvent.VK_U);
         startGame.addActionListener(actionLis);
 
         pauseGame = new JMenuItem("暂停游戏");

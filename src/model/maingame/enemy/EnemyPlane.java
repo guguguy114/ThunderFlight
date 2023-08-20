@@ -1,6 +1,7 @@
 package model.maingame.enemy;
 
 import control.GameConstStr;
+import control.timer.AnimationTimer;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
@@ -23,6 +24,9 @@ public abstract class EnemyPlane extends FlyingObject {
         img = image;
         objX = x;
         objY = y;
+        animationList = new ArrayList<>();
+        animationTimer = new AnimationTimer(game);
+        setAnimation();
     }
 
     @Override
@@ -32,13 +36,18 @@ public abstract class EnemyPlane extends FlyingObject {
             stopFlyingObject();
         }
         hitBle = false;
-        out = true;
+        animationTimer.getTimer().stop();
         deadTimer = new DeadTimer(game, this);
         deadTimer.getTimer().start();
         attackTimer.getTimer().stop();
     }
 
     public abstract void hitFeedback(Game game);
+
+    @Override
+    protected void setAnimation() {
+
+    }
 
     @Override
     public void hitDetect(Game game) {
@@ -52,7 +61,6 @@ public abstract class EnemyPlane extends FlyingObject {
                             if (life == 0) {
                                 dead(game);
                             }
-                            flyingObject.dead(game);
                         }
                     }
                 }

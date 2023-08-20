@@ -2,20 +2,20 @@ package model.maingame.ammo;
 
 import control.GameConstResourceUtil;
 import control.GameConstStr;
-import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.enemy.EnemyPlane;
 
 import java.util.ArrayList;
 
-public class Bullet extends Ammo{
+public class Bullet extends Ammo {
 
     /**
      * 敌机使用的构造函数
-     * @param belongTo 属于哪一阵营
-     * @param x 生成位置x
-     * @param y 生成位置y
+     *
+     * @param belongTo  属于哪一阵营
+     * @param x         生成位置x
+     * @param y         生成位置y
      * @param enemyFrom 创建该子弹的飞行物
      */
     public Bullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
@@ -26,17 +26,17 @@ public class Bullet extends Ammo{
 
     /**
      * 英雄机发射子弹用的构造函数
+     *
      * @param belongTo 属于的阵营
-     * @param x 生成位置x
-     * @param y 生成位置y
+     * @param x        生成位置x
+     * @param y        生成位置y
      */
-    public Bullet(String belongTo, int x, int y){
+    public Bullet(String belongTo, int x, int y) {
         super(belongTo, x, y);
         img = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
         width = img.getWidth(null);
         height = img.getHeight(null);
         animationList = new ArrayList<>();
-        animationList.add(GameConstResourceUtil.FRIEND_BULLET_LIGHT);
         up = true;
         down = true;
         speedY = 5;
@@ -45,13 +45,13 @@ public class Bullet extends Ammo{
 
     @Override
     public void move(Game game) {
-        if (belongTo.equals(GameConstStr.FRIEND)){
-            if (up){
+        if (belongTo.equals(GameConstStr.FRIEND)) {
+            if (up) {
                 objY -= speedY;
             }
         }
-        if (belongTo.equals(GameConstStr.ENEMY)){
-            if (down){
+        if (belongTo.equals(GameConstStr.ENEMY)) {
+            if (down) {
                 objY += speedY;
             }
         }
@@ -65,17 +65,16 @@ public class Bullet extends Ammo{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        deadTimer = new DeadTimer(game, this);
-        deadTimer.getTimer().start();
+
     }
 
     @Override
     public void changeAnimation() {
-        img = animationList.get(animationOrder);
-        animationOrder++;
-        if (animationOrder == animationList.size()){
-            animationOrder = 0;
-        }
+        //img = animationList.get(animationOrder);
+        //animationOrder++;
+        //if (animationOrder == animationList.size()) {
+        //    animationOrder = 0;
+        //}
     }
 
     @Override
