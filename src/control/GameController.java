@@ -9,6 +9,7 @@ import model.maingame.enemy.EnemyBoss;
 import model.maingame.enemy.EnemyPlane;
 import model.maingame.enemy.PromotedEnemyPlane;
 import model.maingame.hero.HeroPlane;
+import view.gamewindows.GameMainPanel;
 import view.gamewindows.GamePanel;
 import view.gamewindows.GameVicPanel;
 import view.loginwindows.LoginPanel;
@@ -253,6 +254,8 @@ public class GameController {
     public static void pause(Game game) {
         if (!(game.getGameMode() == GameConstDataUtil.READY_MODE)){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+            HeroPlane heroPlane = gamePanel.getHeroPlane();
+            heroPlane.isAtk = false;
             game.getTimers().getGlobalTimer().getTimer().stop();
             game.getTimers().getAnimationTimer().getTimer().stop();
             stopCreateAmmo(gamePanel);
@@ -322,12 +325,16 @@ public class GameController {
     }
 
     public static void levelComplete(Game game, String mode){
+        Player player = game.getPlayer();
 //        System.out.println(mode);
         game.setGameMode(GameConstDataUtil.END_MODE);
         GameVicPanel gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
         if (game.getGameLevel().getLevelID() == 3){
             gameVicPanel.countLabel.setText("恭喜你已全部通关！您可以重新开始游戏或者体验自定义功能！");
             GameUIController.gamePaneEndPaneExchange(game, GameConstStr.TO_END_PANE, GameConstStr.LEVEL_COMPLETE);
+            player.setTotalScore(player.getTotalScore() + player.getScore());
+            JDBCUtil jdbcUtil = new JDBCUtil();
+            jdbcUtil.updatePlayerData(player);
             if (JOptionPane.showConfirmDialog(null, "您已通关是否重新开始游戏", "游戏结束", JOptionPane.YES_NO_OPTION) == 0){
                 restartJudge(game, GameConstStr.FINAL);
             }else {
@@ -360,6 +367,9 @@ public class GameController {
             }
         }
         if (mode.equals(GameConstStr.FINAL)){
+            GameMainPanel gameMainPanel =game.getUi().getGameWin().getGameMainPanel();
+            gameMainPanel.remove(gameMainPanel.getGameVicPanel());
+            gameMainPanel.add(gameMainPanel.getGamePanel());
             restart(game);
         }
     }
@@ -375,6 +385,7 @@ public class GameController {
         game.setGameLevel(jdbcUtil.loadLevel(1));
         game.setGameMode(GameConstDataUtil.READY_MODE);
         gamePanel.setBackGround(game.getGameLevel().getBackGround());
+        gamePanel.repaint();
         GameUIController.changeMenu(game);
         GameUIController.refreshInfoPanel(game);
     }
@@ -391,17 +402,18 @@ public class GameController {
             GameUIController.changeMenu(game);
             GameUIController.refreshInfoPanel(game);
         }
-        if (mode.equals(GameConstStr.CUSTOM_MODE)){//todo：自定义功能在这写
+        if (mode.equals(GameConstStr.CUSTOM_MODE)){// todo：自定义功能在这写
 
         }
     }
 
     private static void removeAllObject(Game game, GamePanel gamePanel) {
+        int life = gamePanel.getHeroPlane().getLife();
         gamePanel.setAmmoList(new ArrayList<>());
         gamePanel.setPlaneList(new ArrayList<>());
         gamePanel.setEffectiveObjectList(new ArrayList<>());
         gamePanel.setTotalList();
-        gamePanel.getPlaneList().add(new HeroPlane(game));
+        gamePanel.getPlaneList().add(new HeroPlane(game, life));
     }
 
     public static void fail(Game game){

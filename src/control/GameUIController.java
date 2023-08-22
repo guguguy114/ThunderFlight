@@ -3,6 +3,7 @@ package control;
 import model.Game;
 import model.GameLevel;
 import model.JDBCUtil;
+import model.Player;
 import view.gamewindows.*;
 import view.infowindows.HelpPanel;
 import view.infowindows.InfoMainPanel;
@@ -136,6 +137,7 @@ public class GameUIController {
         GameMainPanel gameMainPanel = game.getUi().getGameWin().getGameMainPanel();
         GameInformationPanel panel = gameMainPanel.getGameInformationPanel();
         GamePanel gamePanel = gameMainPanel.getGamePanel();
+        Player player = game.getPlayer();
 
         panel.nuclearNum.setText(String.valueOf(gamePanel.getHeroPlane().getNuclearNum()));
         panel.score.setText(String.valueOf(game.getPlayer().getScore()));
@@ -147,6 +149,7 @@ public class GameUIController {
         panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonDeadCount()));
         panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteDeadCount()));
         panel.bossNum.setText(String.valueOf(gameLevel.getBossQuantity() - gameLevel.getBossDeadCount()));
+        panel.historyScore.setText(String.valueOf(player.getTotalScore()));
         gameMainPanel.repaint();
     }
 

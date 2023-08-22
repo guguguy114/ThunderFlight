@@ -42,6 +42,11 @@ public class HeroPlane extends FlyingObject {
         life = GameConstDataUtil.DEFAULT_HERO_LIFE;
     }
 
+    public HeroPlane(Game game, int life) {
+        this(game);
+        this.life = life;
+    }
+
     @Override
     public void move(Game game) {
         if (up && objY > 0) {

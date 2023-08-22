@@ -108,4 +108,14 @@ public class JDBCUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public void updatePlayerData(Player player){
+        try {
+            loadDataBase();
+            String signUpSQL = "update player set totalScore = "+ player.getTotalScore() +" where acc = "+ player.getPlayerAccount() +"";//
+            statement.executeUpdate(signUpSQL);
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

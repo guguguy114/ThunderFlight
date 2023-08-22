@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class GameInformationPanel extends JPanel {
 
-    public JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, nuclearNumLabel;
-    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum;
+    public JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, nuclearNumLabel, historyScoreLabel;
+    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum, historyScore;
 
     GameInformationPanel(Game game){
         setLayout(null);
@@ -85,6 +85,14 @@ public class GameInformationPanel extends JPanel {
         bossNum.setBounds(200, basicY + 50 * 8 + 25, 100, 30);
         bossNum.setFont(infoPaneFont);
 
+        historyScoreLabel = new JLabel("历史总分：");
+        historyScoreLabel.setBounds(10, basicY + 50 * 10, 150, 30);
+        historyScoreLabel.setFont(infoPaneFont);
+
+        historyScore = new JLabel("0");
+        historyScore.setBounds(150, basicY + 50 * 10, 150, 30);
+        historyScore.setFont(infoPaneFont);
+
 
         add(scoreLabel);
         add(score);
@@ -103,6 +111,8 @@ public class GameInformationPanel extends JPanel {
         add(commonNum);
         add(promoteNum);
         add(bossNum);
+        add(historyScoreLabel);
+        add(historyScore);
     }
 
     @Override

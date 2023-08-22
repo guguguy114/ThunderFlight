@@ -1,17 +1,20 @@
 package model;
 
 public class Player {
+    private final String playerAccount;
+    private final String playerName;
     private int score;
     private int totalScore;
     private int maxCompleteLevel;
-    private String playerName;
-    private final String playerAccount;
-
-    public Player(String playerAccount, int maxCompleteLevel, String playerName, int totalScore){
+    public Player(String playerAccount, int maxCompleteLevel, String playerName, int totalScore) {
         this.playerAccount = playerAccount;
         this.maxCompleteLevel = maxCompleteLevel;
         this.playerName = playerName;
         this.totalScore = totalScore;
+    }
+
+    public String getPlayerAccount() {
+        return playerAccount;
     }
 
     public int getScore() {
@@ -40,9 +43,5 @@ public class Player {
 
     public String getPlayerName() {
         return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
     }
 }
