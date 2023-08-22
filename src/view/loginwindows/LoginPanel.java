@@ -1,5 +1,6 @@
 package view.loginwindows;
 
+import control.GameConstDataUtil;
 import control.GameConstStr;
 import control.GameController;
 import control.listener.ActionLis;
@@ -11,7 +12,7 @@ import java.awt.*;
 public class LoginPanel extends JPanel {
     public JLabel accountLabel, title, passwordLabel, YZMLabel, YZM;
     public JTextField accountPutIn, YZMPutIn;
-    JButton loginBtn, signUpBtn, YZMRefreshBtn, exitBtn;
+    JButton loginBtn, signUpBtn, YZMRefreshBtn, exitBtn, listBtn;
     public JPasswordField passwordPutIn;
     Box labelBox, putInBox;
     LoginPanel(Game game){
@@ -82,6 +83,13 @@ public class LoginPanel extends JPanel {
         exitBtn.setActionCommand(GameConstStr.EXIT);
         exitBtn.addActionListener(actionLis);
 
+        listBtn = new JButton("排行榜");
+        listBtn.setBounds(420,740, 200, 60);
+        listBtn.setFont(loginPageFont);
+        listBtn.setActionCommand(GameConstStr.LIST);
+        actionLis = new ActionLis(game, GameConstDataUtil.LOGIN_MODE);
+        listBtn.addActionListener(actionLis);
+
 
 
 
@@ -101,5 +109,6 @@ public class LoginPanel extends JPanel {
         add(loginBtn);
         add(signUpBtn);
         add(exitBtn);
+        add(listBtn);
     }
 }

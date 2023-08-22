@@ -27,6 +27,7 @@ public class GameLevel {
     private int bossLife;
 
     private int levelID;
+    private int passLineEnemyQuantity;
 
 
 
@@ -191,5 +192,13 @@ public class GameLevel {
 
     public int getBossLife() {
         return bossLife;
+    }
+
+    public int getPassLineEnemyQuantity() {
+        return passLineEnemyQuantity;
+    }
+
+    public void setPassLineEnemyQuantity(int passLineEnemyQuantity) {
+        this.passLineEnemyQuantity = passLineEnemyQuantity;
     }
 }

@@ -87,11 +87,7 @@ public class TimerActionLis implements ActionListener {
         switch (mode) {
                 //全局模式
             case GameConstStr.GLOBAL:
-                GameController.judgeFail(game);
-                GameController.objectsDisappear(game);
-                GameController.allDetect(game);
-                GameController.objectsMove(game);
-                GameUIController.refreshInfoPanel(game);
+                GameController.process(game);
 
 
                 ++tik;

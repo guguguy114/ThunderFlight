@@ -4,6 +4,8 @@ import control.GameConstStr;
 import control.GameController;
 import control.GameUIController;
 import model.Game;
+import view.gamewindows.GameWin;
+import view.loginwindows.LoginWin;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -24,14 +26,21 @@ public class WinLis implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (mode.equals(GameConstStr.PRIMARY_WIN)) {
-            {
+        switch (mode) {
+            case GameConstStr.PRIMARY_WIN:
                 System.out.println(GameConstStr.PRIMARY_WIN);
                 GameController.exit(game);
-            }
-        } else if (mode.equals(GameConstStr.SECONDARY_WIN)) {
-            System.out.println(GameConstStr.SECONDARY_WIN);
-            GameUIController.toGameWin(game);
+                break;
+            case GameConstStr.SECONDARY_WIN:
+                System.out.println(GameConstStr.SECONDARY_WIN);
+                GameUIController.toGameWin(game);
+                break;
+            case GameConstStr.LIST_WIND:
+                LoginWin loginWin = game.getUi().getLoginWin();
+                GameWin gameWin = game.getUi().getGameWin();
+                loginWin.setEnabled(true);
+                gameWin.setEnabled(true);
+                break;
         }
 
     }

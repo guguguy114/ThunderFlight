@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class JDBCUtil {
     public static String FAIL_SAME_ACC = "已存在相同账号";
@@ -15,7 +16,7 @@ public class JDBCUtil {
             ResultSet resultSet = statement.executeQuery(loginSQL);//执行SQL语句
             //System.out.println("loading");
             while (resultSet.next()) {//处理结果集
-                player = new Player(resultSet.getString("acc"), resultSet.getInt("maxLevel"), resultSet.getString("playerName"));
+                player = new Player(resultSet.getString("acc"), resultSet.getInt("maxLevel"), resultSet.getString("playerName"), resultSet.getInt("totalScore"));
                 //System.out.println(player.getPlayerName());
             }
             statement.close();//释放执行者对象
@@ -62,7 +63,7 @@ public class JDBCUtil {
             loadDataBase();
             String levelSQL = "select * from level where levelID = " + levelID + "";
             ResultSet resultSet = statement.executeQuery(levelSQL);
-            int levelSpeed, commonNum, promoteNum, bossLife, commonLife, promoteLife;
+            int levelSpeed, commonNum, promoteNum, bossLife;
             String levelName, background;
             resultSet.next();
             levelSpeed = resultSet.getInt("levelSpeed");
@@ -79,12 +80,6 @@ public class JDBCUtil {
 
     }
 
-
-
-
-
-
-
     private void loadDataBase() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");//导入jar包，加载驱动
         String url = "jdbc:mysql://localhost:3306/thunderPlane?characterEncoding=utf-8";
@@ -92,5 +87,25 @@ public class JDBCUtil {
         String password = "root";
         connection = DriverManager.getConnection(url, user, password);//创建连接
         statement = connection.createStatement();//创建执行者对象
+    }
+
+    public ArrayList<Player> getList(){
+        try {
+            int key = 0;
+            ArrayList<Player> players = new ArrayList<>();
+            loadDataBase();
+            String listSQL = "select * from player order by totalScore desc ";
+            ResultSet resultSet = statement.executeQuery(listSQL);
+            while (resultSet.next()){
+                if (key < 3){
+                    ++key;
+                    player = new Player(resultSet.getString("acc"), resultSet.getInt("maxLevel"), resultSet.getString("playerName"), resultSet.getInt("totalScore"));
+                    players.add(player);
+                }
+            }
+            return players;
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -7,10 +7,11 @@ public class Player {
     private String playerName;
     private final String playerAccount;
 
-    public Player(String playerAccount, int maxCompleteLevel, String playerName){
+    public Player(String playerAccount, int maxCompleteLevel, String playerName, int totalScore){
         this.playerAccount = playerAccount;
         this.maxCompleteLevel = maxCompleteLevel;
         this.playerName = playerName;
+        this.totalScore = totalScore;
     }
 
     public int getScore() {

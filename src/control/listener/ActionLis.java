@@ -10,9 +10,16 @@ import java.awt.event.ActionListener;
 
 public class ActionLis implements ActionListener {
     private final Game game;
+    private final int mode;
 
     public ActionLis(Game game) {
         this.game = game;
+        mode = -1;
+    }
+
+    public ActionLis(Game game, int mode){
+        this.game = game;
+        this.mode = mode;
     }
 
     @Override
@@ -62,6 +69,9 @@ public class ActionLis implements ActionListener {
                 break;
             case GameConstStr.LEVEL_CONFIRM:
                 GameController.levelChange(game, GameConstStr.CUSTOM_MODE);
+                break;
+            case GameConstStr.LIST:
+                GameController.toList(game, mode);
                 break;
         }
     }

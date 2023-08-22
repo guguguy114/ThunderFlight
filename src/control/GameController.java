@@ -6,6 +6,7 @@ import model.maingame.effectiveobject.DoubleFire;
 import model.maingame.effectiveobject.NuclearWeapon;
 import model.maingame.enemy.CommonEnemyPlane;
 import model.maingame.enemy.EnemyBoss;
+import model.maingame.enemy.EnemyPlane;
 import model.maingame.enemy.PromotedEnemyPlane;
 import model.maingame.hero.HeroPlane;
 import view.gamewindows.GamePanel;
@@ -218,10 +219,15 @@ public class GameController {
      */
     public static void objectsDisappear(Game game) {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+        GameLevel gameLevel = game.getGameLevel();
         List<FlyingObject> removeList = new ArrayList<>();
         for (ArrayList<FlyingObject> totalList: gamePanel.getTotalList()){
             for (FlyingObject flyingObject : totalList){
-                if ((flyingObject.isDisappear() || flyingObject.out) && !(flyingObject instanceof HeroPlane)){
+                if ((flyingObject.out) && !(flyingObject instanceof HeroPlane)){
+                    removeList.add(flyingObject);
+                }
+                if(flyingObject.isDisappear() && flyingObject instanceof EnemyPlane){
+                    gameLevel.setPassLineEnemyQuantity(gameLevel.getPassLineEnemyQuantity() + 1);
                     removeList.add(flyingObject);
                 }
             }
@@ -363,6 +369,8 @@ public class GameController {
         HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
         removeAllObject(game, gamePanel);
         heroPlane.setLife(GameConstDataUtil.DEFAULT_HERO_LIFE);
+        Player player = game.getPlayer();
+        player.setScore(0);
         JDBCUtil jdbcUtil = new JDBCUtil();
         game.setGameLevel(jdbcUtil.loadLevel(1));
         game.setGameMode(GameConstDataUtil.READY_MODE);
@@ -401,10 +409,23 @@ public class GameController {
     }
 
     public static void judgeFail(Game game){
+        GameLevel gameLevel = game.getGameLevel();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         HeroPlane heroPlane = gamePanel.getHeroPlane();
-        if (heroPlane.getLife() <= 0){
+        if (heroPlane.getLife() <= 0 || gameLevel.getPassLineEnemyQuantity() >= 5){
             fail(game);
         }
+    }
+
+    public static void process(Game game){
+        judgeFail(game);
+        objectsDisappear(game);
+        allDetect(game);
+        objectsMove(game);
+        GameUIController.refreshInfoPanel(game);
+    }
+
+    public static void toList(Game game, int mode){
+        GameUIController.toListWin(game, mode);
     }
 }

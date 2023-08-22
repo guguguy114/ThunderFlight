@@ -2,10 +2,14 @@ package control;
 
 import model.Game;
 import model.GameLevel;
+import model.JDBCUtil;
 import view.gamewindows.*;
 import view.infowindows.HelpPanel;
 import view.infowindows.InfoMainPanel;
+import view.listwindows.ListPanel;
+import view.listwindows.ListWin;
 import view.loginwindows.LoginMainPanel;
+import view.loginwindows.LoginWin;
 
 import java.awt.*;
 
@@ -115,6 +119,16 @@ public class GameUIController {
                 menuBar.exitGame.setEnabled(true);
                 menuBar.startGame.setEnabled(false);
                 menuBar.restartGame.setEnabled(true);
+                break;
+            case GameConstDataUtil.END_MODE:
+                menuBar = game.getUi().getGameWin().getGameMenuBar();
+                menuBar.pauseGame.setEnabled(false);
+                menuBar.continueGame.setEnabled(false);
+                menuBar.customMode.setEnabled(false);
+                menuBar.exitGame.setEnabled(true);
+                menuBar.startGame.setEnabled(false);
+                menuBar.restartGame.setEnabled(false);
+                break;
         }
     }
 
@@ -129,6 +143,7 @@ public class GameUIController {
         panel.life.setText(String.valueOf(gamePanel.getHeroPlane().getLife()));
         GameLevel gameLevel = game.getGameLevel();
         panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonDeadCount() - gameLevel.getPromoteDeadCount()));
+        panel.passLineEnemyPlaneQuantity.setText(String.valueOf(game.getGameLevel().getPassLineEnemyQuantity()));
         panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonDeadCount()));
         panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteDeadCount()));
         panel.bossNum.setText(String.valueOf(gameLevel.getBossQuantity() - gameLevel.getBossDeadCount()));
@@ -168,5 +183,25 @@ public class GameUIController {
             gameMainPanel.repaint();
             gameMainPanel.revalidate();
         }
+    }
+
+    public static void toListWin(Game game, int mode){
+        if (mode == GameConstDataUtil.LOGIN_MODE){
+            LoginWin loginWin = game.getUi().getLoginWin();
+            loginWin.setEnabled(false);
+        }else if (mode == GameConstDataUtil.RUNNING_MODE){
+            GameWin gameWin = game.getUi().getGameWin();
+            gameWin.setEnabled(false);
+        }
+        refreshListPane(game);
+        ListWin listWin = game.getUi().getListWin();
+        listWin.setVisible(true);
+
+    }
+    public static void refreshListPane(Game game){
+        JDBCUtil jdbcUtil = new JDBCUtil();
+        ListPanel listPanel = game.getUi().getListWin().getListPanel();
+        listPanel.setPlayerList(jdbcUtil.getList());
+        listPanel.setList();
     }
 }

@@ -1,5 +1,6 @@
 package view.gamewindows;
 
+import control.GameConstDataUtil;
 import control.GameConstStr;
 import control.listener.ActionLis;
 import model.Game;
@@ -12,7 +13,7 @@ import java.awt.event.KeyEvent;
  */
 public class GameMenuBar extends JMenuBar {
     public JMenu gameStateMenu, otherMenu;
-    public JMenuItem startGame, pauseGame, exitGame, restartGame, continueGame, customMode, about, help;
+    public JMenuItem startGame, pauseGame, exitGame, restartGame, continueGame, customMode, about, help, list;
 
     public GameMenuBar(Game game){
         ActionLis actionLis = new ActionLis(game);
@@ -61,8 +62,14 @@ public class GameMenuBar extends JMenuBar {
         help.setActionCommand(GameConstStr.TO_HELP_PANE);
         help.addActionListener(actionLis);
 
+        list = new JMenuItem("排行榜");
+        list.setActionCommand(GameConstStr.LIST);
+        actionLis = new ActionLis(game, GameConstDataUtil.RUNNING_MODE);
+        list.addActionListener(actionLis);
+
         otherMenu.add(about);
         otherMenu.add(help);
+        otherMenu.add(list);
 
 
         add(gameStateMenu);
