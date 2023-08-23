@@ -67,4 +67,6 @@ public abstract class EnemyPlane extends FlyingObject {
             }
         }
     }
+
+    public abstract void deadCount(Game game);
 }

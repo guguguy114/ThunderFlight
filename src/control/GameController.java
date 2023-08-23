@@ -9,6 +9,7 @@ import model.maingame.enemy.EnemyBoss;
 import model.maingame.enemy.EnemyPlane;
 import model.maingame.enemy.PromotedEnemyPlane;
 import model.maingame.hero.HeroPlane;
+import view.customwindows.CustomPanel;
 import view.gamewindows.GameMainPanel;
 import view.gamewindows.GamePanel;
 import view.gamewindows.GameVicPanel;
@@ -19,6 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class GameController {
@@ -32,6 +34,7 @@ public class GameController {
      * @return 返回验证码
      */
     public static String code() {
+        System.out.println(GameConstStr.REFRESH_YZM);
 //        Random r = new Random();
 //        String strCode = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
 //        StringBuilder code = new StringBuilder();
@@ -129,8 +132,6 @@ public class GameController {
             } else {
                 createEffectiveObject(game);
             }
-        }else {
-            levelComplete(game, GameConstStr.LEVEL_COMPLETE);
         }
     }
 
@@ -228,7 +229,11 @@ public class GameController {
                     removeList.add(flyingObject);
                 }
                 if(flyingObject.isDisappear() && flyingObject instanceof EnemyPlane){
+                    if (flyingObject instanceof EnemyBoss){
+                        fail(game);
+                    }
                     gameLevel.setPassLineEnemyQuantity(gameLevel.getPassLineEnemyQuantity() + 1);
+                    ((EnemyPlane) flyingObject).deadCount(game);
                     removeList.add(flyingObject);
                 }
             }
@@ -328,6 +333,7 @@ public class GameController {
         Player player = game.getPlayer();
 //        System.out.println(mode);
         game.setGameMode(GameConstDataUtil.END_MODE);
+        GameUIController.changeMenu(game);
         GameVicPanel gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
         if (game.getGameLevel().getLevelID() == 3){
             gameVicPanel.countLabel.setText("恭喜你已全部通关！您可以重新开始游戏或者体验自定义功能！");
@@ -376,9 +382,7 @@ public class GameController {
 
     public static void restart(Game game) {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
         removeAllObject(game, gamePanel);
-        heroPlane.setLife(GameConstDataUtil.DEFAULT_HERO_LIFE);
         Player player = game.getPlayer();
         player.setScore(0);
         JDBCUtil jdbcUtil = new JDBCUtil();
@@ -388,11 +392,14 @@ public class GameController {
         gamePanel.repaint();
         GameUIController.changeMenu(game);
         GameUIController.refreshInfoPanel(game);
+        HeroPlane heroPlane = game.getUi().getGameWin().getGameMainPanel().getGamePanel().getHeroPlane();
+        heroPlane.setLife(GameConstDataUtil.DEFAULT_HERO_LIFE);
     }
 
     public static void levelChange(Game game, String mode){
         GameLevel gameLevel = game.getGameLevel();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+        CustomPanel customPanel = game.getUi().getCustomWin().getCustomPanel();
         if (mode.equals(GameConstStr.COMMON_MODE)){
             JDBCUtil jdbcUtil = new JDBCUtil();
             game.setGameLevel(jdbcUtil.loadLevel(gameLevel.getLevelID() + 1));
@@ -403,7 +410,16 @@ public class GameController {
             GameUIController.refreshInfoPanel(game);
         }
         if (mode.equals(GameConstStr.CUSTOM_MODE)){// todo：自定义功能在这写
-
+            System.out.println(GameConstStr.CUSTOM_MODE);
+            if (!Objects.equals(customPanel.commonQuantity.getText(), "") && !Objects.equals(customPanel.promoteQuantity.getText(), "") && !Objects.equals(customPanel.bossLife.getText(), "")){
+                if (customPanel.isCustom()) {
+                    System.out.println("{ CQ = " + customPanel.commonQuantity.getText() + " PQ = " + customPanel.promoteQuantity.getText() + " BL = " + customPanel.bossLife.getText() + " }");
+                }else {
+                    System.out.println("fail_to_change_level");
+                }
+            }else {
+                System.out.println("fail_to_change_level");
+            }
         }
     }
 
@@ -424,8 +440,10 @@ public class GameController {
         GameLevel gameLevel = game.getGameLevel();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         HeroPlane heroPlane = gamePanel.getHeroPlane();
-        if (heroPlane.getLife() <= 0 || gameLevel.getPassLineEnemyQuantity() >= 5){
+        if ((heroPlane.getLife() <= 0 || gameLevel.getPassLineEnemyQuantity() >= 5)){
             fail(game);
+        } else if (gameLevel.isComplete()  && gameLevel.isBossDead()){
+            levelComplete(game, GameConstStr.LEVEL_COMPLETE);
         }
     }
 

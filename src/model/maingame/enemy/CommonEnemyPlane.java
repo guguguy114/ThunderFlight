@@ -53,14 +53,19 @@ public class CommonEnemyPlane extends EnemyPlane{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        GameLevel gameLevel = game.getGameLevel();
-        gameLevel.setCommonDeadCount(gameLevel.getCommonDeadCount() + 1);
+        deadCount(game);
     }
 
     @Override
     public void hitFeedback(Game game) {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         gamePanel.getHeroPlane().setLife(gamePanel.getHeroPlane().getLife() - 1);
+    }
+
+    @Override
+    public void deadCount(Game game) {
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.setCommonDeadCount(gameLevel.getCommonDeadCount() + 1);
     }
 
     @Override

@@ -109,7 +109,7 @@ public class TimerActionLis implements ActionListener {
 
                 ++tik3;
                 if (tik3 == key3){
-                    System.out.println("tik");
+                    //System.out.println("tik");
                     tik3 = 0;
                 }
                 break;

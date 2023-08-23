@@ -9,7 +9,7 @@ import java.awt.*;
 public class GameInformationPanel extends JPanel {
 
     public JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, nuclearNumLabel, historyScoreLabel;
-    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum, historyScore;
+    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum, historyScore, debug, debug2;
 
     GameInformationPanel(Game game){
         setLayout(null);
@@ -93,6 +93,14 @@ public class GameInformationPanel extends JPanel {
         historyScore.setBounds(150, basicY + 50 * 10, 150, 30);
         historyScore.setFont(infoPaneFont);
 
+        debug = new JLabel("0");
+        debug.setBounds(150, basicY + 50 * 11 , 150, 30);
+        debug.setFont(infoPaneFont);
+
+        debug2 = new JLabel("0");
+        debug2.setBounds(150, basicY + 50 * 12, 150, 30);
+        debug2.setFont(infoPaneFont);
+
 
         add(scoreLabel);
         add(score);
@@ -113,6 +121,8 @@ public class GameInformationPanel extends JPanel {
         add(bossNum);
         add(historyScoreLabel);
         add(historyScore);
+        add(debug);
+        add(debug2);
     }
 
     @Override

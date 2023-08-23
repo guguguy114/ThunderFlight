@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.10";
+    public static final String VERSION = "1.0.11";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -59,4 +59,5 @@ public class GameConstStr {
     public static final String COMMON = "common";
     public static final String FINAL = "final";
     public static final String LIST = "list";
+    public static final String REFRESH_YZM = "refresh_YZM";
 }

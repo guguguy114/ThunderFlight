@@ -10,6 +10,7 @@ import view.infowindows.InfoMainPanel;
 import view.listwindows.ListPanel;
 import view.listwindows.ListWin;
 import view.loginwindows.LoginMainPanel;
+import view.loginwindows.LoginPanel;
 import view.loginwindows.LoginWin;
 
 import java.awt.*;
@@ -144,7 +145,7 @@ public class GameUIController {
         panel.playerName.setText(game.getPlayer().getPlayerName());
         panel.life.setText(String.valueOf(gamePanel.getHeroPlane().getLife()));
         GameLevel gameLevel = game.getGameLevel();
-        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonDeadCount() - gameLevel.getPromoteDeadCount()));
+        panel.restEnemyPlaneQuantity.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() + gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getCommonDeadCount() - gameLevel.getPromoteDeadCount() + gameLevel.getBossQuantity() - gameLevel.getBossDeadCount()));
         panel.passLineEnemyPlaneQuantity.setText(String.valueOf(game.getGameLevel().getPassLineEnemyQuantity()));
         panel.commonNum.setText(String.valueOf(gameLevel.getCommonEnemyPlaneQuantity() - gameLevel.getCommonDeadCount()));
         panel.promoteNum.setText(String.valueOf(gameLevel.getPromotedEnemyPlaneQuantity() - gameLevel.getPromoteDeadCount()));
@@ -206,5 +207,11 @@ public class GameUIController {
         ListPanel listPanel = game.getUi().getListWin().getListPanel();
         listPanel.setPlayerList(jdbcUtil.getList());
         listPanel.setList();
+    }
+
+    public static void refreshYZM(Game game){
+        LoginPanel loginPanel = game.getUi().getLoginWin().getLoginMainPanel().getLoginPanel();
+        loginPanel.YZM.setText(GameController.code());
+        loginPanel.repaint();
     }
 }

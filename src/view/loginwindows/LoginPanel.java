@@ -64,6 +64,8 @@ public class LoginPanel extends JPanel {
         YZMRefreshBtn = new JButton("刷新验证码");
         YZMRefreshBtn.setBounds(540,420,160,40);
         YZMRefreshBtn.setFont(loginPageFont);
+        YZMRefreshBtn.setActionCommand(GameConstStr.REFRESH_YZM);
+        YZMRefreshBtn.addActionListener(actionLis);
 
         loginBtn = new JButton("登录");
         loginBtn.setBounds(420, 500, 200,60);

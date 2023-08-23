@@ -6,6 +6,7 @@ import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
 import model.GameLevel;
+import view.gamewindows.GameInformationPanel;
 
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public class EnemyBoss extends EnemyPlane{
     private String motionMode;
     private int leftCount;
     private int rightCount;
+    private int key;
 
 
     public EnemyBoss(int x, int y, Game game) {
@@ -31,10 +33,20 @@ public class EnemyBoss extends EnemyPlane{
         attackTimer = new AttackTimer(game, this, GameConstStr.ENEMY_BOSS);
         animationTimer.getTimer().start();
         System.out.println("creating_boss");
+        System.out.println("middle is " + (GameConstDataUtil.GAME_PANEL_WIDTH - width) / 2);
+        key = 0;
     }
 
     @Override
     public void move(Game game) {
+        GameInformationPanel gameInformationPanel = game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel();
+        gameInformationPanel.debug.setText(String.valueOf(life));
+        gameInformationPanel.debug2.setText(motionMode);
+        //System.out.println("currentX:" + objX);
+
+
+
+
         if (objX + width >= GameConstDataUtil.GAME_PANEL_WIDTH){
             rightCount ++;
             right = false;
@@ -61,7 +73,8 @@ public class EnemyBoss extends EnemyPlane{
         }
 
 
-        if (objY + height >= GameConstDataUtil.GAME_PANEL_HEIGHT / 3 && !motionMode.equals(GameConstStr.BOSS_MOVE_STAGE_LEFT_RIGHT_AROUND)){
+        if (objY + height >= GameConstDataUtil.GAME_PANEL_HEIGHT / 3 && !motionMode.equals(GameConstStr.BOSS_MOVE_STAGE_LEFT_RIGHT_AROUND) && key == 0){
+            key = 1;
             down = false;
             Random r = new Random();
             int key = r.nextInt(2);
@@ -76,11 +89,32 @@ public class EnemyBoss extends EnemyPlane{
             motionMode = GameConstStr.BOSS_MOVE_STAGE_LEFT_RIGHT_AROUND;
         }
 
-        if (leftCount == 3 || rightCount == 3){
-            left = false;
-            right = false;
+        if (leftCount == 3 || rightCount == 3 && key == 1){
+            //System.out.println("3");
             motionMode = GameConstStr.BOSS_MOVE_STAGE_DOWN;
         }
+
+        if (motionMode.equals(GameConstStr.BOSS_MOVE_STAGE_DOWN) && objX == (GameConstDataUtil.GAME_PANEL_WIDTH - width) / 2 && key == 1){
+            //System.out.println("m");
+            down = true;
+            left = false;
+            right = false;
+            if (objY == (GameConstDataUtil.GAME_PANEL_HEIGHT - height) / 2){
+                motionMode = GameConstStr.BOOS_MOVE_STAGE_STOP_IN_MIDDLE;
+                down = false;
+                key = 1000;
+            }
+        }
+
+        if (motionMode.equals(GameConstStr.BOOS_MOVE_STAGE_STOP_IN_MIDDLE)){
+            key++;
+            if (key == 2000){
+                down = true;
+                motionMode = GameConstStr.BOSS_MOVE_STAGE_DOWN;
+            }
+        }
+
+
     }
 
     @Override
@@ -91,9 +125,8 @@ public class EnemyBoss extends EnemyPlane{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        GameLevel gameLevel = game.getGameLevel();
-        gameLevel.setBossDeadCount(gameLevel.getBossDeadCount() + 1);
-
+        game.getGameLevel().setBossDead(true);
+        deadCount(game);
     }
 
     @Override
@@ -109,6 +142,12 @@ public class EnemyBoss extends EnemyPlane{
         animationList.add(GameConstResourceUtil.BOSS_3);
         animationList.add(GameConstResourceUtil.BOSS_4);
         animationList.add(GameConstResourceUtil.BOSS_5);
+    }
+
+    @Override
+    public void deadCount(Game game) {
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.setBossDeadCount(gameLevel.getBossDeadCount() + 1);
     }
 
     @Override

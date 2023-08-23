@@ -15,6 +15,11 @@ public class LevelComboboxLis implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED){
             customPanelIn.levelSelected.setText((String) customPanelIn.levelChoosePutIn.getSelectedItem());
+            if (customPanelIn.levelChoosePutIn.getSelectedItem() == "自定义"){
+                customPanelIn.custom();
+            }else {
+                customPanelIn.noCustom();
+            }
         }
     }
 }

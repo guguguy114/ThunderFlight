@@ -5,7 +5,6 @@ public class GameConstDataUtil {
     public static final int READY_MODE = 1;
     public static final int RUNNING_MODE = 2;
     public static final int PAUSE_MODE = 3;
-    public static final int SETTING_MODE = 4;
     public static final int END_MODE = 5;
     public static final int GAME_PANEL_WIDTH = 800;
     public static final int GAME_PANEL_HEIGHT = 800;

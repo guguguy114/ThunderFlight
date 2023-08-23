@@ -47,7 +47,7 @@ public abstract class Ammo extends FlyingObject {
      * @param objIn 击中的对象
      */
     public void hitFeedback(Game game, FlyingObject objIn) {
-        if (!out) {
+        if (!out && hitBle) {
             objIn.setLife(objIn.getLife() - damage);
             width = img.getHeight(null);
             dead(game);

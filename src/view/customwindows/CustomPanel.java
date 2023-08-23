@@ -17,10 +17,18 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
 
     public JSlider speedPutIn;
     public JComboBox<String> levelChoosePutIn;
-    public JLabel speed, levelChoose, leveSelectedLabel, levelSelected;
+    public JLabel speed, levelChoose, leveSelectedLabel, levelSelected, CQLabel, PQLabel, BLLabel;
     public JButton confirmBtn;
+    public JTextField commonQuantity, promoteQuantity, bossLife;
+    private boolean custom;
+    private int CQ, PQ, BL;
+
 
     public CustomPanel(Game game) {
+        CQ = 0;
+        PQ = 0;
+        BL = 100;
+
         setLayout(null);
         Font customFont = new Font("黑体", Font.BOLD, 15);
         ActionLis actionLis = new ActionLis(game);
@@ -68,6 +76,39 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         confirmBtn.setFont(customFont);
         confirmBtn.addActionListener(actionLis);
 
+        CQLabel = new JLabel("普通敌机数量：");
+        CQLabel.setBounds(50, 150, 120 ,40);
+        CQLabel.setFont(customFont);
+        CQLabel.setVisible(false);
+
+        PQLabel = new JLabel("精英敌机数量：");
+        PQLabel.setBounds(225, 150, 120, 40);
+        PQLabel.setFont(customFont);
+        PQLabel.setVisible(false);
+
+        BLLabel = new JLabel("BOSS生命值：");
+        BLLabel.setBounds(400, 150, 120, 40);
+        BLLabel.setFont(customFont);
+        BLLabel.setVisible(false);
+
+        commonQuantity = new JTextField();
+        commonQuantity.setText(String.valueOf(CQ));
+        commonQuantity.setBounds(165, 160, 50 ,20);
+        commonQuantity.setFont(customFont);
+        commonQuantity.setVisible(false);
+
+        promoteQuantity = new JTextField();
+        promoteQuantity.setText(String.valueOf(PQ));
+        promoteQuantity.setBounds(340, 160, 50 ,20);
+        promoteQuantity.setFont(customFont);
+        promoteQuantity.setVisible(false);
+
+        bossLife = new JTextField();
+        bossLife.setText(String.valueOf(BL));
+        bossLife.setBounds(500, 160, 50 ,20);
+        bossLife.setFont(customFont);
+        bossLife.setVisible(false);
+
         add(speed);
         add(speedPutIn);
         add(levelChoose);
@@ -75,5 +116,52 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         add(leveSelectedLabel);
         add(levelSelected);
         add(confirmBtn);
+        add(CQLabel);
+        add(PQLabel);
+        add(BLLabel);
+        add(commonQuantity);
+        add(promoteQuantity);
+        add(bossLife);
+    }
+
+    public void custom(){
+        CQLabel.setVisible(true);
+        PQLabel.setVisible(true);
+        BLLabel.setVisible(true);
+        commonQuantity.setVisible(true);
+        promoteQuantity.setVisible(true);
+        bossLife.setVisible(true);
+        custom = true;
+    }
+
+    public void noCustom(){
+        CQLabel.setVisible(false);
+        PQLabel.setVisible(false);
+        BLLabel.setVisible(false);
+        commonQuantity.setVisible(false);
+        promoteQuantity.setVisible(false);
+        bossLife.setVisible(false);
+        custom = false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean isCustom() {
+        return custom;
     }
 }

@@ -12,6 +12,7 @@ public class GameLevel {
     private final BackGround backGround;
     private final int promotedEnemyPlaneQuantity;
     private final int commonEnemyPlaneQuantity;
+    private final boolean randomSpeed;
     private int bossQuantity;
     private int enemySpeedY;
     private int enemySpeedX;
@@ -21,15 +22,13 @@ public class GameLevel {
     private int commonDeadCount;
     private int promoteDeadCount;
     private int bossDeadCount;
-    private final boolean randomSpeed;
     private int speed;
     private String levelName;
     private int bossLife;
 
     private int levelID;
     private int passLineEnemyQuantity;
-
-
+    private boolean bossDead;
 
     public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity, int bossQuantity) {
         this.backGround = backGround;
@@ -81,12 +80,10 @@ public class GameLevel {
         }
     }
 
-    private void setSpeed(){
+    private void setSpeed() {
         enemySpeedX = speed;
         enemySpeedY = speed;
     }
-
-
 
 
 
@@ -186,6 +183,7 @@ public class GameLevel {
     public String getLevelName() {
         return levelName;
     }
+
     public int getLevelID() {
         return levelID;
     }
@@ -200,5 +198,12 @@ public class GameLevel {
 
     public void setPassLineEnemyQuantity(int passLineEnemyQuantity) {
         this.passLineEnemyQuantity = passLineEnemyQuantity;
+    }
+    public boolean isBossDead() {
+        return bossDead;
+    }
+
+    public void setBossDead(boolean bossDead) {
+        this.bossDead = bossDead;
     }
 }

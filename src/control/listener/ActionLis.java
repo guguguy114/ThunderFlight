@@ -73,6 +73,9 @@ public class ActionLis implements ActionListener {
             case GameConstStr.LIST:
                 GameController.toList(game, mode);
                 break;
+            case GameConstStr.REFRESH_YZM:
+                GameUIController.refreshYZM(game);
+                break;
         }
     }
 }

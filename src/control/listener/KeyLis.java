@@ -96,7 +96,7 @@ public class KeyLis implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println(e.getKeyCode());
+        System.out.println("\"" + e.getKeyCode() + "\"");
         if (game.getOperateWay().equals(GameConstStr.KEYBOARD_CONTROL)){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
             if (game.getGameMode() == GameConstDataUtil.RUNNING_MODE) {
