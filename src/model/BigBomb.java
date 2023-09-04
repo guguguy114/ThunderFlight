@@ -30,6 +30,8 @@ public class BigBomb extends FlyingObject{
 
     @Override
     public void dead(Game game) {
+        Music dead = new Music(Music.USE_BOMB);
+        dead.startMusic();
         deadTimer = new DeadTimer(game, this);
         deadTimer.getTimer().start();
     }

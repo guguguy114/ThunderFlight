@@ -4,6 +4,7 @@ import control.GameConstStr;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
+import model.Music;
 import view.gamewindows.GamePanel;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Random;
 public abstract class EffectiveObject extends FlyingObject {
     protected Game game;
     protected String direct;//移动方向
+    protected Music hitMusic;
     public EffectiveObject(Game game, int x, int y) {
         this.game = game;
         objX = x;
@@ -69,6 +71,7 @@ public abstract class EffectiveObject extends FlyingObject {
 
     @Override
     public void dead(Game game) {
+        hitMusic.startMusic();
         out = true;
         hitBle = false;
         deadTimer.getTimer().start();

@@ -13,6 +13,7 @@ public class GameVicPanel extends JPanel {
 
     public JLabel countLabel, count;
     private TempTimer TempTimer;
+    private Image screen;
 
     GameVicPanel(Game game) {
         setLayout(null);
@@ -34,16 +35,17 @@ public class GameVicPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        Image screen = GameConstResourceUtil.OVER_SCREEN;
         g.drawImage(screen, 0, 0, GameConstDataUtil.GAME_PANEL_WIDTH, GameConstDataUtil.GAME_PANEL_HEIGHT, 0, (screen.getHeight(null) - screen.getWidth(null)) / 2, screen.getWidth(null), (screen.getHeight(null) + screen.getWidth(null)) / 2, null);
     }
 
     public void readyToNextLevel(Game game) {
+        screen = GameConstResourceUtil.PASS_SCREEN;
         TempTimer = new TempTimer(game, GameConstStr.READY_TO_NEXT_LEVEL);
         TempTimer.getTimer().start();
     }
 
     public void readyToRestartLevel(Game game){
+        screen = GameConstResourceUtil.OVER_SCREEN;
         TempTimer = new TempTimer(game, GameConstStr.READY_TO_RESTART_LEVEL);
         TempTimer.getTimer().start();
     }

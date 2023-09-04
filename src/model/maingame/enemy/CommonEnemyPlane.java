@@ -6,6 +6,7 @@ import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
 import model.GameLevel;
+import model.Music;
 import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
 
@@ -33,6 +34,7 @@ public class CommonEnemyPlane extends EnemyPlane{
         life = 1;
         down = true;
         game.getGameLevel().setCommonSummonCount(game.getGameLevel().getCommonSummonCount() + 1);
+        speedX = 0;
     }
 
     @Override
@@ -46,13 +48,17 @@ public class CommonEnemyPlane extends EnemyPlane{
 
     @Override
     public void attack(Game game) {
+        Music fire = new Music(Music.FIRE);
+        fire.startMusic();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_DOWN));
     }
 
     @Override
     public void dead(Game game) {
         super.dead(game);
+        Music dead = new Music(Music.ENEMY_DOWN);
+        dead.startMusic();
         deadCount(game);
     }
 

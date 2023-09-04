@@ -93,13 +93,13 @@ public class GameInformationPanel extends JPanel {
         historyScore.setBounds(150, basicY + 50 * 10, 150, 30);
         historyScore.setFont(infoPaneFont);
 
-        debug = new JLabel("0");
-        debug.setBounds(150, basicY + 50 * 11 , 150, 30);
-        debug.setFont(infoPaneFont);
+        //debug = new JLabel("0");
+        //debug.setBounds(150, basicY + 50 * 11 , 150, 30);
+        //debug.setFont(infoPaneFont);
 
-        debug2 = new JLabel("0");
-        debug2.setBounds(150, basicY + 50 * 12, 150, 30);
-        debug2.setFont(infoPaneFont);
+        //debug2 = new JLabel("0");
+        //debug2.setBounds(150, basicY + 50 * 12, 150, 30);
+        //debug2.setFont(infoPaneFont);
 
 
         add(scoreLabel);

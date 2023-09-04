@@ -6,6 +6,7 @@ import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
 import model.GameLevel;
+import model.Music;
 import model.maingame.ammo.EnemyPromoteBullet;
 import view.gamewindows.GamePanel;
 
@@ -44,6 +45,8 @@ public class PromotedEnemyPlane extends EnemyPlane {
 
     @Override
     public void attack(Game game) {
+        Music fire = new Music(Music.FIRE);
+        fire.startMusic();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         gamePanel.getAmmoList().add(new EnemyPromoteBullet(GameConstStr.ENEMY, atkPointX, actPointY, this));
     }
@@ -51,6 +54,8 @@ public class PromotedEnemyPlane extends EnemyPlane {
     @Override
     public void dead(Game game) {
         super.dead(game);
+        Music dead = new Music(Music.ENEMY_DOWN);
+        dead.startMusic();
         deadCount(game);
     }
 

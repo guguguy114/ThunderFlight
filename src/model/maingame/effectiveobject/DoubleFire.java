@@ -4,6 +4,7 @@ import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.StateTimer;
 import model.Game;
+import model.Music;
 import model.maingame.hero.HeroPlane;
 
 public class DoubleFire extends EffectiveObject{
@@ -14,6 +15,7 @@ public class DoubleFire extends EffectiveObject{
         img = GameConstResourceUtil.DOUBLE_FIRE;
         width = img.getWidth(null);
         height = img.getHeight(null);
+        hitMusic = new Music(Music.GET_DOUBLE_FIRE);
     }
 
     @Override

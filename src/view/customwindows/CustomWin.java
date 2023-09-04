@@ -28,7 +28,7 @@ public class CustomWin extends JFrame {
         add(customPanel);
 
 
-        setVisible(true);
+        setVisible(false);
     }
 
     public CustomPanel getCustomPanel() {

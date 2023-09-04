@@ -80,6 +80,7 @@ public class GameUIController {
     public static void toGameWin(Game game) {
         game.getUi().getGameWin().setEnabled(true);
         game.getUi().getInfoWin().setVisible(false);
+        game.getUi().getCustomWin().setVisible(false);
     }
 
     public static void toCustomWin(Game game) {
@@ -140,6 +141,7 @@ public class GameUIController {
         GamePanel gamePanel = gameMainPanel.getGamePanel();
         Player player = game.getPlayer();
 
+        panel.level.setText(game.getGameLevel().getLevelName());
         panel.nuclearNum.setText(String.valueOf(gamePanel.getHeroPlane().getNuclearNum()));
         panel.score.setText(String.valueOf(game.getPlayer().getScore()));
         panel.playerName.setText(game.getPlayer().getPlayerName());
@@ -173,9 +175,16 @@ public class GameUIController {
             gameMainPanel.remove(gamePanel);
             if (endMode.equals(GameConstStr.LEVEL_COMPLETE)){
                 gameVicPanel.countLabel.setText("关卡通过！  秒后将进入下一关");
+                gameVicPanel.countLabel.setBounds(200, 400, 700, 50);
             }
             if (endMode.equals(GameConstStr.LEVEL_FAILED)){
                 gameVicPanel.countLabel.setText("游戏失败！  秒后将重新开始");
+                gameVicPanel.countLabel.setBounds(200, 400, 700, 50);
+            }
+            if (endMode.equals(GameConstStr.LEVEL_FINAL)){
+                gameVicPanel.countLabel.setText("恭喜你已全部通关！您可以重新开始游戏或者体验自定义功能！");
+                gameVicPanel.countLabel.setBounds(100, 400, 700, 50);
+                gameVicPanel.count.setText(null);
             }
             gameMainPanel.add(gameVicPanel);
             gameMainPanel.repaint();

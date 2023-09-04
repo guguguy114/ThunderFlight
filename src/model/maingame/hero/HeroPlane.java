@@ -3,14 +3,17 @@ package model.maingame.hero;
 import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
+import control.GameController;
 import control.timer.AttackTimer;
 import control.timer.StateTimer;
 import model.FlyingObject;
 import model.Game;
+import model.Music;
 import model.maingame.ammo.Ammo;
 import model.maingame.ammo.Bullet;
 import model.maingame.effectiveobject.EffectiveObject;
 import model.maingame.effectiveobject.NuclearWeapon;
+import model.maingame.enemy.EnemyBoss;
 import model.maingame.enemy.EnemyPlane;
 import view.gamewindows.GamePanel;
 
@@ -68,20 +71,25 @@ public class HeroPlane extends FlyingObject {
 
     @Override
     public void attack(Game game) {
+
         switch (atkMode) {
             case GameConstStr.COMMON_ATK_MODE:
                 if (isAtk) {
+                    Music fire = new Music(Music.FIRE);
+                    fire.startMusic();
                     //System.out.println("attacking");
                     GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-                    Ammo newAmmo = new Bullet(GameConstStr.FRIEND, this.atkPointX, this.actPointY);
+                    Ammo newAmmo = new Bullet(GameConstStr.FRIEND, this.atkPointX, this.actPointY, GameConstDataUtil.DIRECT_UP);
                     gamePanel.getAmmoList().add(newAmmo);
                 }
                 break;
             case GameConstStr.DOUBLE_ATK_MODE:
                 if (isAtk) {
+                    Music fire = new Music(Music.FIRE);
+                    fire.startMusic();
                     GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX) / 2, this.actPointY));
-                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX + width) / 2, this.actPointY));
+                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX) / 2, this.actPointY, GameConstDataUtil.DIRECT_UP));
+                    gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX + width) / 2, this.actPointY, GameConstDataUtil.DIRECT_UP));
                 }
                 break;
         }
@@ -89,6 +97,8 @@ public class HeroPlane extends FlyingObject {
 
     @Override
     public void dead(Game game) {
+        Music dead = new Music(Music.REBORN);
+        dead.startMusic();
         objX = GameConstDataUtil.INITIAL_HERO_X;
         objY = GameConstDataUtil.INITIAL_HERO_Y;
         atkMode = GameConstStr.COMMON_ATK_MODE;
@@ -122,9 +132,13 @@ public class HeroPlane extends FlyingObject {
                     }
                     if (flyingObject instanceof EnemyPlane) {
                         if (flyingObject.isHitBle()) {
-                            ((EnemyPlane) flyingObject).hitFeedback(game);
-                            out = true;
-                            flyingObject.dead(game);
+                            if (!(flyingObject instanceof EnemyBoss)){
+                                ((EnemyPlane) flyingObject).hitFeedback(game);
+                                out = true;
+                                flyingObject.dead(game);
+                            }else {
+                                GameController.fail(game);
+                            }
                         }
                     }
                 }

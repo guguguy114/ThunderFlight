@@ -3,6 +3,7 @@ package view.customwindows;
 import control.GameConstStr;
 import control.listener.ActionLis;
 import control.listener.LevelComboboxLis;
+import control.listener.RadioBtnLis;
 import model.Game;
 
 import javax.swing.*;
@@ -17,11 +18,17 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
 
     public JSlider speedPutIn;
     public JComboBox<String> levelChoosePutIn;
-    public JLabel speed, levelChoose, leveSelectedLabel, levelSelected, CQLabel, PQLabel, BLLabel;
+    public JLabel speedLabel, levelChooseLabel, leveSelectedLabel, levelSelected, CQLabel, PQLabel, BLLabel;
     public JButton confirmBtn;
     public JTextField commonQuantity, promoteQuantity, bossLife;
+    public JRadioButton BGSelect1, BGSelect2, BGSelect3;
+    public ButtonGroup buttonGroup;
     private boolean custom;
     private int CQ, PQ, BL;
+
+
+
+    public String BG = "BG1";
 
 
     public CustomPanel(Game game) {
@@ -32,10 +39,11 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         setLayout(null);
         Font customFont = new Font("黑体", Font.BOLD, 15);
         ActionLis actionLis = new ActionLis(game);
+        RadioBtnLis radioBtnLis = new RadioBtnLis(this);
 
-        speed = new JLabel("游戏速度：");
-        speed.setBounds(50,50,200,20);
-        speed.setFont(customFont);
+        speedLabel = new JLabel("游戏速度：");
+        speedLabel.setBounds(50,50,200,20);
+        speedLabel.setFont(customFont);
 
         speedPutIn = new JSlider(0,3);
         Dictionary<Integer, JLabel> labelTable = new Hashtable<>();
@@ -51,11 +59,11 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         speedPutIn.setBounds(130,50,400,50);
         speedPutIn.setFont(customFont);
 
-        levelChoose = new JLabel("选择关卡");
-        levelChoose.setBounds(50, 120, 100, 20);
-        levelChoose.setFont(customFont);
+        levelChooseLabel = new JLabel("选择关卡");
+        levelChooseLabel.setBounds(50, 120, 100, 20);
+        levelChooseLabel.setFont(customFont);
 
-        String[] levels = new String[]{"第一关", "第二关", "第三关", "自定义"};
+        String[] levels = new String[]{GameConstStr.LEVEL_ONE, GameConstStr.LEVEL_TWO, GameConstStr.LEVEL_THREE, GameConstStr.LEVEL_CUSTOM};
         levelChoosePutIn = new JComboBox<>(levels);
         levelChoosePutIn.setMaximumRowCount(5);
         levelChoosePutIn.setBounds(130, 120, 100, 20);
@@ -109,9 +117,39 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         bossLife.setFont(customFont);
         bossLife.setVisible(false);
 
-        add(speed);
+        BGSelect1 = new JRadioButton("BG1", false);
+        BGSelect1.setBounds(50, 200, 80,20);
+        BGSelect1.setFont(customFont);
+        BGSelect1.setVisible(false);
+        BGSelect1.setSelected(true);
+        BGSelect1.addItemListener(radioBtnLis);
+
+        BGSelect2 = new JRadioButton("BG2", false);
+        BGSelect2.setBounds(150, 200, 80,20);
+        BGSelect2.setFont(customFont);
+        BGSelect2.setVisible(false);
+        BGSelect2.addItemListener(radioBtnLis);
+
+        BGSelect3 = new JRadioButton("BG3", false);
+        BGSelect3.setBounds(250, 200, 80, 20);
+        BGSelect3.setFont(customFont);
+        BGSelect3.setVisible(false);
+        BGSelect3.addItemListener(radioBtnLis);
+
+        buttonGroup = new ButtonGroup();
+        buttonGroup.add(BGSelect1);
+        buttonGroup.add(BGSelect2);
+        buttonGroup.add(BGSelect3);
+
+
+
+
+
+
+
+        add(speedLabel);
         add(speedPutIn);
-        add(levelChoose);
+        add(levelChooseLabel);
         add(levelChoosePutIn);
         add(leveSelectedLabel);
         add(levelSelected);
@@ -122,6 +160,9 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         add(commonQuantity);
         add(promoteQuantity);
         add(bossLife);
+        add(BGSelect1);
+        add(BGSelect2);
+        add(BGSelect3);
     }
 
     public void custom(){
@@ -131,6 +172,9 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         commonQuantity.setVisible(true);
         promoteQuantity.setVisible(true);
         bossLife.setVisible(true);
+        BGSelect1.setVisible(true);
+        BGSelect2.setVisible(true);
+        BGSelect3.setVisible(true);
         custom = true;
     }
 
@@ -141,7 +185,16 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         commonQuantity.setVisible(false);
         promoteQuantity.setVisible(false);
         bossLife.setVisible(false);
+        BGSelect1.setVisible(false);
+        BGSelect2.setVisible(false);
+        BGSelect3.setVisible(false);
         custom = false;
+    }
+
+    public void setValue(){
+        CQ = Integer.parseInt(commonQuantity.getText());
+        PQ = Integer.parseInt(promoteQuantity.getText());
+        BL = Integer.parseInt(bossLife.getText());
     }
 
 
@@ -163,5 +216,17 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
 
     public boolean isCustom() {
         return custom;
+    }
+
+    public int getCQ() {
+        return CQ;
+    }
+
+    public int getPQ() {
+        return PQ;
+    }
+
+    public int getBL() {
+        return BL;
     }
 }

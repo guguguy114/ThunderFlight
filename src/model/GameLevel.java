@@ -53,12 +53,11 @@ public class GameLevel {
         commonEnemyPlaneQuantity = commonNum;
         promotedEnemyPlaneQuantity = promoteNum;
         bossQuantity = 1;
-        speed = levelSpeed;
         this.bossLife = bossLife;
         this.levelName = levelName;
         this.levelID = levelID;
         randomSpeed = false;
-        setSpeed();
+        setSpeed(levelSpeed);
     }
 
 
@@ -80,9 +79,10 @@ public class GameLevel {
         }
     }
 
-    private void setSpeed() {
-        enemySpeedX = speed;
-        enemySpeedY = speed;
+    public void setSpeed(int levelSpeed) {
+        speed = levelSpeed;
+        enemySpeedX = levelSpeed;
+        enemySpeedY = levelSpeed;
     }
 
 
@@ -176,10 +176,6 @@ public class GameLevel {
         return commonEnemyPlaneQuantity;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
     public String getLevelName() {
         return levelName;
     }
@@ -205,5 +201,9 @@ public class GameLevel {
 
     public void setBossDead(boolean bossDead) {
         this.bossDead = bossDead;
+    }
+
+    public int getEnemySpeedX() {
+        return enemySpeedX;
     }
 }

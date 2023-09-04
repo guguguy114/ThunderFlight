@@ -59,27 +59,24 @@ public class TimerActionLis implements ActionListener {
         this.game = game;
         switch (mode) {
             case GameConstStr.HERO_NAME:
-                this.mode = GameConstStr.HERO_NAME;
                 key = 10;
                 break;
             case GameConstStr.ENEMY:
-                this.mode = GameConstStr.ENEMY;
                 key = 100;
                 break;
             case GameConstStr.DEAD:
-                this.mode = GameConstStr.DEAD;
                 key = 10;
                 tik2 = 0;
                 break;
             case GameConstStr.HERO_STATE_LAST:
-                this.mode = GameConstStr.HERO_STATE_LAST;
                 key = 500;
                 break;
-            default:
-                this.mode = GameConstStr.LOCAL;
+            case GameConstStr.ENEMY_BOSS:
+                key = 50;
                 break;
         }
         this.flyingObject = flyingObject;
+        this.mode = mode;
     }
 
     @Override
@@ -154,6 +151,7 @@ public class TimerActionLis implements ActionListener {
 
                 //敌机攻击计时器模式
             case GameConstStr.ENEMY:
+            case GameConstStr.ENEMY_BOSS:
                 if (flyingObject != null) {
                     ++tik;
                     if (tik == key) {

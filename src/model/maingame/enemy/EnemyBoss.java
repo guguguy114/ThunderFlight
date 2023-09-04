@@ -6,7 +6,10 @@ import control.GameConstStr;
 import control.timer.AttackTimer;
 import model.Game;
 import model.GameLevel;
+import model.Music;
+import model.maingame.ammo.Bullet;
 import view.gamewindows.GameInformationPanel;
+import view.gamewindows.GamePanel;
 
 import java.util.Random;
 
@@ -23,14 +26,15 @@ public class EnemyBoss extends EnemyPlane{
         GameLevel gameLevel = game.getGameLevel();
         width = GameConstDataUtil.BOSS_WIDTH;
         height = GameConstDataUtil.BOSS_HEIGHT;
-        speedX = 2;
-        speedY = 1;
+        speedX = gameLevel.getEnemySpeedX() + 1;
+        speedY = gameLevel.getEnemySpeedY();
         motionMode = GameConstStr.BOSS_MOVE_STAGE_DOWN;
         life = game.getGameLevel().getBossLife();
         score = life;
         down = true;
         gameLevel.setBossSummonCount(gameLevel.getBossSummonCount() + 1);
         attackTimer = new AttackTimer(game, this, GameConstStr.ENEMY_BOSS);
+        attackTimer.getTimer().start();
         animationTimer.getTimer().start();
         System.out.println("creating_boss");
         System.out.println("middle is " + (GameConstDataUtil.GAME_PANEL_WIDTH - width) / 2);
@@ -114,12 +118,25 @@ public class EnemyBoss extends EnemyPlane{
             }
         }
 
+        atkPointX = objX + width / 2;
+        actPointY = objY + height / 2;
 
     }
 
     @Override
     public void attack(Game game) {
-
+        Music fire = new Music(Music.FIRE);
+        fire.startMusic();
+        //System.out.println("boss_shoot");
+        GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_UP));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_UP_AND_RIGHT));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_RIGHT));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_DOWN_AND_RIGHT));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_DOWN));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_DOWN_AND_LEFT));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_LEFT));
+        gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_UP_AND_LEFT));
     }
 
     @Override

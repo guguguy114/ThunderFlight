@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.11";
+    public static final String VERSION = "1.0.12";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -49,6 +49,7 @@ public class GameConstStr {
     public static final String BOOS_MOVE_STAGE_STOP_IN_MIDDLE = "bossStopInMiddle";
     public static final String LEVEL_FAILED = "failed";
     public static final String LEVEL_COMPLETE = "complete";
+    public static final String LEVEL_FINAL = "level_final";
     public static final String READY_TO_NEXT_LEVEL = "ready_to_next_level";
     public static final String READY_TO_RESTART_LEVEL = "ready_to_restart_level";
     public static final String BG1 = "BG1";
@@ -60,4 +61,8 @@ public class GameConstStr {
     public static final String FINAL = "final";
     public static final String LIST = "list";
     public static final String REFRESH_YZM = "refresh_YZM";
+    public static final String LEVEL_ONE = "第一关";
+    public static final String LEVEL_TWO = "第二关";
+    public static final String LEVEL_THREE = "第三关";
+    public static final String LEVEL_CUSTOM = "自定义";
 }

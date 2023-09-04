@@ -21,4 +21,14 @@ public class GameConstDataUtil {
     public static final int BOSS_WIDTH = 225;
     public static final int BOSS_HEIGHT = 300;
     public static final int DEFAULT_TO_NEXT_LEVEL_TIK = 5;
+    public static final int DIRECT_UP = 1;
+    public static final int DIRECT_DOWN = 2;
+    public static final int DIRECT_LEFT = 3;
+    public static final int DIRECT_RIGHT = 4;
+    public static final int DIRECT_UP_AND_RIGHT = 5;
+    public static final int DIRECT_UP_AND_LEFT = 6;
+    public static final int DIRECT_DOWN_AND_RIGHT = 7;
+    public static final int DIRECT_DOWN_AND_LEFT = 8;
+
+
 }

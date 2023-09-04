@@ -37,4 +37,5 @@ public class GameConstResourceUtil {
     public static final Image START_SCREEN = new ImageIcon("img/start.png").getImage();
     public static final Image PAUSE_SCREEN = new ImageIcon("img/pause.png").getImage();
     public static final Image OVER_SCREEN = new ImageIcon("img/gameOver.png").getImage();
+    public static final Image PASS_SCREEN = new ImageIcon("img/gamePass.png").getImage();
 }

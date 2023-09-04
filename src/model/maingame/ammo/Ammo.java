@@ -4,6 +4,7 @@ import control.GameConstStr;
 import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
+import model.Music;
 import view.gamewindows.GamePanel;
 
 import java.util.ArrayList;
@@ -56,6 +57,8 @@ public abstract class Ammo extends FlyingObject {
 
     @Override
     public void dead(Game game) {
+        Music dead = new Music(Music.ENEMY_DOWN);
+        dead.startMusic();
         deadLength = height;
         width = deadLength;
         hitBle = false;
@@ -64,17 +67,20 @@ public abstract class Ammo extends FlyingObject {
         stopFlyingObject();
     }
 
+    /**
+     * 对其他子弹的碰撞检测，碰到其他子弹两方的子弹都消失
+     * @param game 游戏对象
+     */
     @Override
     public void hitDetect(Game game) {
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
-        for (ArrayList<FlyingObject> totalList : gamePanel.getTotalList()){
-            for (FlyingObject flyingObject : totalList){
-                if (intersect(flyingObject)){
-                    if (flyingObject instanceof Ammo && flyingObject != this && flyingObject.isHitBle() && this.hitBle){
-                        flyingObject.dead(game);
-                        this.hitBle = false;
-                        this.dead(game);
-                    }
+        ArrayList<FlyingObject> totalList = gamePanel.getAmmoList();
+        for (FlyingObject flyingObject : totalList){
+            if (intersect(flyingObject)){
+                if (flyingObject instanceof Ammo && flyingObject != this && flyingObject.isHitBle() && this.hitBle && !(((Ammo) flyingObject).belongTo.equals(this.belongTo))){
+                    flyingObject.dead(game);
+                    this.hitBle = false;
+                    this.dead(game);
                 }
             }
         }

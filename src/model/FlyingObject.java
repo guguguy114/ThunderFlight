@@ -172,4 +172,8 @@ public abstract class FlyingObject {
     protected void finalize() {
         //System.out.println("removed " + getClass());
     }
+
+    public int getSpeedX() {
+        return speedX;
+    }
 }

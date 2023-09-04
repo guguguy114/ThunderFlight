@@ -1,5 +1,6 @@
 package model.maingame.ammo;
 
+import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import model.FlyingObject;
@@ -18,9 +19,10 @@ public class Bullet extends Ammo {
      * @param y         生成位置y
      * @param enemyFrom 创建该子弹的飞行物
      */
-    public Bullet(String belongTo, int x, int y, EnemyPlane enemyFrom) {
-        this(belongTo, x, y);
+    public Bullet(String belongTo, int x, int y, EnemyPlane enemyFrom, int direct) {
+        this(belongTo, x, y, direct);
         speedY = enemyFrom.getSpeedY() + 2;
+        speedX = enemyFrom.getSpeedX() + 2;
         damage = 1;
     }
 
@@ -31,29 +33,32 @@ public class Bullet extends Ammo {
      * @param x        生成位置x
      * @param y        生成位置y
      */
-    public Bullet(String belongTo, int x, int y) {
+    public Bullet(String belongTo, int x, int y, int direct) {
         super(belongTo, x, y);
         img = GameConstResourceUtil.FRIEND_BULLET_LIGHT;
         width = img.getWidth(null);
         height = img.getHeight(null);
         animationList = new ArrayList<>();
-        up = true;
-        down = true;
-        speedY = 5;
+        if (belongTo.equals(GameConstStr.FRIEND)){
+            speedY = 5;
+        }
         damage = 1;
+        setDirect(direct);
     }
 
     @Override
     public void move(Game game) {
-        if (belongTo.equals(GameConstStr.FRIEND)) {
-            if (up) {
-                objY -= speedY;
-            }
+        if (up) {
+            objY -= speedY;
         }
-        if (belongTo.equals(GameConstStr.ENEMY)) {
-            if (down) {
-                objY += speedY;
-            }
+        if (down) {
+            objY += speedY;
+        }
+        if (right){
+            objX += speedX;
+        }
+        if (left){
+            objX -= speedX;
         }
     }
 
@@ -89,5 +94,38 @@ public class Bullet extends Ammo {
     @Override
     public void hitFeedback(Game game, FlyingObject objIn) {
         super.hitFeedback(game, objIn);
+    }
+
+    private void setDirect(int direct){
+        switch (direct){
+            case GameConstDataUtil.DIRECT_UP:
+                up = true;
+                break;
+            case GameConstDataUtil.DIRECT_DOWN:
+                down = true;
+                break;
+            case GameConstDataUtil.DIRECT_RIGHT:
+                right = true;
+                break;
+            case GameConstDataUtil.DIRECT_LEFT:
+                left = true;
+                break;
+            case GameConstDataUtil.DIRECT_UP_AND_RIGHT:
+                up = true;
+                right = true;
+                break;
+            case GameConstDataUtil.DIRECT_UP_AND_LEFT:
+                up = true;
+                left = true;
+                break;
+            case GameConstDataUtil.DIRECT_DOWN_AND_RIGHT:
+                down = true;
+                right = true;
+                break;
+            case GameConstDataUtil.DIRECT_DOWN_AND_LEFT:
+                down = true;
+                left = true;
+                break;
+        }
     }
 }
