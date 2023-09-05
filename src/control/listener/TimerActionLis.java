@@ -8,7 +8,7 @@ import model.BackGround;
 import model.FlyingObject;
 import model.Game;
 import model.maingame.hero.HeroPlane;
-import view.gamewindows.GamePanel;
+import view.gamewindows.GameMainPanel;
 import view.gamewindows.GameVicPanel;
 
 import java.awt.event.ActionEvent;
@@ -119,7 +119,6 @@ public class TimerActionLis implements ActionListener {
 
                 //死亡计时器模式
             case GameConstStr.DEAD:
-                GamePanel gamePanel;
                 if (flyingObject.getDeadImgList().size() != 0){
                     flyingObject.setImg(flyingObject.getDeadImgList().get(tik2));
                     tik++;
@@ -139,10 +138,10 @@ public class TimerActionLis implements ActionListener {
 
                 //动画计时器模式
             case GameConstStr.ANIMATION:
-                gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
+                GameMainPanel gameMainPanel = game.getUi().getGameWin().getGameMainPanel();
                 ++tik;
                 if (tik == key) {
-                    GameController.changeObjectAnimation(gamePanel);
+                    GameController.changeObjectAnimation(gameMainPanel);
                     //System.out.println("animation_acting");
                     tik = 0;
                 }

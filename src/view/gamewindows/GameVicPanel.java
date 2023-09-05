@@ -15,7 +15,8 @@ public class GameVicPanel extends JPanel {
     private TempTimer TempTimer;
     private Image screen;
 
-    GameVicPanel(Game game) {
+    GameVicPanel() {
+        screen = GameConstResourceUtil.PASS_SCREEN;
         setLayout(null);
         Font endFont = new Font("黑体", Font.BOLD, 30);
 

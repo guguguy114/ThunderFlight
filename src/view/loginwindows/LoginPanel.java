@@ -14,14 +14,11 @@ public class LoginPanel extends JPanel {
     public JTextField accountPutIn, YZMPutIn;
     JButton loginBtn, signUpBtn, YZMRefreshBtn, exitBtn, listBtn;
     public JPasswordField passwordPutIn;
-    Box labelBox, putInBox;
     LoginPanel(Game game){
         setLayout(null);
         ActionLis actionLis = new ActionLis(game);
-        //Box centerBox = Box.createVerticalBox();
         Font loginPageFont = new Font("黑体", Font.BOLD, 20);
         Font titleFont = new Font("黑体", Font.BOLD, 40);
-        //setLayout(new BorderLayout());
 
 
 
@@ -95,10 +92,6 @@ public class LoginPanel extends JPanel {
 
 
 
-        /*
-        add(title, BorderLayout.NORTH);
-        add(accountLabel, BorderLayout.CENTER);
-        */
         add(title);
         add(accountLabel);
         add(accountPutIn);

@@ -1,7 +1,7 @@
 package control;
 
 public class GameConstStr {
-    public static final String VERSION = "1.0.12";
+    public static final String VERSION = "1.0.13";
     public static final String START = "start";
     public static final String PAUSE = "pause";
     public static final String EXIT = "exit";
@@ -65,4 +65,6 @@ public class GameConstStr {
     public static final String LEVEL_TWO = "第二关";
     public static final String LEVEL_THREE = "第三关";
     public static final String LEVEL_CUSTOM = "自定义";
+    public static final String MUSIC_EQ = "EQMusic";
+    public static final String MUSIC_BGM = "BGM";
 }

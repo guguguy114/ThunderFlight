@@ -8,7 +8,6 @@ import model.Game;
 import model.GameLevel;
 import model.Music;
 import model.maingame.ammo.Bullet;
-import view.gamewindows.GameInformationPanel;
 import view.gamewindows.GamePanel;
 
 import java.util.Random;
@@ -43,10 +42,7 @@ public class EnemyBoss extends EnemyPlane{
 
     @Override
     public void move(Game game) {
-        GameInformationPanel gameInformationPanel = game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel();
-        gameInformationPanel.debug.setText(String.valueOf(life));
-        gameInformationPanel.debug2.setText(motionMode);
-        //System.out.println("currentX:" + objX);
+
 
 
 
@@ -125,7 +121,7 @@ public class EnemyBoss extends EnemyPlane{
 
     @Override
     public void attack(Game game) {
-        Music fire = new Music(Music.FIRE);
+        Music fire = new Music(Music.FIRE, GameConstStr.MUSIC_EQ);
         fire.startMusic();
         //System.out.println("boss_shoot");
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();

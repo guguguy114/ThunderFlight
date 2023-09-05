@@ -13,7 +13,7 @@ public class GameLevel {
     private final int promotedEnemyPlaneQuantity;
     private final int commonEnemyPlaneQuantity;
     private final boolean randomSpeed;
-    private int bossQuantity;
+    private final int bossQuantity;
     private int enemySpeedY;
     private int enemySpeedX;
     private int commonSummonCount;
@@ -23,30 +23,12 @@ public class GameLevel {
     private int promoteDeadCount;
     private int bossDeadCount;
     private int speed;
-    private String levelName;
-    private int bossLife;
-
-    private int levelID;
+    private final String levelName;
+    private final int bossLife;
+    private final int levelID;
     private int passLineEnemyQuantity;
     private boolean bossDead;
-
-    public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity, int bossQuantity) {
-        this.backGround = backGround;
-        this.promotedEnemyPlaneQuantity = promotedEnemyPlaneQuantity;
-        this.commonEnemyPlaneQuantity = commonEnemyPlaneQuantity;
-        this.bossQuantity = bossQuantity;
-        speed = 1;
-        enemySpeedY = speed;
-        enemySpeedX = speed;
-        randomSpeed = false;
-    }
-
-    public GameLevel(BackGround backGround, int promotedEnemyPlaneQuantity, int commonEnemyPlaneQuantity) {
-        this.backGround = backGround;
-        this.promotedEnemyPlaneQuantity = promotedEnemyPlaneQuantity;
-        this.commonEnemyPlaneQuantity = commonEnemyPlaneQuantity;
-        randomSpeed = true;
-    }
+    private final Music BGM;
 
     public GameLevel(String backgroundName, String levelName, int levelSpeed, int commonNum, int promoteNum, int bossLife, int levelID) {
         backGround = new BackGround(chooseBG(backgroundName));
@@ -57,6 +39,7 @@ public class GameLevel {
         this.levelName = levelName;
         this.levelID = levelID;
         randomSpeed = false;
+        BGM = new Music(Music.MAIN_GAME_BGM_1, GameConstStr.MUSIC_BGM);
         setSpeed(levelSpeed);
     }
 
@@ -205,5 +188,9 @@ public class GameLevel {
 
     public int getEnemySpeedX() {
         return enemySpeedX;
+    }
+
+    public Music getBGM() {
+        return BGM;
     }
 }

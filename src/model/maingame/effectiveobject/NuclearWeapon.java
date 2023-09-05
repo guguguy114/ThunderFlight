@@ -1,6 +1,7 @@
 package model.maingame.effectiveobject;
 
 import control.GameConstResourceUtil;
+import control.GameConstStr;
 import control.GameUIController;
 import model.BigBomb;
 import model.FlyingObject;
@@ -21,7 +22,7 @@ public class NuclearWeapon extends EffectiveObject{
         img = GameConstResourceUtil.NUCLEAR_BOMB;
         width = img.getWidth(null);
         height = img.getHeight(null);
-        hitMusic = new Music(Music.GET_BOMB);
+        hitMusic = new Music(Music.GET_BOMB, GameConstStr.MUSIC_EQ);
     }
 
     @Override

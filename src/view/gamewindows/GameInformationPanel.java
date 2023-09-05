@@ -1,7 +1,9 @@
 package view.gamewindows;
 
 import control.GameConstResourceUtil;
+import control.GameController;
 import model.Game;
+import model.MiniMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +11,17 @@ import java.awt.*;
 public class GameInformationPanel extends JPanel {
 
     public JLabel scoreLabel, lifeLabel, levelLabel, restEnemyPlaneQuantityLabel, passLineEnemyPlaneQuantityLabel, playerNameLabel, nuclearNumLabel, historyScoreLabel;
-    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum, historyScore, debug, debug2;
+    public JLabel score, life, level, restEnemyPlaneQuantity, passLineEnemyPlaneQuantity, playerName, nuclearNum, commonNum, promoteNum, bossNum, historyScore;
+    public MiniMap miniMap;
+    private final Game game;
 
     GameInformationPanel(Game game){
+        this.game = game;
         setLayout(null);
         Font infoPaneFont = new Font("黑体", Font.BOLD, 20);
         int basicY = 20;
+
+        miniMap = new MiniMap(game);
 
 
         scoreLabel = new JLabel("得分：");
@@ -121,12 +128,11 @@ public class GameInformationPanel extends JPanel {
         add(bossNum);
         add(historyScoreLabel);
         add(historyScore);
-        add(debug);
-        add(debug2);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        GameController.drawPane(g, this, game);
         g.drawImage(GameConstResourceUtil.COMMON_ENEMY_PLANE_1, 20, 360, 50, 50, null);
         g.drawImage(GameConstResourceUtil.PROMOTE_ENEMY_PLANE, 100, 360, 50, 50,null);
         g.drawImage(GameConstResourceUtil.BOSS_1, 180, 360, 56, 75,null);

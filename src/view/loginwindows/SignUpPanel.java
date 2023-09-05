@@ -65,6 +65,7 @@ public class SignUpPanel extends JPanel {
         returnBtn.addActionListener(actionLis);
 
 
+
         add(playerNameLabel);
         add(playerNamePutIn);
         add(accountLabel);

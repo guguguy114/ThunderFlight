@@ -75,7 +75,7 @@ public class HeroPlane extends FlyingObject {
         switch (atkMode) {
             case GameConstStr.COMMON_ATK_MODE:
                 if (isAtk) {
-                    Music fire = new Music(Music.FIRE);
+                    Music fire = new Music(Music.FIRE, GameConstStr.MUSIC_EQ);
                     fire.startMusic();
                     //System.out.println("attacking");
                     GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
@@ -85,7 +85,7 @@ public class HeroPlane extends FlyingObject {
                 break;
             case GameConstStr.DOUBLE_ATK_MODE:
                 if (isAtk) {
-                    Music fire = new Music(Music.FIRE);
+                    Music fire = new Music(Music.FIRE, GameConstStr.MUSIC_EQ);
                     fire.startMusic();
                     GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
                     gamePanel.getAmmoList().add(new Bullet(GameConstStr.FRIEND, (this.atkPointX + objX) / 2, this.actPointY, GameConstDataUtil.DIRECT_UP));
@@ -97,7 +97,7 @@ public class HeroPlane extends FlyingObject {
 
     @Override
     public void dead(Game game) {
-        Music dead = new Music(Music.REBORN);
+        Music dead = new Music(Music.REBORN, GameConstStr.MUSIC_EQ);
         dead.startMusic();
         objX = GameConstDataUtil.INITIAL_HERO_X;
         objY = GameConstDataUtil.INITIAL_HERO_Y;

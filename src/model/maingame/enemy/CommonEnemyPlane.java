@@ -48,7 +48,7 @@ public class CommonEnemyPlane extends EnemyPlane{
 
     @Override
     public void attack(Game game) {
-        Music fire = new Music(Music.FIRE);
+        Music fire = new Music(Music.FIRE, GameConstStr.MUSIC_EQ);
         fire.startMusic();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         gamePanel.getAmmoList().add(new Bullet(GameConstStr.ENEMY, atkPointX, actPointY, this, GameConstDataUtil.DIRECT_DOWN));
@@ -57,7 +57,7 @@ public class CommonEnemyPlane extends EnemyPlane{
     @Override
     public void dead(Game game) {
         super.dead(game);
-        Music dead = new Music(Music.ENEMY_DOWN);
+        Music dead = new Music(Music.ENEMY_DOWN, GameConstStr.MUSIC_EQ);
         dead.startMusic();
         deadCount(game);
     }

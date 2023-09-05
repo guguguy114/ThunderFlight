@@ -13,7 +13,7 @@ public class BackGround extends FlyingObject {
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, Game game) {
         g.drawImage(img, 0, 0, GameConstDataUtil.GAME_PANEL_WIDTH, GameConstDataUtil.GAME_PANEL_HEIGHT, 0, objY, img.getWidth(null), img.getWidth(null) + objY, null);
         g.drawImage(img, 0, 0, GameConstDataUtil.GAME_PANEL_WIDTH, GameConstDataUtil.GAME_PANEL_HEIGHT, 0, img.getHeight(null) + objY, img.getWidth(null), img.getWidth(null) + img.getHeight(null) + objY, null);
     }

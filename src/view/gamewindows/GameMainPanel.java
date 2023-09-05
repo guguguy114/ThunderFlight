@@ -24,7 +24,7 @@ public class GameMainPanel extends JPanel {
         gameInformationPanel = new GameInformationPanel(game);
         gameInformationPanel.setPreferredSize(new Dimension(300, 800));
 
-        gameVicPanel = new GameVicPanel(game);
+        gameVicPanel = new GameVicPanel();
         gameVicPanel.setPreferredSize(new Dimension(800, 800));
 
 

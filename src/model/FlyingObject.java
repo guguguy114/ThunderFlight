@@ -25,16 +25,18 @@ public abstract class FlyingObject {
     protected AnimationTimer animationTimer;
     protected AttackTimer attackTimer;
     protected ArrayList<Image> deadImgList;
-    protected String atkMode;
+    //protected String atkMode;
     protected boolean hitBle = true;
     protected String className;
 
 
     /**
      * 绘制对象
-     * @param g 对应页面的绘画工具
+     *
+     * @param g    对应页面的绘画工具
+     * @param game 所在的游戏对象
      */
-    public void draw(Graphics g) {
+    public void draw(Graphics g, Game game) {
         //System.out.println("drawing_" + this.getClass());
         g.drawImage(img, objX, objY, width, height, null);
     }
@@ -104,9 +106,6 @@ public abstract class FlyingObject {
 
 
 
-    public String getClassName() {
-        return className;
-    }
 
     public boolean isHitBle() {
         return hitBle;
@@ -164,10 +163,6 @@ public abstract class FlyingObject {
     }
     public AttackTimer getAttackTimer() {
         return attackTimer;
-    }
-
-    public void setAttackTimer(AttackTimer attackTimer) {
-        this.attackTimer = attackTimer;
     }
     protected void finalize() {
         //System.out.println("removed " + getClass());

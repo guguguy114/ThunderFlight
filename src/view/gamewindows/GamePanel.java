@@ -37,7 +37,7 @@ public class GamePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        GameController.drawPane(g, this);
+        GameController.drawPane(g, this, game);
         Image screen = GameUIController.stateScreen(game);
         if (screen != null) {
             g.drawImage(screen, 0, 0, GameConstDataUtil.GAME_PANEL_WIDTH, GameConstDataUtil.GAME_PANEL_HEIGHT, 0, (screen.getHeight(null) - screen.getWidth(null)) / 2, screen.getWidth(null), (screen.getHeight(null) + screen.getWidth(null)) / 2, null);

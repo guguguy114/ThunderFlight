@@ -10,9 +10,7 @@ import model.maingame.enemy.EnemyPlane;
 import model.maingame.enemy.PromotedEnemyPlane;
 import model.maingame.hero.HeroPlane;
 import view.customwindows.CustomPanel;
-import view.gamewindows.GameMainPanel;
-import view.gamewindows.GamePanel;
-import view.gamewindows.GameVicPanel;
+import view.gamewindows.*;
 import view.loginwindows.LoginPanel;
 import view.loginwindows.SignUpPanel;
 
@@ -35,14 +33,13 @@ public class GameController {
      */
     public static String code() {
         System.out.println(GameConstStr.REFRESH_YZM);
-//        Random r = new Random();
-//        String strCode = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-//        StringBuilder code = new StringBuilder();
-//        for (int i = 0 ; i < 4 ; i ++){
-//            code.append(strCode.charAt(r.nextInt(strCode.length())));
-//        }
-//        return code.toString();
-        return "1";
+        Random r = new Random();
+        String strCode = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        StringBuilder code = new StringBuilder();
+        for (int i = 0 ; i < 4 ; i ++){
+            code.append(strCode.charAt(r.nextInt(strCode.length())));
+        }
+        return code.toString();
     }
 
     public static void login(Game game) {// 一定要先创建gameWin再创建infoWin
@@ -54,7 +51,7 @@ public class GameController {
         pwd = new String(panel.passwordPutIn.getPassword());
         Player player = jdbcUtil.login(acc, pwd);
         //System.out.println(player);
-        if (panel.YZMPutIn.getText().equals(panel.YZM.getText())) {
+        if (panel.YZMPutIn.getText().equalsIgnoreCase(panel.YZM.getText())) {
             if (player != null) {
                 game.setPlayer(player);
                 System.out.println("{ acc = " + acc + " , pwd = " + pwd + " }");
@@ -64,8 +61,9 @@ public class GameController {
                 GameUIController.changeMenu(game);
                 game.getUi().getGameWin().setEnabled(false);
                 game.getUi().getInfoWin().setVisible(true);
-                Music startMusic = new Music(Music.START_GAME);
+                Music startMusic = new Music(Music.START_GAME, GameConstStr.MUSIC_EQ);
                 startMusic.startMusic();
+                game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel().miniMap.timerStart();
             } else {
                 System.out.println("acc_or_pwd_error");
             }
@@ -195,15 +193,21 @@ public class GameController {
 
     /**
      * 绘制游戏界面所有对象
-     * @param g 游戏界面的绘制工具
-     * @param gamePanel 游戏界面
+     *
+     * @param g     游戏界面的绘制工具
+     * @param panel 游戏界面
+     * @param game 游戏对象
      */
-    public static void drawPane(Graphics g, GamePanel gamePanel) {
-        gamePanel.getBackGround().draw(g);
-        for (ArrayList<FlyingObject> totalList: gamePanel.getTotalList()){
-            for (FlyingObject flyingObject : totalList){
-                flyingObject.draw(g);
+    public static void drawPane(Graphics g, JPanel panel, Game game) {
+        if (panel instanceof GamePanel){
+            ((GamePanel) panel).getBackGround().draw(g, game);
+            for (ArrayList<FlyingObject> totalList : ((GamePanel) panel).getTotalList()) {
+                for (FlyingObject flyingObject : totalList) {
+                    flyingObject.draw(g, game);
+                }
             }
+        }else if (panel instanceof GameInformationPanel){
+            ((GameInformationPanel) panel).miniMap.draw(g, game);
         }
     }
 
@@ -251,20 +255,24 @@ public class GameController {
     /**
      *
      * 更改游戏对象动画
-     * @param gamePanel 游戏页面
+     * @param gameMainPanel 游戏页面
      */
-    public static void changeObjectAnimation(GamePanel gamePanel) {
+    public static void changeObjectAnimation(GameMainPanel gameMainPanel) {
+        GamePanel gamePanel = gameMainPanel.getGamePanel();
         for (ArrayList<FlyingObject> totalList: gamePanel.getTotalList()){
             for (FlyingObject flyingObject : totalList){
                 flyingObject.changeAnimation();
             }
         }
+        GameInformationPanel gameInformationPanel = gameMainPanel.getGameInformationPanel();
+        gameInformationPanel.miniMap.changeAnimation();
     }
 
     public static void pause(Game game) {
         if (!(game.getGameMode() == GameConstDataUtil.READY_MODE)){
             GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
             HeroPlane heroPlane = gamePanel.getHeroPlane();
+            GameLevel gameLevel = game.getGameLevel();
             heroPlane.isAtk = false;
             game.getTimers().getGlobalTimer().getTimer().stop();
             game.getTimers().getAnimationTimer().getTimer().stop();
@@ -272,6 +280,7 @@ public class GameController {
             game.setGameMode(GameConstDataUtil.PAUSE_MODE);
             GameUIController.changeMenu(game);
             gamePanel.repaint();
+            gameLevel.getBGM().stopMusic();
         }
     }
 
@@ -280,11 +289,13 @@ public class GameController {
      * @param game 游戏对象
      */
     public static void continueGame(Game game) {
+        GameLevel gameLevel = game.getGameLevel();
         game.getTimers().getGlobalTimer().getTimer().start();
         game.getTimers().getAnimationTimer().getTimer().start();
         restartCreateAmmo(game.getUi().getGameWin().getGameMainPanel().getGamePanel());
         game.setGameMode(GameConstDataUtil.RUNNING_MODE);
         GameUIController.changeMenu(game);
+        gameLevel.getBGM().startMusic();
     }
 
     public static void stopCreateAmmo(GamePanel gamePanel) {
@@ -323,6 +334,8 @@ public class GameController {
         restartCreateAmmo(game.getUi().getGameWin().getGameMainPanel().getGamePanel());
         game.setGameMode(GameConstDataUtil.RUNNING_MODE);
         GameUIController.changeMenu(game);
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.getBGM().startMusic();
     }
 
     public static void allDetect(Game game){
@@ -336,9 +349,11 @@ public class GameController {
 
     public static void levelComplete(Game game, String mode){
         Player player = game.getPlayer();
-//        System.out.println(mode);
-        GameVicPanel gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
-        if (game.getGameLevel().getLevelID() == 3){
+        GameVicPanel gameVicPanel;
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.getBGM().stopMusic();
+        gameLevel.getBGM().resetMusic();
+        if (game.getGameLevel().getLevelID() == 3 || game.getGameLevel().getLevelID() == 0){
             GameUIController.gamePaneEndPaneExchange(game, GameConstStr.TO_END_PANE, GameConstStr.LEVEL_FINAL);
             player.setTotalScore(player.getTotalScore() + player.getScore());
             JDBCUtil jdbcUtil = new JDBCUtil();
@@ -360,7 +375,7 @@ public class GameController {
                 gameVicPanel.readyToNextLevel(game);
             }
             if (mode.equals(GameConstStr.LEVEL_FAILED)) {
-                Music failed = new Music(Music.GAME_OVER);
+                Music failed = new Music(Music.GAME_OVER, GameConstStr.MUSIC_EQ);
                 failed.startMusic();
                 gameVicPanel = game.getUi().getGameWin().getGameMainPanel().getGameVicPanel();
                 gameVicPanel.count.setText(String.valueOf(GameConstDataUtil.DEFAULT_TO_NEXT_LEVEL_TIK));
@@ -375,11 +390,11 @@ public class GameController {
         if (mode.equals(GameConstStr.COMMON)){
             if (JOptionPane.showConfirmDialog(null, "是否重新开始游戏", "重新开始游戏", JOptionPane.YES_NO_OPTION) == 0) {
                 restart(game);
-                Music startMusic = new Music(Music.START_GAME);
-                startMusic.startMusic();
             }
         }
         if (mode.equals(GameConstStr.FINAL)){
+            Music startMusic = new Music(Music.START_GAME, GameConstStr.MUSIC_EQ);
+            startMusic.startMusic();
             GameMainPanel gameMainPanel = game.getUi().getGameWin().getGameMainPanel();
             gameMainPanel.remove(gameMainPanel.getGameVicPanel());
             gameMainPanel.add(gameMainPanel.getGamePanel());
@@ -388,6 +403,9 @@ public class GameController {
     }
 
     public static void restart(Game game) {
+        GameLevel gameLevel = game.getGameLevel();
+        gameLevel.getBGM().stopMusic();
+        gameLevel.getBGM().resetMusic();
         GamePanel gamePanel = game.getUi().getGameWin().getGameMainPanel().getGamePanel();
         removeAllObject(game, gamePanel);
         Player player = game.getPlayer();
@@ -423,7 +441,7 @@ public class GameController {
                     if (customPanel.isCustom()) {
                         System.out.println("{ CQ = " + customPanel.commonQuantity.getText() + " PQ = " + customPanel.promoteQuantity.getText() + " BL = " + customPanel.bossLife.getText() + " BG = " + customPanel.BG + " }");
                         customPanel.setValue();
-                        game.setGameLevel(new GameLevel(customPanel.BG, GameConstStr.LEVEL_CUSTOM, customPanel.speedPutIn.getValue(), customPanel.getCQ(), customPanel.getPQ(), customPanel.getBL(), 0)); //todo:这里写创建特定数值的自定义关卡
+                        game.setGameLevel(new GameLevel(customPanel.BG, GameConstStr.LEVEL_CUSTOM, customPanel.speedPutIn.getValue(), customPanel.getCQ(), customPanel.getPQ(), customPanel.getBL(), 0)); //这里写创建特定数值的自定义关卡
                     } else {
                         System.out.println("fail_to_change_level");
                     }

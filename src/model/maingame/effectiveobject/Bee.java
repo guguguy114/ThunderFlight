@@ -1,6 +1,7 @@
 package model.maingame.effectiveobject;
 
 import control.GameConstResourceUtil;
+import control.GameConstStr;
 import model.Game;
 import model.Music;
 import model.maingame.hero.HeroPlane;
@@ -12,7 +13,7 @@ public class Bee extends EffectiveObject{
         img = GameConstResourceUtil.BEE;
         width = img.getWidth(null);
         height = img.getHeight(null);
-        hitMusic = new Music(Music.ADD_LIFE);
+        hitMusic = new Music(Music.ADD_LIFE, GameConstStr.MUSIC_EQ);
     }
 
     @Override

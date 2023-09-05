@@ -57,7 +57,7 @@ public abstract class Ammo extends FlyingObject {
 
     @Override
     public void dead(Game game) {
-        Music dead = new Music(Music.ENEMY_DOWN);
+        Music dead = new Music(Music.ENEMY_DOWN, GameConstStr.MUSIC_EQ);
         dead.startMusic();
         deadLength = height;
         width = deadLength;
