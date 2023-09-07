@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -22,7 +23,11 @@ public class JDBCUtil {
             statement.close();//释放执行者对象
             connection.close();//释放连接
             //System.out.println(player);
-            System.out.println("welcome " + "\"" + player.getPlayerName() + "\"");
+            if (player != null){
+                System.out.println("welcome " + "\"" + player.getPlayerName() + "\"");
+            }else {
+                JOptionPane.showConfirmDialog(null, "账号或密码错误", "登入失败", JOptionPane.DEFAULT_OPTION);
+            }
             return player;
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);

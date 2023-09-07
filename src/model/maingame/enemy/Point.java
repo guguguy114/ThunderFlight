@@ -1,8 +1,10 @@
-package model;
+package model.maingame.enemy;
 
 import control.GameConstResourceUtil;
+import model.FlyingObject;
+import model.Game;
 
-public class Point extends FlyingObject{
+public class Point extends FlyingObject {
     public Point() {
         img = GameConstResourceUtil.POINT;
         width = img.getWidth(null);

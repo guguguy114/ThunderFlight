@@ -19,7 +19,7 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
     public JSlider speedPutIn;
     public JComboBox<String> levelChoosePutIn;
     public JLabel speedLabel, levelChooseLabel, leveSelectedLabel, levelSelected, CQLabel, PQLabel, BLLabel;
-    public JButton confirmBtn;
+    public JButton confirmBtn, cancelBtn;
     public JTextField commonQuantity, promoteQuantity, bossLife;
     public JRadioButton BGSelect1, BGSelect2, BGSelect3;
     public ButtonGroup buttonGroup;
@@ -141,6 +141,12 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         buttonGroup.add(BGSelect2);
         buttonGroup.add(BGSelect3);
 
+        cancelBtn = new JButton("取消");
+        cancelBtn.setBounds(320, 300, 100, 40);
+        cancelBtn.setFont(customFont);
+        cancelBtn.setActionCommand(GameConstStr.CANCEL_CUSTOM);
+        cancelBtn.addActionListener(actionLis);
+
 
 
 
@@ -163,6 +169,7 @@ public class CustomPanel extends JPanel {// todo ： 有滑块，关卡选项，
         add(BGSelect1);
         add(BGSelect2);
         add(BGSelect3);
+        add(cancelBtn);
     }
 
     public void custom(){

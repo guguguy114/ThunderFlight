@@ -7,7 +7,6 @@ import control.timer.DeadTimer;
 import model.FlyingObject;
 import model.Game;
 import model.MiniMap;
-import model.Point;
 import model.maingame.ammo.Ammo;
 import view.gamewindows.GameInformationPanel;
 import view.gamewindows.GamePanel;
@@ -89,6 +88,6 @@ public abstract class EnemyPlane extends FlyingObject {
         int y = (int) (miniMap.getObjY() + ((double)(objY + height / 2) / (double)GameConstDataUtil.GAME_PANEL_HEIGHT) * miniMap.getHeight());
         point.setPos(x, y);
         Graphics g = gameInformationPanel.getGraphics();
-        point.draw(g, game);// 2023/9/4 这里写小地图
+        point.draw(g, game);// 2023/9/4 这里绘制小地图
     }
 }

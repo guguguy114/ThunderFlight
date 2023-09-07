@@ -40,6 +40,7 @@ public class GameController {
             code.append(strCode.charAt(r.nextInt(strCode.length())));
         }
         return code.toString();
+        //return  "1";
     }
 
     public static void login(Game game) {// 一定要先创建gameWin再创建infoWin
@@ -49,6 +50,10 @@ public class GameController {
         String acc, pwd;
         acc = panel.accountPutIn.getText();
         pwd = new String(panel.passwordPutIn.getPassword());
+        if (Objects.equals(acc, "") || pwd.equals("")){
+            JOptionPane.showConfirmDialog(null, "输入为空", "登入失败", JOptionPane.DEFAULT_OPTION);
+            return;
+        }
         Player player = jdbcUtil.login(acc, pwd);
         //System.out.println(player);
         if (panel.YZMPutIn.getText().equalsIgnoreCase(panel.YZM.getText())) {
@@ -65,9 +70,12 @@ public class GameController {
                 startMusic.startMusic();
                 game.getUi().getGameWin().getGameMainPanel().getGameInformationPanel().miniMap.timerStart();
             } else {
+                JOptionPane.showConfirmDialog(null, "账号或密码错误", "登入失败", JOptionPane.DEFAULT_OPTION);
                 System.out.println("acc_or_pwd_error");
             }
         } else {
+            JOptionPane.showConfirmDialog(null, "验证码错误", "登入失败", JOptionPane.DEFAULT_OPTION);
+            GameUIController.refreshYZM(game);
             System.out.println("YZM_error");
         }
 

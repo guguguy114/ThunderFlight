@@ -11,7 +11,7 @@ public class Music {
     public static String ADD_LIFE = "file:./music/addLife.wav";
     public static String GET_DOUBLE_FIRE = "file:./music/useDouble.wav";
     public static String ENEMY_DOWN = "file:./music/enemyBoom.wav";
-    public static String GAME_OVER = "file:./music/start.wav";
+    public static String GAME_OVER = "file:./music/gameOver.wav";
     public static String FIRE = "file:./music/fire.wav";
     public static String MAIN_GAME_BGM_1 = "file:./music/test.wav";
     public static String GET_BOMB = "file:./music/getBomb.wav";

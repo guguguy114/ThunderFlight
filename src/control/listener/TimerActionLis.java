@@ -7,6 +7,7 @@ import control.GameUIController;
 import model.BackGround;
 import model.FlyingObject;
 import model.Game;
+import model.maingame.enemy.EnemyBoss;
 import model.maingame.hero.HeroPlane;
 import view.gamewindows.GameMainPanel;
 import view.gamewindows.GameVicPanel;
@@ -132,6 +133,9 @@ public class TimerActionLis implements ActionListener {
                     flyingObject.out = true;
                     flyingObject.getDeadTimer().getTimer().stop();
                     tik2 = 0;
+                    if(flyingObject instanceof EnemyBoss){
+                        ((EnemyBoss) flyingObject).deadCount(game);
+                    }
                 }
                 break;
 

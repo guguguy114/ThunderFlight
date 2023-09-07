@@ -2,6 +2,7 @@ package control;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GameConstResourceUtil {
     private static String path = "img";
@@ -9,17 +10,17 @@ public class GameConstResourceUtil {
 
     public static final Image HERO_UP = new ImageIcon(path + "/heroUp.png").getImage();
     public static final Image HERO_DOWN = new ImageIcon(path + "/heroDown.png").getImage();
-    public static final Image COMMON_ENEMY_PLANE_1 = new ImageIcon("img/enemyPlane1_1_0.png").getImage();
-    public static final Image COMMON_ENEMY_PLANE_2 = new ImageIcon("img/enemyPlane1_2_0.png").getImage();
-    public static final Image COMMON_ENEMY_DEAD_1 = new ImageIcon("img/enemyPlane1_1_1.png").getImage();
-    public static final Image COMMON_ENEMY_DEAD_2 = new ImageIcon("img/enemyPlane1_2_1.png").getImage();
-    public static final Image PROMOTE_ENEMY_PLANE = new ImageIcon("img/enemyPlane2_1_0.png").getImage();
+    public static final Image COMMON_ENEMY_PLANE_1 = new ImageIcon(path + "/enemyPlane1_1_0.png").getImage();
+    public static final Image COMMON_ENEMY_PLANE_2 = new ImageIcon(path + "/enemyPlane1_2_0.png").getImage();
+    public static final Image COMMON_ENEMY_DEAD_1 = new ImageIcon(path + "/enemyPlane1_1_1.png").getImage();
+    public static final Image COMMON_ENEMY_DEAD_2 = new ImageIcon(path + "/enemyPlane1_2_1.png").getImage();
+    public static final Image PROMOTE_ENEMY_PLANE = new ImageIcon(path + "/enemyPlane2_1_0.png").getImage();
     public static final Image PROMOTE_ENEMY_DEAD = new ImageIcon("img/enemyPlane2_1_1.png").getImage();
-    public static final Image BOSS_1 = new ImageIcon("img/boss1_0.png").getImage();
-    public static final Image BOSS_2 = new ImageIcon("img/boss1_1.png").getImage();
-    public static final Image BOSS_3 = new ImageIcon("img/boss1_2.png").getImage();
-    public static final Image BOSS_4 = new ImageIcon("img/boss1_3.png").getImage();
-    public static final Image BOSS_5 = new ImageIcon("img/boss1_4.png").getImage();
+    public static final Image BOSS_1 = new ImageIcon(path + "/boss1_0.png").getImage();
+    public static final Image BOSS_2 = new ImageIcon(path + "/boss1_1.png").getImage();
+    public static final Image BOSS_3 = new ImageIcon(path + "/boss1_2.png").getImage();
+    public static final Image BOSS_4 = new ImageIcon(path + "/boss1_3.png").getImage();
+    public static final Image BOSS_5 = new ImageIcon(path + "/boss1_4.png").getImage();
 
 
 
@@ -46,6 +47,8 @@ public class GameConstResourceUtil {
     public static final Image OVER_SCREEN = new ImageIcon("img/gameOver.png").getImage();
     public static final Image PASS_SCREEN = new ImageIcon("img/gamePass.png").getImage();
     public static final Image POINT = new ImageIcon("img/point.png").getImage();
+    public static final Image LIFE_BAR_BLACK = new ImageIcon("img/lifeBarBlack.png").getImage();
+    public static final Image LIFE_BAR_RED = new ImageIcon("img/lifeBarRed.png").getImage();
 
 
     public static void setPath(int color){

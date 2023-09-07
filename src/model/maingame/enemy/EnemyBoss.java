@@ -4,12 +4,15 @@ import control.GameConstDataUtil;
 import control.GameConstResourceUtil;
 import control.GameConstStr;
 import control.timer.AttackTimer;
+import control.timer.DeadTimer;
+import model.BossLifeBar;
 import model.Game;
 import model.GameLevel;
 import model.Music;
 import model.maingame.ammo.Bullet;
 import view.gamewindows.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
 public class EnemyBoss extends EnemyPlane{
@@ -18,6 +21,7 @@ public class EnemyBoss extends EnemyPlane{
     private int leftCount;
     private int rightCount;
     private int key;
+    private BossLifeBar lifeBar;
 
 
     public EnemyBoss(int x, int y, Game game) {
@@ -38,6 +42,7 @@ public class EnemyBoss extends EnemyPlane{
         System.out.println("creating_boss");
         System.out.println("middle is " + (GameConstDataUtil.GAME_PANEL_WIDTH - width) / 2);
         key = 0;
+        lifeBar = new BossLifeBar(this);
     }
 
     @Override
@@ -73,7 +78,7 @@ public class EnemyBoss extends EnemyPlane{
         }
 
 
-        if (objY + height >= GameConstDataUtil.GAME_PANEL_HEIGHT / 3 && !motionMode.equals(GameConstStr.BOSS_MOVE_STAGE_LEFT_RIGHT_AROUND) && key == 0){
+        if (objY + height / 3 * 2 >= GameConstDataUtil.GAME_PANEL_HEIGHT / 3 && !motionMode.equals(GameConstStr.BOSS_MOVE_STAGE_LEFT_RIGHT_AROUND) && key == 0){
             key = 1;
             down = false;
             Random r = new Random();
@@ -175,6 +180,21 @@ public class EnemyBoss extends EnemyPlane{
 
     @Override
     protected void setDeadImages() {
+        deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_1);
+        deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_2);
+        deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_3);
+        deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_4);
+        deadImgList.add(GameConstResourceUtil.ENEMY_DEAD_IMAGE_5);
+    }
 
+    @Override
+    public void draw(Graphics g, Game game) {
+        super.draw(g, game);
+        drawLifeBar(g, game);
+    }
+
+    private void drawLifeBar(Graphics g, Game game){
+        lifeBar.draw(g, game);
+        lifeBar.setPos(this);
     }
 }

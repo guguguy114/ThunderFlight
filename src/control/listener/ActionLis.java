@@ -76,6 +76,9 @@ public class ActionLis implements ActionListener {
             case GameConstStr.REFRESH_YZM:
                 GameUIController.refreshYZM(game);
                 break;
+            case GameConstStr.CANCEL_CUSTOM:
+                GameUIController.toGameWin(game);
+                break;
         }
     }
 }

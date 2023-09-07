@@ -67,4 +67,5 @@ public class GameConstStr {
     public static final String LEVEL_CUSTOM = "自定义";
     public static final String MUSIC_EQ = "EQMusic";
     public static final String MUSIC_BGM = "BGM";
+    public static final String CANCEL_CUSTOM = "cancel";
 }
